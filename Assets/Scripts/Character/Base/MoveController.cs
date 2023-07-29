@@ -34,6 +34,11 @@ namespace Model.Character
                 movement.Normalize();
                 Quaternion targetRotation = Quaternion.LookRotation(movement, Vector3.up);
                 _character.Rigidbody.MovePosition(_character.Rigidbody.position + movement * _moveSpeed * Time.deltaTime);
+                _character.SetState(eCharacterState.Walk);
+            }
+            else
+            {
+                _character.SetState(eCharacterState.Idle);
             }
         }
 

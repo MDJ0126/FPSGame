@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,13 +18,21 @@ namespace Model.Character
         }
 
         [HideInInspector] public Rigidbody Rigidbody;
+        private CharacterAnimatorController _animatorController;
 
         private void Awake()
         {
+            // Base Components
             Rigidbody = this.GetComponent<Rigidbody>();
+            _animatorController = this.GetComponentInChildren<CharacterAnimatorController>();
 
-            // AddComponents
+            // Add Components
             this.gameObject.AddComponent<MoveController>();
+        }
+
+        public void SetState(eCharacterState state, Action onFinished = null)
+        {
+            _animatorController.SetState(state, onFinished);
         }
     }
 }
