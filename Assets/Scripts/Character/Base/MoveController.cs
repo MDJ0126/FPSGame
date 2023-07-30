@@ -16,6 +16,7 @@ namespace Model.Character
         {
             _character = GetComponent<Character>();
         }
+
         private void LateUpdate()
         {
             Move();
