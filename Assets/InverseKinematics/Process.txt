@@ -8,3 +8,5 @@
 8. Only move leg when opposite legs are grounded (same clip)
 9. Use average le position + offset for the body position
 10. Rotate body based on difference between left and right leg height
+
+https://www.reddit.com/r/gamedev/comments/fqhp9q/procedural_animation_in_10_steps/
