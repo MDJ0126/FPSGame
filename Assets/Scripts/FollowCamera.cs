@@ -27,7 +27,12 @@ namespace Model.Character
 
         #endregion
 
-        private void LateUpdate()
+        private void FixedUpdate()
+        {
+            Follow();
+        }
+
+        private void OnValidate()
         {
             Follow();
         }
@@ -36,23 +41,15 @@ namespace Model.Character
         {
             if (target != null)
             {
-                // Calculate the desired position based on the target's position and the offset
                 Vector3 desiredPosition = target.position + target.TransformDirection(offset);
-
-                // Set the camera's position to the desired position
                 MyTransform.position = desiredPosition;
-
-                // Rotate the camera to look at the target
                 MyTransform.rotation = target.rotation;
             }
         }
 
         private void RotateCamera()
         {
-            // Get the mouse input for camera rotation
             float mouseX = Input.GetAxis("Mouse X") * lookSpeed;
-
-            // Rotate the character (not the camera) based on the mouse input for horizontal look
             MyTransform.Rotate(0f, mouseX, 0f);
         }
     }

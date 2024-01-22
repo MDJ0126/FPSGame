@@ -17,13 +17,13 @@ namespace Model.Character
             }
         }
 
-        [HideInInspector] public Rigidbody Rigidbody;
+        public Rigidbody Rigidbody { get; private set; } = null;
         private CharacterAnimatorController _animatorController;
 
         private void Awake()
         {
             // Base Components
-            Rigidbody = this.GetComponent<Rigidbody>();
+            this.Rigidbody = this.GetComponent<Rigidbody>();
             _animatorController = this.GetComponentInChildren<CharacterAnimatorController>();
 
             // Add Components

@@ -1,7 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace Model.Character
 {
@@ -9,44 +6,63 @@ namespace Model.Character
     public class MoveController : MonoBehaviour
     {
         private Character _character;
+        private Rigidbody Rigidbody => _character.Rigidbody;
         private float _moveSpeed = 5f;
-        private float _rotationSpeed = 15f;
+        private bool _isMouseLock = true;
 
         private void Awake()
         {
             _character = GetComponent<Character>();
         }
 
-        private void LateUpdate()
+        private void FixedUpdate()
         {
-            Move();
-            Rotation();
+            UpdateMove();
+            UpdateRotation();
         }
 
-        private void Move()
+        private void Update()
         {
-            float horizontal = Input.GetAxis("Horizontal");
-            float vertical = Input.GetAxis("Vertical");
-            Vector3 movement = new Vector3(horizontal, 0f, vertical).normalized;
-            if (movement != Vector3.zero)
+#if UNITY_EDITOR
+            SetActiveMouseLock();
+#endif
+        }
+
+        private void UpdateMove()
+        {
+            Vector3 dir = Vector3.zero;
+            dir.x = Input.GetAxis("Horizontal");
+            dir.z = Input.GetAxis("Vertical");
+            Rigidbody.MovePosition(this.transform.position + dir * Time.deltaTime * _moveSpeed);
+        }
+
+        private void UpdateRotation()
+        {
+            Vector3 dir = Vector3.zero;
+            dir.x = Input.GetAxis("Mouse X");
+            dir.z = Input.GetAxis("Mouse Y");
+            //Rigidbody.MoveRotation(this.transform.rotation * Quaternion.Euler(dir));
+
+            //_character.MyTransform.forward = dir;
+        }
+
+        private void SetActiveMouseLock()
+        {
+            if (Input.GetKeyUp(KeyCode.L))
             {
-                movement = Camera.main.transform.TransformDirection(movement);
-                movement.y = 0f;
-                movement.Normalize();
-                Quaternion targetRotation = Quaternion.LookRotation(movement, Vector3.up);
-                _character.Rigidbody.MovePosition(_character.Rigidbody.position + movement * _moveSpeed * Time.deltaTime);
-                _character.SetState(eCharacterState.Walk);
+                _isMouseLock = !_isMouseLock;
+            }
+
+            if (_isMouseLock)
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+                Cursor.visible = false;
             }
             else
             {
-                _character.SetState(eCharacterState.Idle);
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
             }
-        }
-
-        private void Rotation()
-        {
-            float mouseX = Input.GetAxis("Mouse X");
-            _character.MyTransform.Rotate(0f, mouseX, 0f);
         }
     }
 }
