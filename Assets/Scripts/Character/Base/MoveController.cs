@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace Model.Character
@@ -5,63 +6,73 @@ namespace Model.Character
     [RequireComponent(typeof(Character))]
     public class MoveController : MonoBehaviour
     {
+        #region Inspector
+
+        public float moveSpeed = 5f;
+        public float rotateSpeed = 200f;
+        public float jumpHeight = 6f;
+
+        #endregion
+
         private Character _character;
         private Rigidbody Rigidbody => _character.Rigidbody;
-        private float _moveSpeed = 5f;
-        private bool _isMouseLock = true;
 
         private void Awake()
         {
             _character = GetComponent<Character>();
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                Jump();
+            }
+        }
+
         private void FixedUpdate()
         {
             UpdateMove();
-            UpdateRotation();
+            UpdateRotate();
         }
 
-        private void Update()
+        private void Jump()
         {
-#if UNITY_EDITOR
-            SetActiveMouseLock();
-#endif
+            if (CheckGround())
+            {
+                Vector3 jumpPower = Vector3.up * jumpHeight;
+                Rigidbody.AddForce(jumpPower, ForceMode.VelocityChange);
+            }
+
+            bool CheckGround()
+            {
+                if (Physics.Raycast(_character.MyTransform.position, Vector3.down, out RaycastHit hit, 0.2f))
+                {
+                    return true;
+                }
+                return false;
+            }
         }
 
         private void UpdateMove()
         {
-            Vector3 dir = Vector3.zero;
-            dir.x = Input.GetAxis("Horizontal");
-            dir.z = Input.GetAxis("Vertical");
-            Rigidbody.MovePosition(this.transform.position + dir * Time.deltaTime * _moveSpeed);
+            Vector3 input = Vector3.zero;
+            input.x = Input.GetAxis("Horizontal");
+            input.z = Input.GetAxis("Vertical");
+            if (input != Vector3.zero)
+            {
+                Rigidbody.MovePosition(_character.MyTransform.position + _character.MyTransform.rotation.normalized * input * Time.deltaTime * moveSpeed);
+            }
         }
 
-        private void UpdateRotation()
+        private void UpdateRotate()
         {
             Vector3 dir = Vector3.zero;
-            dir.x = Input.GetAxis("Mouse X");
-            dir.z = Input.GetAxis("Mouse Y");
-            //Rigidbody.MoveRotation(this.transform.rotation * Quaternion.Euler(dir));
-
-            //_character.MyTransform.forward = dir;
-        }
-
-        private void SetActiveMouseLock()
-        {
-            if (Input.GetKeyUp(KeyCode.L))
+            dir.y = Input.GetAxis("Mouse X");
+            if (dir != Vector3.zero)
             {
-                _isMouseLock = !_isMouseLock;
-            }
-
-            if (_isMouseLock)
-            {
-                Cursor.lockState = CursorLockMode.Locked;
-                Cursor.visible = false;
-            }
-            else
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                dir = dir.normalized;
+                _character.MyTransform.eulerAngles += dir * rotateSpeed * Time.deltaTime;
             }
         }
     }
