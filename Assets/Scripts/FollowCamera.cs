@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 namespace Model.Character
 {
@@ -10,6 +11,7 @@ namespace Model.Character
         public Camera camera;
         public Transform target;
         public Vector3 offset = new Vector3(1.7f, 1.4f, -2.7f);
+        public float rotateSpeed = 150f;
 
         #endregion
 
@@ -36,11 +38,23 @@ namespace Model.Character
         private void FixedUpdate()
         {
             Follow();
+            UpdateRotate();
         }
 
         private void OnValidate()
         {
             Follow();
+        }
+
+        private void UpdateRotate()
+        {
+            Vector3 dir = Vector3.zero;
+            dir.x = Input.GetAxis("Mouse Y");
+            if (dir != Vector3.zero)
+            {
+                dir = dir.normalized;
+                CameraTransform.eulerAngles -= dir * rotateSpeed * Time.deltaTime;
+            }
         }
 
         private void Follow()
