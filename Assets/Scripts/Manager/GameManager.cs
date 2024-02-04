@@ -7,7 +7,7 @@ public class GameManager : SingletonBehaviour<GameManager>
     private void Update()
     {
 #if UNITY_STANDALONE
-        UpdateMouseLock();
+        //UpdateMouseLock();
 #endif
     }
 

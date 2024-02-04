@@ -27,7 +27,7 @@ namespace Model.Character
             _animatorController = this.GetComponentInChildren<CharacterAnimatorController>();
 
             // Add Components
-            this.gameObject.AddComponent<MoveController>();
+            //this.gameObject.AddComponent<MoveController>();
         }
 
         public void SetState(eCharacterState state, Action onFinished = null)

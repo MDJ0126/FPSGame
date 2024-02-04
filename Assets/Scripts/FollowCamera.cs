@@ -38,7 +38,7 @@ namespace Model.Character
         private void FixedUpdate()
         {
             Follow();
-            UpdateRotate();
+            //UpdateRotate();
         }
 
         private void OnValidate()
@@ -62,8 +62,8 @@ namespace Model.Character
             if (target != null)
             {
                 Vector3 desiredPosition = target.position + target.TransformDirection(offset);
-                this.MyTransform.position = desiredPosition;
-                this.MyTransform.rotation = target.rotation;
+                this.MyTransform.position = Vector3.Lerp(this.MyTransform.position, desiredPosition, 0.9f);
+                this.MyTransform.rotation = Quaternion.Lerp(this.MyTransform.rotation, target.rotation, 0.9f);
             }
         }
     }
