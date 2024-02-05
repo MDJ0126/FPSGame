@@ -41,13 +41,13 @@ public class CharacterIK : MonoBehaviour
             if (Physics.Raycast(footTransform.position + Vector3.up, dir , out RaycastHit hit, distance))
             {
                 float diff = Vector3.Distance(hit.point, footTransform.position);
-                _animator.SetIKPositionWeight(avatarIKGoal, 1f);
                 _animator.SetIKPosition(avatarIKGoal, hit.point + hit.normal * heightOffset);
+                _animator.SetIKPositionWeight(avatarIKGoal, 1f);
                 Debug.DrawRay(hit.point, hit.normal);
                 if (Physics.Raycast(footTransform.position, dir, out RaycastHit hit2))
                 {
-                    _animator.SetIKRotationWeight(avatarIKGoal, 1f);
                     _animator.SetIKRotation(avatarIKGoal, Quaternion.LookRotation(transform.forward, hit2.normal));
+                    _animator.SetIKRotationWeight(avatarIKGoal, 1f);
                 }
                 if (groundDistance < diff) groundDistance = diff;
                 return hit.point;
