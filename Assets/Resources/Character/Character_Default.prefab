@@ -494,7 +494,7 @@ GameObject:
   - component: {fileID: 8929224371883341245}
   - component: {fileID: 3356182253828397730}
   m_Layer: 0
-  m_Name: Arm
+  m_Name: Arm Rig
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
