@@ -18,11 +18,11 @@ namespace Model.Character
     [RequireComponent(typeof(Animator))]
     public class CharacterAnimatorController : MonoBehaviour
     {
-        private Animator _boneAnimator;
+        public Animator BoneAnimator { get; private set; } = null;
 
         private void Awake()
         {
-            _boneAnimator = GetComponent<Animator>();
+            this.BoneAnimator = GetComponent<Animator>();
         }
 
         public void SetState(eCharacterState state, Action onFinished = null)
@@ -40,27 +40,27 @@ namespace Model.Character
 
         private void SetTrigger(int triggerHash)
         {
-            _boneAnimator.SetTrigger(triggerHash);
+            BoneAnimator.SetTrigger(triggerHash);
         }
 
         private void SetTrigger(string triggerName)
         {
-            _boneAnimator.SetTrigger(triggerName);
+            BoneAnimator.SetTrigger(triggerName);
         }
 
         private void SetBool(string boolName, bool value)
         {
-            _boneAnimator.SetBool(boolName, value);
+            BoneAnimator.SetBool(boolName, value);
         }
 
         private void SetFloat(string floatName, float value)
         {
-            _boneAnimator.SetFloat(floatName, value);
+            BoneAnimator.SetFloat(floatName, value);
         }
 
         private void SetInteger(string intName, int value)
         {
-            _boneAnimator.SetInteger(intName, value);
+            BoneAnimator.SetInteger(intName, value);
         }
     }
 }

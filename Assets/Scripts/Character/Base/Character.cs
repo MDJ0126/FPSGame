@@ -18,21 +18,21 @@ namespace Model.Character
         }
 
         public Rigidbody Rigidbody { get; private set; } = null;
-        private CharacterAnimatorController _animatorController;
+        public CharacterAnimatorController AnimatorController { get; private set; } = null;
 
         private void Awake()
         {
             // Base Components
             this.Rigidbody = this.GetComponent<Rigidbody>();
-            _animatorController = this.GetComponentInChildren<CharacterAnimatorController>();
+            this.AnimatorController = this.GetComponentInChildren<CharacterAnimatorController>();
 
             // Add Components
-            //this.gameObject.AddComponent<MoveController>();
+            this.gameObject.AddComponent<MoveController>();
         }
 
         public void SetState(eCharacterState state, Action onFinished = null)
         {
-            _animatorController.SetState(state, onFinished);
+            AnimatorController.SetState(state, onFinished);
         }
     }
 }

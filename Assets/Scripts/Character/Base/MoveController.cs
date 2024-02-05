@@ -16,6 +16,7 @@ namespace Model.Character
 
         private Character _character;
         private Rigidbody Rigidbody => _character.Rigidbody;
+        private Animator Animator => _character.AnimatorController.BoneAnimator;
 
         private void Awake()
         {
@@ -62,6 +63,11 @@ namespace Model.Character
             if (input != Vector3.zero)
             {
                 Rigidbody.MovePosition(_character.MyTransform.position + _character.MyTransform.rotation.normalized * input * Time.deltaTime * moveSpeed);
+                Rigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+            }
+            else
+            {
+                Rigidbody.constraints = RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePosition;
             }
         }
 
