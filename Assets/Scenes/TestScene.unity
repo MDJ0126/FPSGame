@@ -4558,13 +4558,24 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character_Default
       objectReference: {fileID: 0}
-    - target: {fileID: 3435569411813198937, guid: 0b8435582c708f44e88715af83855b1c, type: 3}
-      propertyPath: heightOffset
-      value: 0.1
+    - target: {fileID: 6206750435088259350, guid: 0b8435582c708f44e88715af83855b1c, type: 3}
+      propertyPath: m_Data.m_TargetRotationWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6206750435088259350, guid: 0b8435582c708f44e88715af83855b1c, type: 3}
+      propertyPath: m_Data.m_MaintainTargetPositionOffset
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7790373696910786763, guid: 0b8435582c708f44e88715af83855b1c, type: 3}
+      propertyPath: m_Data.m_TargetRotationWeight
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7790373696910786763, guid: 0b8435582c708f44e88715af83855b1c, type: 3}
+      propertyPath: m_Data.m_MaintainTargetPositionOffset
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 8723544462621721334, guid: 0b8435582c708f44e88715af83855b1c, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b8435582c708f44e88715af83855b1c, type: 3}
