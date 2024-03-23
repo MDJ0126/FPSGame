@@ -19,6 +19,26 @@ namespace FPSGame.Character
 
         private void LateUpdate()
         {
+            UpdateMouse();
+            UpdateMovement();
+        }
+
+        /// <summary>
+        /// 마우스 입력 업데이트
+        /// </summary>
+        private void UpdateMouse()
+        {
+            float x = Input.GetAxis("Mouse X");
+            float y = Input.GetAxis("Mouse Y");
+            //_moveController.AddRotate(new Vector3(-y, x, 0f));
+            _moveController.AddRotate(new Vector3(0f, x, 0f));
+        }
+
+        /// <summary>
+        /// 이동 입력 업데이트
+        /// </summary>
+        private void UpdateMovement()
+        {
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
             _moveController.Move(_owner.MyTransform.right * horizontal + _owner.MyTransform.forward * vertical);
