@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace FPSGame.Character
@@ -8,7 +6,8 @@ namespace FPSGame.Character
 	{
 		#region Inspector
 
-
+		public Transform aimCenter;
+		public Transform aim;
 
 		#endregion
 
@@ -30,7 +29,13 @@ namespace FPSGame.Character
             this.MoveController = this.gameObject.AddComponent<MoveController>();
 
 			// 임시로 여기에 넣음
-			this.gameObject.AddComponent<PlayerInput>();
+			this.gameObject.AddComponent<PlayerInputController>();
+		}
+
+		public void UpdateAimRotation(Vector3 rotate)
+		{
+			Vector3 angle = aimCenter.eulerAngles;
+			aimCenter.rotation = Quaternion.Euler(angle.x - rotate.y, angle.y + rotate.x, angle.z);
 		}
 	}
 }
