@@ -9,8 +9,6 @@ namespace FPSGame.Character
     [RequireComponent(typeof(Character))]
     public class WeaponHandler : MonoBehaviour
     {
-        [SerializeField] private eWeaponType weaponType = eWeaponType.None;
-
         private Character _owner = null;
         private FPSGame.Weapon.Weapon _weapon;
 

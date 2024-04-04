@@ -10,6 +10,7 @@ namespace FPSGame.Weapon
         public static string LEFT_HANDLER_NAME = "LeftHandler";
         public static string RIGHT_HANDLER_NAME = "RightHandler";
 
+        public virtual eWeaponType weaponType => eWeaponType.None;
         public Transform root = null;
         public Transform leftHandler = null;
         public Transform rightHandler = null;

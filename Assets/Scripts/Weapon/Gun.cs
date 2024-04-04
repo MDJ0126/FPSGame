@@ -4,8 +4,8 @@ using UnityEngine;
 
 namespace FPSGame.Weapon
 {
-    public class Assault : Gun
+    public abstract class Gun : Weapon
     {
-
+        public override eWeaponType weaponType => eWeaponType.Gun;
     }
 }
