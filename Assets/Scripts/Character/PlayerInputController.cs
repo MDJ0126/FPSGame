@@ -27,6 +27,9 @@ namespace FPSGame.Character
         {
             UpdateMouse();
             UpdateMovement();
+
+            //Debug.DrawRay(_owner.aimCenter.position, _owner.MyTransform.forward * 100f, Color.red);
+            //Debug.DrawRay(_camTransform.position, _owner.MyTransform.forward * 100f, Color.red);
         }
 
         /// <summary>
@@ -50,16 +53,18 @@ namespace FPSGame.Character
             if (horizontal != 0f || vertical != 0f)
             {
                 // 타겟 방향 계산
-                Vector3 targetDirection = _owner.aim.position - transform.position;
+                Vector3 targetDirection = _owner.aim.position - _camTransform.position;
 
                 // 타겟 방향의 Y축 회전값만 계산
                 Quaternion targetRotation = Quaternion.LookRotation(targetDirection, Vector3.up);
+
+                var v = _owner.aimCenter.rotation;
 
                 // Y축 회전값만을 적용하여 캐릭터 회전
                 transform.rotation = Quaternion.Euler(0f, targetRotation.eulerAngles.y, 0f);
 
                 // 에이밍센터 Y축 초기화
-                _owner.aimCenter.localEulerAngles = new Vector3(_owner.aimCenter.localEulerAngles.x, 0f, _owner.aimCenter.localEulerAngles.z);
+                _owner.aimCenter.rotation = v;
 
                 // 회전이 완료된 캐릭터 기준으로 이동 처리
                 _moveController.Move(_owner.MyTransform.right * horizontal + _owner.MyTransform.forward * vertical);
