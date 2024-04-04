@@ -18,7 +18,7 @@ namespace FPSGame.Character
             Equip(GetComponentInChildren<FPSGame.Weapon.Weapon>(true));
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             if (_weapon == null) return;
 
@@ -26,10 +26,16 @@ namespace FPSGame.Character
             _weapon.root.LookAt(_owner.aim);
 
             // Handle
-            _owner.leftHand.data.target.position = _weapon.leftHandler.position;
-            _owner.rightHand.data.target.position = _weapon.rightHandler.position;
+            if (_weapon.leftHandler)
+                _owner.leftHand.data.target.position = _weapon.leftHandler.position;
+            if (_weapon.rightHandler)
+                _owner.rightHand.data.target.position = _weapon.rightHandler.position;
         }
 
+        /// <summary>
+        /// 무기 장착 처리
+        /// </summary>
+        /// <param name="weapon"></param>
         private void Equip(FPSGame.Weapon.Weapon weapon)
         {
             if (weapon == null) return;

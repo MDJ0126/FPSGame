@@ -7,7 +7,7 @@ namespace FPSGame.Character
     {
         private Character _owner = null;
         private Rigidbody _rigidbody = null;
-        private float _tempSpeed = 100f;
+        private float _tempSpeed = 300f;
         private Vector3 _rotate = Vector3.zero;
         private Vector3 _velocity = Vector3.zero;
 
@@ -22,8 +22,13 @@ namespace FPSGame.Character
         {
             if (_velocity != Vector3.zero)
             {
+                _owner.AnimatorController.Walk(_velocity.x, _velocity.z);
                 _rigidbody.velocity = _velocity;
                 _velocity = Vector3.zero;
+            }
+            else
+            {
+                _owner.AnimatorController.Idle();
             }
 
             if (_rotate != Vector3.zero)
@@ -40,8 +45,8 @@ namespace FPSGame.Character
 
         public void Move(Vector3 direction)
         {
-            //_velocity = direction * _tempSpeed * Time.deltaTime;
-            _rigidbody.MovePosition(_owner.MyTransform.position + (direction * _tempSpeed * Time.deltaTime));
+            _velocity = direction * _tempSpeed * Time.deltaTime;
+            //_rigidbody.MovePosition(_owner.MyTransform.position + (direction * _tempSpeed * Time.deltaTime));
         }
     }
 }

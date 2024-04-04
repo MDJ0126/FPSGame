@@ -1,5 +1,3 @@
-using System.Linq;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
@@ -26,11 +24,14 @@ namespace FPSGame.Character
 				return _myTransform;
 			}
 		}
-
 		/// <summary>
-		/// 이동 컨트롤러
+		/// 애니메이터 컨트롤러
 		/// </summary>
-		public MoveController MoveController { get; private set; } = null;
+		public AnimatorController AnimatorController { get; private set; } = null;
+        /// <summary>
+        /// 이동 컨트롤러
+        /// </summary>
+        public MoveController MoveController { get; private set; } = null;
 		/// <summary>
 		/// 무기 핸들러
 		/// </summary>
@@ -38,6 +39,7 @@ namespace FPSGame.Character
 
 		protected virtual void Awake()
 		{
+			this.AnimatorController = this.gameObject.AddComponent<AnimatorController>();
             this.MoveController = this.gameObject.AddComponent<MoveController>();
 			this.WeaponHandler = this.gameObject.AddComponent<WeaponHandler>();
 		}
