@@ -22,7 +22,7 @@ namespace FPSGame.Character
         {
             if (_velocity != Vector3.zero)
             {
-                _owner.AnimatorController.Walk(_velocity.x, _velocity.z);
+                _owner.AnimatorController.Walk(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
                 _rigidbody.velocity = _velocity;
                 _velocity = Vector3.zero;
             }
