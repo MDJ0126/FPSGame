@@ -1,16 +1,10 @@
 using UnityEngine;
-using UnityEngine.Animations.Rigging;
 
 namespace FPSGame.Character
 {
 	public abstract class Character : MonoBehaviour
 	{
-		#region Inspector
-
-		public Transform aimCenter;
 		public Transform aim;
-
-		#endregion
 
 		private Transform _myTransform = null;
 		public Transform MyTransform
@@ -41,31 +35,5 @@ namespace FPSGame.Character
             this.MoveController = this.gameObject.AddComponent<MoveController>();
 			this.WeaponHandler = this.gameObject.AddComponent<WeaponHandler>();
 		}
-
-		public void UpdateAimRotation(Vector3 rotate)
-		{
-			Vector3 angle = aimCenter.eulerAngles;
-			aimCenter.rotation = Quaternion.Euler(angle.x - rotate.y, angle.y + rotate.x, angle.z);
-        }
-
-#if UNITY_EDITOR
-        [ContextMenu("Auto Setting")]
-        private void AutoSetting()
-        {
-			var childs = this.GetComponentsInChildren<Transform>(true);
-            for (int i = 0; i < childs.Length; i++)
-            {
-				Transform child = childs[i];
-                if (child.name.Equals("Aim Center"))
-                {
-                    aimCenter = child;
-                }
-                else if (child.name.Equals("Aim"))
-                {
-                    aim = child;
-                }
-            }
-        }
-#endif
     }
 }

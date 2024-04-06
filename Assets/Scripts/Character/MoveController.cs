@@ -35,6 +35,7 @@ namespace FPSGame.Character
         public void Move(Vector3 direction)
         {
             _velocity = direction * _tempSpeed * Time.deltaTime;
+            _velocity.y = 0f;
             //_rigidbody.MovePosition(_owner.MyTransform.position + (direction * _tempSpeed * Time.deltaTime));
         }
     }
