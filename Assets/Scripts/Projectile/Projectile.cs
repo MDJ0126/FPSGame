@@ -16,7 +16,6 @@ namespace FPSGame.Projectile
             }
         }
 
-
         protected bool isPlay = false;
         protected Vector3 startPos = Vector3.zero;
         protected Vector3 direction = Vector3.zero;
@@ -26,7 +25,7 @@ namespace FPSGame.Projectile
         {
             isPlay = true;
             this.MyTransform.position = startPos;
-            this.MyTransform.LookAt(direction);
+            this.MyTransform.LookAt(startPos + direction);
             this.startPos = startPos;
             this.direction = direction;
             this.onFinished = onFinished;
