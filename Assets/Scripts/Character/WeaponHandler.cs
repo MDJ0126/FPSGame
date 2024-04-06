@@ -22,19 +22,11 @@ namespace FPSGame.Character
         {
             if (_weapon == null) return;
 
-            // LootAt
-            _weapon.root.LookAt(_owner.aim);
-
-            // Handle
+            // Update Handler
             if (_weapon.leftHandler)
             {
-                _owner.leftHand.data.target.position = _weapon.leftHandler.position;
-                _owner.leftHand.data.target.rotation = _weapon.leftHandler.rotation;
-            }
-            if (_weapon.rightHandler)
-            {
-                _owner.rightHand.data.target.position = _weapon.rightHandler.position;
-                _owner.rightHand.data.target.rotation= _weapon.rightHandler.rotation;
+                _owner.AnimatorController.LeftHand.data.target.position = _weapon.leftHandler.position;
+                _owner.AnimatorController.LeftHand.data.target.rotation = _weapon.leftHandler.rotation;
             }
         }
 

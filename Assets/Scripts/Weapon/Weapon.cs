@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace FPSGame.Weapon
@@ -11,7 +9,6 @@ namespace FPSGame.Weapon
         public static string RIGHT_HANDLER_NAME = "RightHandler";
 
         public virtual eWeaponType weaponType => eWeaponType.None;
-        public Transform root = null;
         public Transform leftHandler = null;
         public Transform rightHandler = null;
 
@@ -23,11 +20,7 @@ namespace FPSGame.Weapon
             for (int i = 0; i < childs.Length; i++)
             {
                 Transform child = childs[i];
-                if (child.name.Equals(ROOT_HANDLER_NAME))
-                {
-                    root = child;
-                }
-                else if (child.name.Equals(LEFT_HANDLER_NAME))
+                if (child.name.Equals(LEFT_HANDLER_NAME))
                 {
                     leftHandler = child;
                 }

@@ -7,7 +7,7 @@ namespace FPSGame.Character
     {
         private Character _owner = null;
         private Rigidbody _rigidbody = null;
-        private float _tempSpeed = 300f;
+        private float _tempSpeed = 600f;
         private Vector3 _rotate = Vector3.zero;
         private Vector3 _velocity = Vector3.zero;
 

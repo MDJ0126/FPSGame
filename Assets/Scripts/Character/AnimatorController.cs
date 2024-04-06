@@ -1,6 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 namespace FPSGame.Character
 {
@@ -8,10 +7,12 @@ namespace FPSGame.Character
     public class AnimatorController : MonoBehaviour
     {
         private Animator _animator;
+        public TwoBoneIKConstraint LeftHand { get; private set; } = null;
 
         private void Awake()
         {
             _animator = GetComponentInChildren<Animator>(true);
+            FindHands();
         }
 
         public void Idle()
@@ -24,6 +25,19 @@ namespace FPSGame.Character
             _animator.SetBool(AnimHash.IsWalk, true);
             _animator.SetFloat(AnimHash.VelocityX, velocityX);
             _animator.SetFloat(AnimHash.VelocityZ, velocityZ);
+        }
+
+        private void FindHands()
+        {
+            var childs = this.GetComponentsInChildren<Transform>(true);
+            for (int i = 0; i < childs.Length; i++)
+            {
+                Transform child = childs[i];
+                if (child.name.Equals("LeftHand"))
+                {
+                    LeftHand = child.GetComponent<TwoBoneIKConstraint>();
+                }
+            }
         }
     }
 }

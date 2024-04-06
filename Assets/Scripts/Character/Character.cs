@@ -9,8 +9,6 @@ namespace FPSGame.Character
 
 		public Transform aimCenter;
 		public Transform aim;
-		public TwoBoneIKConstraint leftHand;
-		public TwoBoneIKConstraint rightHand;
 
 		#endregion
 
@@ -65,14 +63,6 @@ namespace FPSGame.Character
                 else if (child.name.Equals("Aim"))
                 {
                     aim = child;
-                }
-                else if (child.name.Equals("LeftArm"))
-                {
-                    leftHand = child.GetComponent<TwoBoneIKConstraint>();
-                }
-                else if (child.name.Equals("RightArm"))
-                {
-                    rightHand = child.GetComponent<TwoBoneIKConstraint>();
                 }
             }
         }
