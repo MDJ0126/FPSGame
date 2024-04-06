@@ -1,8 +1,4 @@
-using FPSGame.Weapon;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 
 namespace FPSGame.Character
 {
@@ -25,8 +21,8 @@ namespace FPSGame.Character
             // Update Handler
             if (_weapon.leftHandler)
             {
-                _owner.AnimatorController.LeftHand.data.target.position = _weapon.leftHandler.position;
                 _owner.AnimatorController.LeftHand.data.target.rotation = _weapon.leftHandler.rotation;
+                _owner.AnimatorController.LeftHand.data.target.position = _weapon.leftHandler.position;
             }
         }
 
@@ -38,6 +34,11 @@ namespace FPSGame.Character
         {
             if (weapon == null) return;
             this._weapon = weapon;
+        }
+
+        public void Fire()
+        {
+            _weapon.OnFire();
         }
     }
 }

@@ -1,16 +1,30 @@
+using System;
 using UnityEngine;
 
 namespace FPSGame.Weapon
 {
     public abstract class Weapon : MonoBehaviour
     {
-        public static string ROOT_HANDLER_NAME = "Root";
+        public static string SHOT_HANDLER_NAME = "Shot";
         public static string LEFT_HANDLER_NAME = "LeftHandler";
         public static string RIGHT_HANDLER_NAME = "RightHandler";
 
         public virtual eWeaponType weaponType => eWeaponType.None;
-        public Transform leftHandler = null;
-        public Transform rightHandler = null;
+        #region Inspector
+
+        [Header("Transforms")]
+        public Transform shot;
+        public Transform leftHandler;
+        public Transform rightHandler;
+
+        [Header("Variables")]
+        public float shotInterval = 1f;
+
+        #endregion
+
+        protected DateTime shotRecordTime;
+
+        public virtual void OnFire() { }
 
 #if UNITY_EDITOR
         [ContextMenu("Auto Setting")]
@@ -20,7 +34,11 @@ namespace FPSGame.Weapon
             for (int i = 0; i < childs.Length; i++)
             {
                 Transform child = childs[i];
-                if (child.name.Equals(LEFT_HANDLER_NAME))
+                if (child.name.Equals(SHOT_HANDLER_NAME))
+                {
+                    shot = child;
+                }
+                else if (child.name.Equals(LEFT_HANDLER_NAME))
                 {
                     leftHandler = child;
                 }

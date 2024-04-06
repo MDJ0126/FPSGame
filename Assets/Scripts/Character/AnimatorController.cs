@@ -7,6 +7,7 @@ namespace FPSGame.Character
     public class AnimatorController : MonoBehaviour
     {
         private Animator _animator;
+        private Rig _rig;
         public TwoBoneIKConstraint LeftHand { get; private set; } = null;
 
         private void Awake()
@@ -23,8 +24,8 @@ namespace FPSGame.Character
         public void Walk(float velocityX, float velocityZ)
         {
             _animator.SetBool(AnimHash.IsWalk, true);
-            _animator.SetFloat(AnimHash.VelocityX, velocityX);
-            _animator.SetFloat(AnimHash.VelocityZ, velocityZ);
+            _animator.SetFloat(AnimHash.VelocityX, Mathf.Lerp(_animator.GetFloat(AnimHash.VelocityX), velocityX, 0.1f));
+            _animator.SetFloat(AnimHash.VelocityZ, Mathf.Lerp(_animator.GetFloat(AnimHash.VelocityZ), velocityZ, 0.1f));
         }
 
         private void FindHands()
@@ -38,6 +39,7 @@ namespace FPSGame.Character
                     LeftHand = child.GetComponent<TwoBoneIKConstraint>();
                 }
             }
+            _rig = this.GetComponentInChildren<Rig>();
         }
     }
 }

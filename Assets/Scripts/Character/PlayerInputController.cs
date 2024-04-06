@@ -1,6 +1,5 @@
 using Cinemachine;
 using UnityEngine;
-using static UnityEngine.UI.GridLayoutGroup;
 
 namespace FPSGame.Character
 {
@@ -41,6 +40,22 @@ namespace FPSGame.Character
             float y = Input.GetAxis("Mouse Y");
             //_moveController.AddRotate(new Vector3(0f, x, 0f));
             _owner.UpdateAimRotation(new Vector3(x, y, 0f));
+
+            // Left Click
+            if (Input.GetMouseButton(0))
+            {
+                _owner.WeaponHandler.Fire();
+            }
+
+            // Right Click
+            if (Input.GetMouseButton(1))
+            {
+                GameCameraController.Instance.Zoom(true);
+            }
+            else
+            {
+                GameCameraController.Instance.Zoom(false);
+            }
         }
 
         /// <summary>

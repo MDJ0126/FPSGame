@@ -7,7 +7,7 @@ namespace FPSGame.Character
     {
         private Character _owner = null;
         private Rigidbody _rigidbody = null;
-        private float _tempSpeed = 600f;
+        private float _tempSpeed = 450f;
         private Vector3 _rotate = Vector3.zero;
         private Vector3 _velocity = Vector3.zero;
 
@@ -30,17 +30,6 @@ namespace FPSGame.Character
             {
                 _owner.AnimatorController.Idle();
             }
-
-            if (_rotate != Vector3.zero)
-            {
-                _owner.MyTransform.eulerAngles += _rotate;
-                _rotate = Vector3.zero;
-            }
-        }
-
-        public void AddRotate(Vector3 rotate)
-        {
-            _rotate = rotate;
         }
 
         public void Move(Vector3 direction)
