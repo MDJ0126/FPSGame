@@ -29,7 +29,7 @@ public class ObjectPool : MonoBehaviour
 
     private void Start()
     {
-        original.SetActive(false);
+        //original.SetActive(false);
 
         int tempCount = count;
         count = 0;

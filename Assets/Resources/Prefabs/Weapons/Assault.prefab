@@ -52,6 +52,7 @@ MonoBehaviour:
   leftHandler: {fileID: 7543171182968076330}
   rightHandler: {fileID: 4806754633852203659}
   shotInterval: 0.1
+  spreadRange: 2
 --- !u!1 &5913849571939535863
 GameObject:
   m_ObjectHideFlags: 0

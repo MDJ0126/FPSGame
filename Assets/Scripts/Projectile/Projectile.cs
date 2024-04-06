@@ -21,8 +21,12 @@ namespace FPSGame.Projectile
         protected Vector3 direction = Vector3.zero;
         protected Action onFinished = null;
 
-        public virtual void Run(Vector3 startPos, Vector3 direction, Action onFinished = null)
+        public virtual void Run(Vector3 startPos, Vector3 direction, float spreadRange = 1f, Action onFinished = null)
         {
+            // ·£´ý »êÅº °¢µµ Àû¿ë
+            Quaternion spreadRotation = Quaternion.Euler(UnityEngine.Random.Range(-spreadRange, spreadRange), UnityEngine.Random.Range(-spreadRange, spreadRange), 0f);
+            direction = spreadRotation * direction;
+
             isPlay = true;
             this.MyTransform.position = startPos;
             this.MyTransform.LookAt(startPos + direction);
@@ -37,6 +41,11 @@ namespace FPSGame.Projectile
         private void LateUpdate()
         {
             if (isPlay) OnUpdate();
+        }
+
+        private void OnCollisionEnter(Collision collision)
+        {
+            Debug.Log(collision);
         }
 
         public void Finish()

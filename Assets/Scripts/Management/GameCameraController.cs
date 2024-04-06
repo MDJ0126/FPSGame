@@ -28,7 +28,7 @@ public class GameCameraController : SingletonBehaviour<GameCameraController>
 		_prevCameraDistance = _thirdperson.CameraDistance;
     }
 
-    private void LateUpdate()
+    private void Update()
     {
         aimCenter.position = virtualCamera.transform.position;
 		

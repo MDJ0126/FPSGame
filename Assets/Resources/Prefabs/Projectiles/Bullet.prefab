@@ -10,13 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1128047269374450413}
   - component: {fileID: 5624142147764587966}
+  - component: {fileID: 3678537137300299735}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1128047269374450413
 Transform:
   m_ObjectHideFlags: 0
@@ -45,8 +46,29 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09de68655a0d57641ad58c19e54248b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 10
-  maxDistance: 20
+  speed: 50
+  maxDistance: 100
+--- !u!65 &3678537137300299735
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8015751336696171966}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.02, y: 0.02, z: 1.25}
+  m_Center: {x: 0, y: 0, z: 0.018}
 --- !u!1001 &4116745936049130596
 PrefabInstance:
   m_ObjectHideFlags: 0
