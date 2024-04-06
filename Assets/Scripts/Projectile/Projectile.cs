@@ -45,7 +45,7 @@ namespace FPSGame.Projectile
 
         private void OnCollisionEnter(Collision collision)
         {
-            Debug.Log(collision);
+            Debug.Log(collision.gameObject.name);
         }
 
         public void Finish()
