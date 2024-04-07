@@ -9,7 +9,6 @@ public class GameCameraController : SingletonBehaviour<GameCameraController>
 
 	public Camera baseCamera;
 	public CinemachineVirtualCamera virtualCamera;
-	public Transform aimCenter;
 	public Transform aimRay;
 
 	[Header("Variables")]
@@ -30,11 +29,9 @@ public class GameCameraController : SingletonBehaviour<GameCameraController>
 
     private void Update()
     {
-        aimCenter.position = virtualCamera.transform.position;
-		
         const float DISTANCE = 10f;
-        Debug.DrawRay(aimCenter.position, aimCenter.forward * DISTANCE, Color.red);
-		RaycastHit[] hitInfos = Physics.RaycastAll(aimCenter.position, aimCenter.forward, DISTANCE);
+        Debug.DrawRay(virtualCamera.transform.position, virtualCamera.transform.forward * DISTANCE, Color.red);
+		RaycastHit[] hitInfos = Physics.RaycastAll(virtualCamera.transform.position, virtualCamera.transform.forward, DISTANCE);
 		RaycastHit firstHit = Array.Find(hitInfos, info => !info.collider.CompareTag("Player"));
         if (firstHit.collider != null)
 		{
@@ -42,14 +39,14 @@ public class GameCameraController : SingletonBehaviour<GameCameraController>
         }
 		else
 		{
-			aimRay.position = aimCenter.position + aimCenter.forward * DISTANCE;
+			aimRay.position = virtualCamera.transform.position + virtualCamera.transform.forward * DISTANCE;
         }
     }
 
     public void UpdateAimRotation(Vector3 rotate)
     {
-        Vector3 angle = aimCenter.eulerAngles;
-        aimCenter.rotation = Quaternion.Euler(angle.x - rotate.y, angle.y + rotate.x, angle.z);
+        Vector3 angle = virtualCamera.transform.eulerAngles;
+        virtualCamera.transform.rotation = Quaternion.Euler(angle.x - rotate.y, angle.y + rotate.x, angle.z);
     }
 
     public void Zoom(bool isZoomIn)

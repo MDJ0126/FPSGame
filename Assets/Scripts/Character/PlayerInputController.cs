@@ -33,8 +33,11 @@ namespace FPSGame.Character
             float x = Input.GetAxis("Mouse X");
             float y = Input.GetAxis("Mouse Y");
 
-            _owner.aim.position = _cameraController.aimRay.position;
-            _cameraController.UpdateAimRotation(new Vector3(x, y, 0f));
+            if (x != 0 || y != 0)
+            {
+                _cameraController.UpdateAimRotation(new Vector3(x, y, 0f));
+                _owner.aim.position = _cameraController.aimRay.position;
+            }
 
             // Left Click
             if (Input.GetMouseButton(0))
