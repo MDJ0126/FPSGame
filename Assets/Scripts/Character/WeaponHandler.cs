@@ -6,7 +6,7 @@ namespace FPSGame.Character
     public class WeaponHandler : MonoBehaviour
     {
         private Character _owner = null;
-        private FPSGame.Weapon.Weapon _weapon;
+        public FPSGame.Weapon.Weapon Weapon { get; private set; } = null;
 
         private void Start()
         {
@@ -16,13 +16,13 @@ namespace FPSGame.Character
 
         private void LateUpdate()
         {
-            if (_weapon == null) return;
+            if (Weapon == null) return;
 
             // Update Handler
-            if (_weapon.leftHandler)
+            if (Weapon.leftHandler)
             {
-                _owner.AnimatorController.LeftHand.data.target.rotation = _weapon.leftHandler.rotation;
-                _owner.AnimatorController.LeftHand.data.target.position = _weapon.leftHandler.position;
+                _owner.AnimatorController.LeftHand.data.target.rotation = Weapon.leftHandler.rotation;
+                _owner.AnimatorController.LeftHand.data.target.position = Weapon.leftHandler.position;
             }
         }
 
@@ -33,12 +33,12 @@ namespace FPSGame.Character
         private void Equip(FPSGame.Weapon.Weapon weapon)
         {
             if (weapon == null) return;
-            this._weapon = weapon;
+            this.Weapon = weapon;
         }
 
         public void Fire()
         {
-            _weapon.OnFire();
+            Weapon.OnFire();
         }
     }
 }

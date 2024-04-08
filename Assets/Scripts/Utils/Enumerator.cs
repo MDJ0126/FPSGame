@@ -1,11 +1,11 @@
 public enum eLayer : int
 {
     Default = 0,
-    TransparentFX = 1 << 1,
-    IgnoreRaycast = 1 << 2,
+    TransparentFX = 1,
+    IgnoreRaycast = 2,
 
-    Water = 1 << 4,
-    UI = 1 << 5,
+    Water = 3,
+    UI = 4,
 }
 
 public enum eWeaponType

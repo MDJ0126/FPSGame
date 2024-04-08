@@ -9,6 +9,7 @@ namespace FPSGame.Character
         public static DetectTarget AddDetectTarget(Character character)
         {
             GameObject go = new GameObject("DetectTarget");
+            go.layer = (int)eLayer.IgnoreRaycast;
             SphereCollider sphereCollider = go.AddComponent<SphereCollider>();
             sphereCollider.center = Vector3.zero;
             sphereCollider.isTrigger = true;

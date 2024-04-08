@@ -11,6 +11,7 @@ namespace FPSGame.Character
         private GameCameraController _cameraController;
         private PlayerCharacter _owner = null;
         private MoveController _moveController = null;
+        private CursorLockMode _lockMode = CursorLockMode.Locked;
 
         private void Awake()
         {
@@ -21,6 +22,7 @@ namespace FPSGame.Character
 
         private void Update()
         {
+            UpdateCursorLock();
             _owner.aim.position = _cameraController.aimRay.position;
         }
 
@@ -28,6 +30,22 @@ namespace FPSGame.Character
         {
             UpdateMouse();
             UpdateMovement();
+        }
+
+        /// <summary>
+        /// 커서 잠금
+        /// </summary>
+        private void UpdateCursorLock()
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                _lockMode = CursorLockMode.None;
+            }
+            else
+            {
+                _lockMode = CursorLockMode.Locked;
+            }
+            Cursor.lockState = _lockMode;
         }
 
         /// <summary>
@@ -40,7 +58,7 @@ namespace FPSGame.Character
 
             if (x != 0 || y != 0)
             {
-                _cameraController.UpdateRotation(x, y);
+                _cameraController.UpdateRotationY(y);
                 _moveController.UpdateRotation(new Vector3(x, 0f, 0f));
             }
 
