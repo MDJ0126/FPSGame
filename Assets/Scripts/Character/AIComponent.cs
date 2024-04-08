@@ -8,6 +8,23 @@ namespace FPSGame.Character
     [RequireComponent(typeof(BotCharacter))]
     public class AIComponent : MonoBehaviour
     {
-        // AI를 처리하는 스크립트 영역 작업 필요
+        private Character _owner = null;
+
+        private void Start()
+        {
+            _owner  = GetComponent<Character>();
+        }
+
+        private void Update()
+        {
+            if (_owner && !_owner.IsDead)
+            {
+                var target = _owner.DetectTarget.GetDectedCharacter();
+                if (target)
+                {
+                    _owner.MoveController.LootAt(target);
+                }
+            }
+        }
     }
 }

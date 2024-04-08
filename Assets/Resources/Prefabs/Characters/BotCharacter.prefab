@@ -357,9 +357,9 @@ GameObject:
   - component: {fileID: 155658195229050745}
   - component: {fileID: 2426161195177247556}
   - component: {fileID: 2734956643790618121}
-  - component: {fileID: 2362721989216935691}
+  - component: {fileID: 7421375158334392065}
   m_Layer: 0
-  m_Name: PlayerCharacter
+  m_Name: BotCharacter
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -433,7 +433,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &2362721989216935691
+--- !u!114 &7421375158334392065
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -442,7 +442,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2917204284329877072}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54df068b870b14c4ea7a5b55d0ac59ce, type: 3}
+  m_Script: {fileID: 11500000, guid: fde3cf2b997951c47a39d8617bb42c27, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   characterData: {fileID: 11400000, guid: e377d6e21e185f34c9721eff792e1cae, type: 2}
@@ -868,6 +868,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 155658195229050745}
     m_Modifications:
+    - target: {fileID: 1146026145348960, guid: 18ff8a7a7ca91ff4bab92d116fa797c8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1228711347938470, guid: 18ff8a7a7ca91ff4bab92d116fa797c8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1415556995387802, guid: 18ff8a7a7ca91ff4bab92d116fa797c8, type: 3}
       propertyPath: m_Name
       value: Character_BusinessMale_01

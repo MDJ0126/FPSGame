@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
 namespace FPSGame.Character
 {
@@ -19,6 +20,11 @@ namespace FPSGame.Character
             _moveController = GetComponent<MoveController>();
         }
 
+        private void Update()
+        {
+            _owner.aim.position = _cameraController.aimRay.position;
+        }
+
         private void LateUpdate()
         {
             UpdateMouse();
@@ -36,7 +42,7 @@ namespace FPSGame.Character
             if (x != 0 || y != 0)
             {
                 _cameraController.UpdateAimRotation(new Vector3(x, y, 0f));
-                _owner.aim.position = _cameraController.aimRay.position;
+                _moveController.UpdateRotation(new Vector3(x, 0f, 0f));
             }
 
             // Left Click
@@ -65,9 +71,7 @@ namespace FPSGame.Character
             float vertical = Input.GetAxis("Vertical");
             if (horizontal != 0f || vertical != 0f)
             {
-                _owner.MyTransform.LookAt(_cameraController.aimRay);
-
-                // 회전이 완료된 캐릭터 기준으로 이동 처리
+                _owner.MyTransform.LookAt(new Vector3(_cameraController.aimRay.position.x, _owner.MyTransform.position.y, _cameraController.aimRay.position.z));
                 _moveController.Move(_owner.MyTransform.right * horizontal + _owner.MyTransform.forward * vertical);
             }
         }

@@ -20,6 +20,7 @@ public class GameCameraController : SingletonBehaviour<GameCameraController>
 	private float _prevCameraDistance = 0f;
     private float _currentCameraDistance = 0f;
 	private Coroutine _zoomCoroutine = null;
+	private CursorLockMode _lockMode = CursorLockMode.Locked;
 
     private void Awake()
     {
@@ -29,6 +30,8 @@ public class GameCameraController : SingletonBehaviour<GameCameraController>
 
     private void Update()
     {
+		UpdateCursorLock();
+
         const float DISTANCE = 10f;
         Debug.DrawRay(virtualCamera.transform.position, virtualCamera.transform.forward * DISTANCE, Color.red);
 		RaycastHit[] hitInfos = Physics.RaycastAll(virtualCamera.transform.position, virtualCamera.transform.forward, DISTANCE);
@@ -41,6 +44,19 @@ public class GameCameraController : SingletonBehaviour<GameCameraController>
 		{
 			aimRay.position = virtualCamera.transform.position + virtualCamera.transform.forward * DISTANCE;
         }
+    }
+
+	private void UpdateCursorLock()
+	{
+		if (Input.GetKeyDown(KeyCode.Escape))
+		{
+			_lockMode = CursorLockMode.None;
+		}
+		else
+		{
+			_lockMode = CursorLockMode.Locked;
+		}
+		Cursor.lockState = _lockMode;
     }
 
     public void UpdateAimRotation(Vector3 rotate)

@@ -13,3 +13,14 @@ public enum eWeaponType
     None = 0,
     Gun,
 }
+public enum eProjectileType
+{
+    None = 0,
+    Bullet,
+}
+
+public enum eTeam
+{
+    MyTeam,
+    EnemyTeam,
+}

@@ -4,6 +4,7 @@ namespace FPSGame.Character
 {
 	public abstract class Character : MonoBehaviour
 	{
+		public CharacterData characterData;
 		public Transform aim;
 
 		private Transform _myTransform = null;
@@ -28,12 +29,42 @@ namespace FPSGame.Character
 		/// ¹«±â ÇÚµé·¯
 		/// </summary>
 		public WeaponHandler WeaponHandler { get; private set; } = null;
+		/// <summary>
+		/// Å¸°Ù Å½Áö
+		/// </summary>
+		public DetectTarget DetectTarget { get; private set; } = null;
+		/// <summary>
+		/// ÆÀ ¹øÈ£
+		/// </summary>
+        public byte TeamNember { get; protected set; } = 0;
+		/// <summary>
+		/// ÇöÀç Ã¼·Â
+		/// </summary>
+		public float Hp = 100f;
+		/// <summary>
+		/// »ç¸Á ¿©ºÎ
+		/// </summary>
+		public bool IsDead => Hp <= 0f;
 
-		protected virtual void Awake()
+
+        protected virtual void Awake()
 		{
 			this.AnimatorController = this.gameObject.AddComponent<AnimatorController>();
             this.MoveController = this.gameObject.AddComponent<MoveController>();
 			this.WeaponHandler = this.gameObject.AddComponent<WeaponHandler>();
+			this.DetectTarget = DetectTarget.AddDetectTarget(this);
+
+            this.Hp = characterData.maxHp;
+        }
+
+		public virtual void SetData(byte teamNember)
+		{
+			this.TeamNember = teamNember;
+        }
+
+		public eTeam GetTeam(byte teamNumber)
+		{
+			return this.TeamNember == teamNumber ? eTeam.MyTeam : eTeam.EnemyTeam;
 		}
     }
 }

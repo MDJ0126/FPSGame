@@ -15,7 +15,7 @@ namespace FPSGame.Weapon
             if (shotRecordTime.AddSeconds(shotInterval) < now)
             {
                 shotRecordTime = now;
-                var bullet = GameResourceManager.Instance.Get(GameResourceManager.eType.Bullet);
+                var bullet = GameResourceManager.Instance.Get(eProjectileType.Bullet);
                 bullet.Run(shot.position, shot.forward, spreadRange , () =>
                 {
                     Debug.Log("OnFinished");
