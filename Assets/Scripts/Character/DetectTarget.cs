@@ -14,7 +14,9 @@ namespace FPSGame.Character
             sphereCollider.isTrigger = true;
             go.transform.SetParent(character.transform);
             go.transform.Initialize();
-            return go.AddComponent<DetectTarget>();
+            var detectTarget = go.AddComponent<DetectTarget>();
+            detectTarget._owner = character;
+            return detectTarget;
         }
 
         private Character _owner = null;
@@ -24,7 +26,6 @@ namespace FPSGame.Character
 
         private void Start()
         {
-            _owner = GetComponent<Character>();
             _sphereCollider = GetComponent<SphereCollider>();
             _sphereCollider.radius = radius;
         }
@@ -44,6 +45,15 @@ namespace FPSGame.Character
             if (character)
             {
                 _detectedCharacters.Remove(character);
+            }
+        }
+
+        private void OnGUI()
+        {
+            var detectedTarget = GetDectedCharacter();
+            if (detectedTarget)
+            {
+                Debug.DrawRay(_owner.MyTransform.position, detectedTarget.MyTransform.position, Color.red);
             }
         }
 

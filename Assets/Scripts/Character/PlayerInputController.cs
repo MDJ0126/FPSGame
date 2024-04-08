@@ -1,5 +1,4 @@
 using UnityEngine;
-using static UnityEngine.UI.GridLayoutGroup;
 
 namespace FPSGame.Character
 {
@@ -41,7 +40,7 @@ namespace FPSGame.Character
 
             if (x != 0 || y != 0)
             {
-                _cameraController.UpdateAimRotation(new Vector3(x, y, 0f));
+                _cameraController.UpdateRotation(x, y);
                 _moveController.UpdateRotation(new Vector3(x, 0f, 0f));
             }
 
@@ -71,8 +70,8 @@ namespace FPSGame.Character
             float vertical = Input.GetAxis("Vertical");
             if (horizontal != 0f || vertical != 0f)
             {
-                _owner.MyTransform.LookAt(new Vector3(_cameraController.aimRay.position.x, _owner.MyTransform.position.y, _cameraController.aimRay.position.z));
-                _moveController.Move(_owner.MyTransform.right * horizontal + _owner.MyTransform.forward * vertical);
+                //_owner.MyTransform.LookAt(new Vector3(_cameraController.aimRay.position.x, _owner.MyTransform.position.y, _cameraController.aimRay.position.z));
+                _moveController.Move(GameCameraController.Instance.baseCamera.transform.right * horizontal + GameCameraController.Instance.baseCamera.transform.forward * vertical);
             }
         }
     }

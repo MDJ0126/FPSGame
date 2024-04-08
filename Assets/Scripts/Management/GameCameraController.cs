@@ -1,13 +1,17 @@
 using Cinemachine;
+using FPSGame.Character;
 using System;
 using System.Collections;
 using UnityEngine;
 
 public class GameCameraController : SingletonBehaviour<GameCameraController>
 {
-	#region Inspector
+    private const float AIM_DISTANCE = 10f;
 
-	public Camera baseCamera;
+    #region Inspector
+
+	public PlayerCharacter player;
+    public Camera baseCamera;
 	public CinemachineVirtualCamera virtualCamera;
 	public Transform aimRay;
 
@@ -21,6 +25,7 @@ public class GameCameraController : SingletonBehaviour<GameCameraController>
     private float _currentCameraDistance = 0f;
 	private Coroutine _zoomCoroutine = null;
 	private CursorLockMode _lockMode = CursorLockMode.Locked;
+	private Vector3 _rotate = Vector3.zero;
 
     private void Awake()
     {
@@ -30,23 +35,28 @@ public class GameCameraController : SingletonBehaviour<GameCameraController>
 
     private void Update()
     {
-		UpdateCursorLock();
+        UpdateCursorLock();
 
-        const float DISTANCE = 10f;
-        Debug.DrawRay(virtualCamera.transform.position, virtualCamera.transform.forward * DISTANCE, Color.red);
-		RaycastHit[] hitInfos = Physics.RaycastAll(virtualCamera.transform.position, virtualCamera.transform.forward, DISTANCE);
-		RaycastHit firstHit = Array.Find(hitInfos, info => !info.collider.CompareTag("Player"));
+        Vector3 rayOrigin = baseCamera.transform.position;
+        Quaternion rotation = Quaternion.Euler(-_rotate.y, _rotate.x, 0f);
+        Vector3 rayDirection = rotation * player.transform.forward;
+
+        Debug.DrawRay(rayOrigin, rayDirection * AIM_DISTANCE, Color.red);
+		RaycastHit[] hitInfos = Physics.RaycastAll(rayOrigin, rayDirection, AIM_DISTANCE);
+		RaycastHit firstHit = Array.Find(hitInfos, info => !info.collider.gameObject.Equals(player.gameObject));
         if (firstHit.collider != null)
 		{
 			aimRay.position = firstHit.point;
         }
 		else
 		{
-			aimRay.position = virtualCamera.transform.position + virtualCamera.transform.forward * DISTANCE;
+			aimRay.position = baseCamera.transform.position + rayDirection * AIM_DISTANCE;
         }
+
+		_rotate = Vector3.zero;
     }
 
-	private void UpdateCursorLock()
+    private void UpdateCursorLock()
 	{
 		if (Input.GetKeyDown(KeyCode.Escape))
 		{
@@ -59,10 +69,10 @@ public class GameCameraController : SingletonBehaviour<GameCameraController>
 		Cursor.lockState = _lockMode;
     }
 
-    public void UpdateAimRotation(Vector3 rotate)
+    public void UpdateRotation(float x, float y)
     {
-        Vector3 angle = virtualCamera.transform.eulerAngles;
-        virtualCamera.transform.rotation = Quaternion.Euler(angle.x - rotate.y, angle.y + rotate.x, angle.z);
+		_rotate.x = x;
+		_rotate.y = y;
     }
 
     public void Zoom(bool isZoomIn)

@@ -446,7 +446,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterData: {fileID: 11400000, guid: e377d6e21e185f34c9721eff792e1cae, type: 2}
+  aimCenter: {fileID: 0}
   aim: {fileID: 147137546468238375}
+  Hp: 100
 --- !u!1 &3610630268861522952
 GameObject:
   m_ObjectHideFlags: 0

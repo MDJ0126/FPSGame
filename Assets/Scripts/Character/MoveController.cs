@@ -21,12 +21,12 @@ namespace FPSGame.Character
             if (_velocity != Vector3.zero)
             {
                 _owner.AnimatorController.Walk(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+                _velocity = Vector3.zero;
             }
             else
             {
                 _owner.AnimatorController.Idle();
             }
-            _velocity = Vector3.zero;
         }
 
         /// <summary>
