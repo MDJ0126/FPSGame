@@ -6,4 +6,5 @@ public static class AnimHash
     public static int VelocityX = Animator.StringToHash("VelocityX");
     public static int VelocityZ = Animator.StringToHash("VelocityZ");
     public static int IsAiming = Animator.StringToHash("IsAiming");
+    public static int SpecialIdle = Animator.StringToHash("SpecialIdle");
 }

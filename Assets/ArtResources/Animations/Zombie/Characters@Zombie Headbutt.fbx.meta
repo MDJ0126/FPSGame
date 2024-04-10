@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c37307f08da00814dab724e28b04bad5
+guid: 4de983705f62b594da380aaed5e4b63c
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Right Strafe Walk
+      name: Zombie Headbutt
       takeName: mixamo.com
       internalID: -203655887218126122
       firstFrame: 0
-      lastFrame: 28
+      lastFrame: 78
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
