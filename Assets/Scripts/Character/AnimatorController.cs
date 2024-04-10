@@ -1,4 +1,5 @@
-﻿using FPSGame.Weapon;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
@@ -7,14 +8,22 @@ namespace FPSGame.Character
     [RequireComponent(typeof(Character))]
     public class AnimatorController : MonoBehaviour
     {
-        private Character _owner;
-        private Animator _animator;
         public TwoBoneIKConstraint LeftHand { get; private set; } = null;
+
+        private Character _owner = null;
+        private Animator _animator = null;
+        private Dictionary<eCharacterState, AnimatorStateMachineBehaviour> _states = new();
+        private AnimatorStateMachineBehaviour _currentState = null;
 
         private void Awake()
         {
             _owner = GetComponent<Character>();
             _animator = GetComponentInChildren<Animator>(true);
+            var states = _animator.GetBehaviours<AnimatorStateMachineBehaviour>();
+            foreach (var state in states)
+            {
+                _states.Add(state.characterState, state);
+            }
             FindHands();
         }
 
@@ -40,6 +49,22 @@ namespace FPSGame.Character
                 {
                     LeftHand = child.GetComponent<TwoBoneIKConstraint>();
                 }
+            }
+        }
+
+        public void SetState(eCharacterState state, Action onFinished = null)
+        {
+            _currentState?.OnFinishedEvent();
+            _states.TryGetValue(state, out _currentState);
+            _currentState.OnFinished = onFinished;
+
+            switch (state)
+            {
+                case eCharacterState.Dead:
+                    _animator.SetTrigger(AnimHash.Dead);
+                    break;
+                default:
+                    break;
             }
         }
     }

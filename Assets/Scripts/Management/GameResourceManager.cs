@@ -36,7 +36,7 @@ public class GameResourceManager : SingletonBehaviour<GameResourceManager>
     public BotCharacter CreateBotCharacter(Vector3 worldPos, float angle, byte teamNumber)
     {
         BotCharacter bot = characterPool.Get<BotCharacter>();
-        bot.SetData(teamNumber);
+        bot.SetTeam(teamNumber);
         bot.MyTransform.position = worldPos;
         bot.MyTransform.eulerAngles = Vector3.up * angle;
         return bot;

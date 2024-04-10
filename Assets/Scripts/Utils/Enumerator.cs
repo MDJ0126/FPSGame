@@ -1,4 +1,4 @@
-public enum eLayer : int
+﻿public enum eLayer : int
 {
     Default = 0,
     TransparentFX = 1,
@@ -23,4 +23,10 @@ public enum eTeam
 {
     MyTeam,
     EnemyTeam,
+}
+
+public enum eCharacterState
+{
+    None = 0,
+    Dead,
 }

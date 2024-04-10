@@ -11,5 +11,14 @@ namespace FPSGame.Character
             base.Awake();
             this.AI = this.gameObject.AddComponent<ZombieAI>();
         }
+
+        [ContextMenu("Dead Test")]
+        private void DeadTest()
+        {
+            SetState(eCharacterState.Dead, () =>
+            {
+                this.gameObject.SetActive(false);
+            });
+        }
     }
 }

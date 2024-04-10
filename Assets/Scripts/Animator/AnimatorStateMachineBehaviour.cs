@@ -1,8 +1,11 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
-public abstract class AnimatorStateMachineBehaviour : StateMachineBehaviour
+public class AnimatorStateMachineBehaviour : StateMachineBehaviour
 {
+    public eCharacterState characterState = eCharacterState.None;
     private int _cycle = -1;
+    public Action OnFinished { get; set; } = null;
 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -28,6 +31,15 @@ public abstract class AnimatorStateMachineBehaviour : StateMachineBehaviour
 
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        OnFinishedEvent();
         base.OnStateExit(animator, stateInfo, layerIndex);
+    }
+
+    public void OnFinishedEvent()
+    {
+        if (this.OnFinished == null) return;
+        var temp = this.OnFinished;
+        this.OnFinished = null;
+        temp?.Invoke();
     }
 }

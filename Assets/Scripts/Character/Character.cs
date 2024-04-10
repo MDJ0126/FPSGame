@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace FPSGame.Character
 {
@@ -61,7 +62,7 @@ namespace FPSGame.Character
             this.Hp = characterData.maxHp;
         }
 
-		public virtual void SetData(byte teamNember)
+		public virtual void SetTeam(byte teamNember)
 		{
 			this.TeamNember = teamNember;
         }
@@ -69,6 +70,11 @@ namespace FPSGame.Character
 		public eTeam GetTeam(byte teamNumber)
 		{
 			return this.TeamNember == teamNumber ? eTeam.MyTeam : eTeam.EnemyTeam;
+		}
+
+		public void SetState(eCharacterState state, Action onFinished = null)
+		{
+			this.AnimatorController.SetState(state, onFinished);
 		}
     }
 }
