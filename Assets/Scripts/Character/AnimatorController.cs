@@ -1,3 +1,4 @@
+﻿using FPSGame.Weapon;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 
@@ -6,12 +7,13 @@ namespace FPSGame.Character
     [RequireComponent(typeof(Character))]
     public class AnimatorController : MonoBehaviour
     {
+        private Character _owner;
         private Animator _animator;
-        private Rig _rig;
         public TwoBoneIKConstraint LeftHand { get; private set; } = null;
 
         private void Awake()
         {
+            _owner = GetComponent<Character>();
             _animator = GetComponentInChildren<Animator>(true);
             FindHands();
         }
@@ -21,11 +23,11 @@ namespace FPSGame.Character
             _animator.SetBool(AnimHash.IsWalk, false);
         }
 
-        public void Walk(float velocityX, float velocityZ)
+        public void Walk(float directionX, float dicrectionY)
         {
             _animator.SetBool(AnimHash.IsWalk, true);
-            _animator.SetFloat(AnimHash.VelocityX, Mathf.Lerp(_animator.GetFloat(AnimHash.VelocityX), velocityX, 0.1f));
-            _animator.SetFloat(AnimHash.VelocityZ, Mathf.Lerp(_animator.GetFloat(AnimHash.VelocityZ), velocityZ, 0.1f));
+            _animator.SetFloat(AnimHash.VelocityX, Mathf.Lerp(_animator.GetFloat(AnimHash.VelocityX), directionX, 0.1f));
+            _animator.SetFloat(AnimHash.VelocityZ, Mathf.Lerp(_animator.GetFloat(AnimHash.VelocityZ), dicrectionY, 0.1f));
         }
 
         private void FindHands()
@@ -39,7 +41,6 @@ namespace FPSGame.Character
                     LeftHand = child.GetComponent<TwoBoneIKConstraint>();
                 }
             }
-            _rig = this.GetComponentInChildren<Rig>();
         }
     }
 }

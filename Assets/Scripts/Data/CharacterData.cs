@@ -8,4 +8,5 @@ public class CharacterData : ScriptableObject
     public int id;
     public float maxHp;
     public float moveSpeed;
+    public float jumpWeight;
 }

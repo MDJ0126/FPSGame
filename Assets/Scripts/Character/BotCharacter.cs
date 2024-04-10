@@ -1,16 +1,11 @@
-namespace FPSGame.Character
+ï»¿namespace FPSGame.Character
 {
     public class BotCharacter : Character
     {
-        /// <summary>
-        /// AI ÄÁÆ®·Ñ·¯
-        /// </summary>
-        public AIComponent AI { get; private set; } = null;
-
         protected override void Awake()
         {
             base.Awake();
-            this.AI = this.gameObject.AddComponent<AIComponent>();
+            this.AI = this.gameObject.AddComponent<BotAI>();
         }
     }
 }

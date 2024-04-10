@@ -1,30 +1,16 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 
 namespace FPSGame.Character
 {
-    [RequireComponent(typeof(BotCharacter))]
-    public class AIComponent : MonoBehaviour
+    [RequireComponent(typeof(Character))]
+    public abstract class AIComponent : MonoBehaviour
     {
-        private Character _owner = null;
+        protected Character owner = null;
 
-        private void Start()
+        protected virtual void Awake()
         {
-            _owner  = GetComponent<Character>();
-        }
-
-        private void Update()
-        {
-            if (_owner && !_owner.IsDead)
-            {
-                var target = _owner.DetectTarget.GetDectedCharacter();
-                if (target)
-                {
-                    _owner.MoveController.LootAt(target);
-                }
-            }
+            owner = GetComponent<Character>();
         }
     }
 }

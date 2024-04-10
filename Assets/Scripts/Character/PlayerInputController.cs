@@ -1,9 +1,9 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 namespace FPSGame.Character
 {
     /// <summary>
-    /// ÇÃ·¹ÀÌ¾î ÄÁÆ®·Ñ·¯ (³ª ÀÚ½Å)
+    /// í”Œë ˆì´ì–´ ì»¨íŠ¸ë¡¤ëŸ¬ (ë‚˜ ìì‹ )
     /// </summary>
     [RequireComponent(typeof(PlayerCharacter), typeof(MoveController))]
     public class PlayerInputController : MonoBehaviour
@@ -22,18 +22,14 @@ namespace FPSGame.Character
 
         private void Update()
         {
-            UpdateCursorLock();
             _owner.aim.position = _cameraController.aimRay.position;
-        }
-
-        private void LateUpdate()
-        {
+            UpdateCursorLock();
             UpdateMouse();
             UpdateMovement();
         }
 
         /// <summary>
-        /// Ä¿¼­ Àá±İ
+        /// ì»¤ì„œ ì ê¸ˆ
         /// </summary>
         private void UpdateCursorLock()
         {
@@ -49,7 +45,7 @@ namespace FPSGame.Character
         }
 
         /// <summary>
-        /// ¸¶¿ì½º ÀÔ·Â ¾÷µ¥ÀÌÆ®
+        /// ë§ˆìš°ìŠ¤ ì…ë ¥ ì—…ë°ì´íŠ¸
         /// </summary>
         private void UpdateMouse()
         {
@@ -80,16 +76,22 @@ namespace FPSGame.Character
         }
 
         /// <summary>
-        /// ÀÌµ¿ ÀÔ·Â ¾÷µ¥ÀÌÆ®
+        /// ì´ë™ ì…ë ¥ ì—…ë°ì´íŠ¸
         /// </summary>
         private void UpdateMovement()
         {
+            // ì´ë™
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");
-            if (horizontal != 0f || vertical != 0f)
+            //if (horizontal != 0f || vertical != 0f)
             {
-                //_owner.MyTransform.LookAt(new Vector3(_cameraController.aimRay.position.x, _owner.MyTransform.position.y, _cameraController.aimRay.position.z));
                 _moveController.Move(GameCameraController.Instance.baseCamera.transform.right * horizontal + GameCameraController.Instance.baseCamera.transform.forward * vertical);
+            }
+
+            // ì í”„
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                _moveController.Jump();
             }
         }
     }

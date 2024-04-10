@@ -85,7 +85,6 @@ public class GameCameraController : SingletonBehaviour<GameCameraController>
 				_currentCameraFOV = Mathf.Lerp(virtualCamera.m_Lens.FieldOfView, _prevCameraFOV, time);
 			}
 			virtualCamera.m_Lens.FieldOfView = _currentCameraFOV;
-			Debug.Log(_currentCameraFOV);
 			yield return null;
         }
 

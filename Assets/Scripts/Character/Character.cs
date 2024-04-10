@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 namespace FPSGame.Character
 {
@@ -18,31 +18,35 @@ namespace FPSGame.Character
 			}
 		}
 		/// <summary>
-		/// ¾Ö´Ï¸ŞÀÌÅÍ ÄÁÆ®·Ñ·¯
+		/// ì• ë‹ˆë©”ì´í„° ì»¨íŠ¸ë¡¤ëŸ¬
 		/// </summary>
 		public AnimatorController AnimatorController { get; private set; } = null;
-        /// <summary>
-        /// ÀÌµ¿ ÄÁÆ®·Ñ·¯
-        /// </summary>
+		/// <summary>
+		/// ì´ë™ ì»¨íŠ¸ë¡¤ëŸ¬
+		/// </summary>
         public MoveController MoveController { get; private set; } = null;
 		/// <summary>
-		/// ¹«±â ÇÚµé·¯
+		/// ë¬´ê¸° í•¸ë“¤ëŸ¬
 		/// </summary>
 		public WeaponHandler WeaponHandler { get; private set; } = null;
 		/// <summary>
-		/// Å¸°Ù Å½Áö
+		/// íƒ€ê²Ÿ íƒì§€
 		/// </summary>
 		public DetectTarget DetectTarget { get; private set; } = null;
-		/// <summary>
-		/// ÆÀ ¹øÈ£
-		/// </summary>
+        /// <summary>
+        /// AI ì»¨íŠ¸ë¡¤ëŸ¬
+        /// </summary>
+        public AIComponent AI { get; protected set; } = null;
+        /// <summary>
+        /// íŒ€ ë²ˆí˜¸
+        /// </summary>
         public byte TeamNember { get; protected set; } = 0;
 		/// <summary>
-		/// ÇöÀç Ã¼·Â
+		/// í˜„ì¬ ì²´ë ¥
 		/// </summary>
-		public float Hp = 100f;
+		public float Hp { get; private set; } = 100f;
 		/// <summary>
-		/// »ç¸Á ¿©ºÎ
+		/// ì‚¬ë§ ì—¬ë¶€
 		/// </summary>
 		public bool IsDead => Hp <= 0f;
 
@@ -52,7 +56,7 @@ namespace FPSGame.Character
 			this.AnimatorController = this.gameObject.AddComponent<AnimatorController>();
             this.MoveController = this.gameObject.AddComponent<MoveController>();
 			this.WeaponHandler = this.gameObject.AddComponent<WeaponHandler>();
-			this.DetectTarget = DetectTarget.AddDetectTarget(this);
+			this.DetectTarget = DetectTarget.AddComponent(this);
 
             this.Hp = characterData.maxHp;
         }

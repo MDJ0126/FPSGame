@@ -1,0 +1,60 @@
+﻿using System.Collections;
+using UnityEngine;
+
+public class LightController : SingletonBehaviour<LightController>
+{
+	#region Inspector
+
+	public Light lightObject;
+	public Color onColor;
+	public Color offColor;
+
+	#endregion
+
+	private Coroutine _coroutine = null;
+
+    private void Start()
+    {
+		StartCoroutine("TestCo");
+    }
+
+	private IEnumerator TestCo()
+	{
+		bool isOn = true;
+		while (true)
+		{
+			if (isOn)
+			{
+				isOn = false;
+            }
+			else
+            {
+                isOn = true;
+            }
+            SetLightState(isOn);
+            yield return YieldInstructionCache.WaitForSeconds(5f);
+        }
+    }
+
+    public void SetLightState(bool isOn, float duration = 5f)
+	{
+		if (_coroutine != null)
+			StopCoroutine(_coroutine);
+		_coroutine = StartCoroutine(ChangeStateProcess(isOn, duration));
+    }
+	
+	private IEnumerator	ChangeStateProcess(bool isOn, float duration)
+	{
+		float factor = 0f;
+		Color start, end;
+        start = lightObject.color;
+		end = isOn ? onColor : offColor;
+		while (factor < 1f)
+		{
+			factor += Time.deltaTime / duration;
+            lightObject.color = Color.Lerp(start, end, factor);
+			yield return null;
+		}
+		lightObject.color = end;
+    }
+}

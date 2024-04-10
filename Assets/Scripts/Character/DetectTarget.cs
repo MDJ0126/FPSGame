@@ -6,7 +6,7 @@ namespace FPSGame.Character
 {
     public class DetectTarget : MonoBehaviour
     {
-        public static DetectTarget AddDetectTarget(Character character)
+        public static DetectTarget AddComponent(Character character)
         {
             GameObject go = new GameObject("DetectTarget");
             go.layer = (int)eLayer.IgnoreRaycast;
