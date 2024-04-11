@@ -1,3 +1,5 @@
+![스크린샷](https://github.com/MDJ0126/FPSGame/blob/main/playImage.gif?raw=true)
+
 # FPSGame
 1인 프로젝트입니다. FPS 장르의 게임입니다.
 
