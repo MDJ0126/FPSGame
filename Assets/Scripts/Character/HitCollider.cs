@@ -4,6 +4,8 @@ namespace FPSGame.Character
 {
     public class HitCollider : MonoBehaviour
     {
+        private float CRITICAL_RATE = 1.5F;
+
         public enum eParts
         {
             None = 0,
@@ -29,7 +31,15 @@ namespace FPSGame.Character
 
         public void HitDamage(float damage)
         {
-            this.Owner.HitDamage(damage);
+            switch (parts)
+            {
+                case eParts.Head:
+                    this.Owner.HitDamage(damage * CRITICAL_RATE);
+                    break;
+                case eParts.Body:
+                    this.Owner.HitDamage(damage);
+                    break;
+            }
         }
     }
 }
