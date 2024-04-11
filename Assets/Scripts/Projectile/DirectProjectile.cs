@@ -1,4 +1,4 @@
-using Unity.Burst.Intrinsics;
+﻿using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 namespace FPSGame.Projectile
@@ -21,7 +21,7 @@ namespace FPSGame.Projectile
             else
             {
                 this.MyTransform.position = direction * maxDistance;
-                Finish();
+                Finish(null);
             }
         }
     }

@@ -72,6 +72,18 @@ namespace FPSGame.Character
 			return this.TeamNember == teamNumber ? eTeam.MyTeam : eTeam.EnemyTeam;
         }
 
+		public void HitDamage(float damage)
+		{
+			if (this.Hp > 0f)
+			{
+				this.Hp -= damage;
+				if (this.Hp <= 0f)
+				{
+					Dead();
+				}
+			}
+		}
+
         public void SetState(eCharacterState state, Action onFinished = null)
 		{
 			this.AnimatorController.SetState(state, onFinished);

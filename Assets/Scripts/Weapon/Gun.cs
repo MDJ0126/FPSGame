@@ -1,12 +1,17 @@
-using System;
-using UnityEngine;
+﻿using System;
 
 namespace FPSGame.Weapon
 {
     public abstract class Gun : Weapon
     {
         public override eWeaponType weaponType => eWeaponType.Gun;
+
+        #region Inspector
+
         public float spreadRange = 2f;
+        public float damage = 10f;
+
+        #endregion
 
         public override void OnFire()
         {
@@ -16,9 +21,9 @@ namespace FPSGame.Weapon
             {
                 shotRecordTime = now;
                 var bullet = GameResourceManager.Instance.Get(eProjectileType.Bullet);
-                bullet.Run(shot.position, shot.forward, spreadRange , () =>
+                bullet.Run(shot.position, shot.forward, spreadRange, (hitCollider) =>
                 {
-                    Debug.Log("OnFinished");
+                    hitCollider.HitDamage(damage);
                 });
             }
         }

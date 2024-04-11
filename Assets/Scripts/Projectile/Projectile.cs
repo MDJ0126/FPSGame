@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FPSGame.Character;
+using System;
 using UnityEngine;
 
 namespace FPSGame.Projectile
@@ -19,9 +20,9 @@ namespace FPSGame.Projectile
         protected bool isPlay = false;
         protected Vector3 startPos = Vector3.zero;
         protected Vector3 direction = Vector3.zero;
-        protected Action onFinished = null;
+        protected Action<HitCollider> onFinished = null;
 
-        public virtual void Run(Vector3 startPos, Vector3 direction, float spreadRange = 1f, Action onFinished = null)
+        public virtual void Run(Vector3 startPos, Vector3 direction, float spreadRange = 1f, Action<HitCollider> onFinished = null)
         {
             // 랜덤 산탄 각도 적용
             Quaternion spreadRotation = Quaternion.Euler(UnityEngine.Random.Range(-spreadRange, spreadRange), UnityEngine.Random.Range(-spreadRange, spreadRange), 0f);
@@ -47,19 +48,25 @@ namespace FPSGame.Projectile
         {
             if (other)
             {
-                LayerMask ignoreLayer = 1 << (int)eLayer.IgnoreRaycast;
-                if (other.gameObject.layer == ~ignoreLayer)
+                if ((other.gameObject.layer & (int)eLayer.HitCollider) != 0)
                 {
-                    Debug.Log(other.gameObject.name);
+                    var hitCollider = other.GetComponent<HitCollider>();
+                    if (hitCollider)
+                    {
+                        Finish(hitCollider);
+                    }
                 }
             }
         }
 
-        public void Finish()
+        public void Finish(HitCollider hitCollider)
         {
             isPlay = false;
             gameObject.SetActive(false);
-            onFinished?.Invoke();
+            var temp = onFinished;
+            onFinished = null;
+            if (hitCollider != null)
+                temp?.Invoke(hitCollider);
         }
     }
 }
