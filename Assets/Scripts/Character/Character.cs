@@ -70,11 +70,19 @@ namespace FPSGame.Character
 		public eTeam GetTeam(byte teamNumber)
 		{
 			return this.TeamNember == teamNumber ? eTeam.MyTeam : eTeam.EnemyTeam;
-		}
+        }
 
-		public void SetState(eCharacterState state, Action onFinished = null)
+        public void SetState(eCharacterState state, Action onFinished = null)
 		{
 			this.AnimatorController.SetState(state, onFinished);
-		}
+        }
+
+        public void Dead()
+        {
+            SetState(eCharacterState.Dead, () =>
+            {
+                this.gameObject.SetActive(false);
+            });
+        }
     }
 }

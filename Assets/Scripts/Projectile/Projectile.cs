@@ -1,4 +1,4 @@
-using System;
+ï»¿using System;
 using UnityEngine;
 
 namespace FPSGame.Projectile
@@ -23,7 +23,7 @@ namespace FPSGame.Projectile
 
         public virtual void Run(Vector3 startPos, Vector3 direction, float spreadRange = 1f, Action onFinished = null)
         {
-            // ·£´ı »êÅº °¢µµ Àû¿ë
+            // ëœë¤ ì‚°íƒ„ ê°ë„ ì ìš©
             Quaternion spreadRotation = Quaternion.Euler(UnityEngine.Random.Range(-spreadRange, spreadRange), UnityEngine.Random.Range(-spreadRange, spreadRange), 0f);
             direction = spreadRotation * direction;
 
@@ -43,9 +43,16 @@ namespace FPSGame.Projectile
             if (isPlay) OnUpdate();
         }
 
-        private void OnCollisionEnter(Collision collision)
+        protected virtual void OnTriggerEnter(Collider other)
         {
-            Debug.Log(collision.gameObject.name);
+            if (other)
+            {
+                LayerMask ignoreLayer = 1 << (int)eLayer.IgnoreRaycast;
+                if (other.gameObject.layer == ~ignoreLayer)
+                {
+                    Debug.Log(other.gameObject.name);
+                }
+            }
         }
 
         public void Finish()
