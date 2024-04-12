@@ -1,6 +1,6 @@
 ﻿namespace FPSGame.Character
 {
-    public class BotCharacter : Character
+    public class BotCharacter : AICharacter
     {
         protected override void Awake()
         {

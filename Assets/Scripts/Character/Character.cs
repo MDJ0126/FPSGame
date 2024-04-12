@@ -35,10 +35,6 @@ namespace FPSGame.Character
 		/// </summary>
 		public DetectTarget DetectTarget { get; private set; } = null;
         /// <summary>
-        /// AI 컨트롤러
-        /// </summary>
-        public AIComponent AI { get; protected set; } = null;
-        /// <summary>
         /// 팀 번호
         /// </summary>
         public byte TeamNember { get; protected set; } = 0;

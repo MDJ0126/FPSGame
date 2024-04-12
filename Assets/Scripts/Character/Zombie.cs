@@ -1,10 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-namespace FPSGame.Character
+﻿namespace FPSGame.Character
 {
-    public class Zombie : Character
+    public class Zombie : AICharacter
     {
         protected override void Awake()
         {
