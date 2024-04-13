@@ -10,9 +10,10 @@ namespace FPSGame.Character
             this.AI = this.gameObject.AddComponent<ZombieAI>();
         }
 
-        private void Start()
+        private void Update()
         {
-            this.MoveController.MoveTo(Vector3.zero);
+            this.MoveController.LootAt(GamePlayManager.Instance.player);
+            this.MoveController.MoveTo(GamePlayManager.Instance.player.MyTransform.position);
         }
     }
 }

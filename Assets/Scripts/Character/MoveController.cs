@@ -25,8 +25,33 @@ namespace FPSGame.Character
 
         private void LateUpdate()
         {
+            UpdateAinimation();
             UpdateNavMeshSpeed();
             UpdateGroundState();
+
+            // 애니메이션 업데이트
+            void UpdateAinimation()
+            {
+                bool isMoving = false;
+
+                if (_agent)
+                {
+                    isMoving = _agent.velocity.magnitude > 0.1f;
+                }
+                else
+                {
+                    isMoving = _rigidbody.velocity.magnitude > 0.1f;
+                }
+
+                if (isMoving)
+                {
+                    _owner.AnimatorController.Walk(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); // 블랜드 애니메이션 방향을 위해 따로 입력 받음
+                }
+                else
+                {
+                    _owner.AnimatorController.Idle();
+                }
+            }
 
             // 바닥에 닿아 있는지 여부 업데이트
             void UpdateGroundState()
@@ -45,6 +70,7 @@ namespace FPSGame.Character
             // 네비 매시 에이전트 속도 실시간 업데이트
             void UpdateNavMeshSpeed()
             {
+                // .velocity로 움직임과 똑같은 처리를 하려면 이동 속도를 실시간 반영해주어야한다.
                 if (_agent)
                 {
                     _agent.speed = _owner.characterData.moveSpeed * Time.deltaTime;
@@ -93,7 +119,6 @@ namespace FPSGame.Character
                 // 애니메이션 작동
                 if (direction != Vector3.zero)
                 {
-                    _owner.AnimatorController.Walk(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); // 블랜드 애니메이션 방향을 위해 따로 입력 받음
                     Vector3 moveVector = direction * _owner.characterData.moveSpeed * Time.deltaTime;
 
                     // 이동 처리하기
@@ -107,10 +132,6 @@ namespace FPSGame.Character
                         // 리지드 바디를 이용하는 경우
                         _rigidbody.velocity = moveVector;
                     }
-                }
-                else
-                {
-                    _owner.AnimatorController.Idle();
                 }
             }
         }
