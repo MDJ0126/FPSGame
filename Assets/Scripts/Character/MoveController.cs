@@ -9,7 +9,6 @@ namespace FPSGame.Character
     {
         private Character _owner = null;
         private Rigidbody _rigidbody = null;
-        private CapsuleCollider _collider = null;
         private NavMeshAgent _agent = null;
         private bool _isGrounded = false;
 
@@ -17,13 +16,19 @@ namespace FPSGame.Character
         {
             _owner = GetComponent<Character>();
             _rigidbody = GetComponent<Rigidbody>();
-            _collider = GetComponent<CapsuleCollider>();
             _agent = GetComponent<NavMeshAgent>();
+            if (_agent)
+            {
+                _agent.updateRotation = false;
+            }
         }
 
         private void LateUpdate()
         {
+            UpdateNavMeshSpeed();
             UpdateGroundState();
+
+            // 바닥에 닿아 있는지 여부 업데이트
             void UpdateGroundState()
             {
                 LayerMask ignoreLayer = 1 << (int)eLayer.IgnoreRaycast;
@@ -34,6 +39,15 @@ namespace FPSGame.Character
                 else
                 {
                     _isGrounded = false;
+                }
+            }
+
+            // 네비 매시 에이전트 속도 실시간 업데이트
+            void UpdateNavMeshSpeed()
+            {
+                if (_agent)
+                {
+                    _agent.speed = _owner.characterData.moveSpeed * Time.deltaTime;
                 }
             }
         }
@@ -86,7 +100,6 @@ namespace FPSGame.Character
                     if (_agent)
                     {
                         // 네비게이션 메시를 이용하는 경우
-                        _agent.updateRotation = false;
                         _agent.velocity = moveVector;
                     }
                     else
@@ -100,6 +113,16 @@ namespace FPSGame.Character
                     _owner.AnimatorController.Idle();
                 }
             }
+        }
+
+        /// <summary>
+        /// 네비매시를 통해 목적지 이동
+        /// </summary>
+        /// <param name="dest"></param>
+        public bool MoveTo(Vector3 dest)
+        {
+            if (_agent) return _agent.SetDestination(dest);
+            return false;
         }
 
         /// <summary>

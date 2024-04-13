@@ -95,7 +95,7 @@ Transform:
   m_GameObject: {fileID: 1079256485085989443}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.0002215e-15, y: 1.5691123, z: -0.0048395917}
+  m_LocalPosition: {x: 2.0002215e-15, y: 1.5691123, z: -0.004840851}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -302,6 +302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterData: {fileID: 11400000, guid: ef5e08b38363fe34eaa0f61ac5449f74, type: 2}
   aim: {fileID: 4447747838181579604}
+  isTwo: 0
 --- !u!195 &5121545490415437676
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -400,7 +401,7 @@ Transform:
   m_GameObject: {fileID: 8195566010458438590}
   serializedVersion: 2
   m_LocalRotation: {x: 0.000000029802319, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.0002215e-15, y: 1.5691123, z: -0.0048395917}
+  m_LocalPosition: {x: 2.0002215e-15, y: 1.5691123, z: -0.004840851}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
