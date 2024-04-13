@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   maxHp: 100
-  moveSpeed: 200
+  moveSpeed: 150
   jumpWeight: 5

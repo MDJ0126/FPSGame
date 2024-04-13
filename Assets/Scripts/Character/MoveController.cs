@@ -1,5 +1,6 @@
-﻿using Unity.VisualScripting;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.AI;
+using UnityEngine.UIElements;
 
 namespace FPSGame.Character
 {
@@ -8,13 +9,16 @@ namespace FPSGame.Character
     {
         private Character _owner = null;
         private Rigidbody _rigidbody = null;
-        private Vector3 _velocity = Vector3.zero;
+        private CapsuleCollider _collider = null;
+        private NavMeshAgent _agent = null;
         private bool _isGrounded = false;
 
         private void Awake()
         {
             _owner = GetComponent<Character>();
             _rigidbody = GetComponent<Rigidbody>();
+            _collider = GetComponent<CapsuleCollider>();
+            _agent = GetComponent<NavMeshAgent>();
         }
 
         private void LateUpdate()
@@ -61,32 +65,40 @@ namespace FPSGame.Character
             Vector3 angle = _owner.MyTransform.eulerAngles;
             _owner.MyTransform.rotation = Quaternion.Euler(angle.x - rotate.y, angle.y + rotate.x, angle.z);
         }
+
         /// <summary>
         /// 이동
         /// </summary>
         /// <param name="direction"></param>
         public void Move(Vector3 direction)
         {
-            Vector3 moveVector = Vector3.zero;
+            direction = Vector3.Normalize(direction);
+            direction.y = 0;
             if (_isGrounded)
             {
-                direction = Vector3.Normalize(direction);
-                direction.y = 0;
-
+                // 애니메이션 작동
                 if (direction != Vector3.zero)
                 {
-                    moveVector = direction * _owner.characterData.moveSpeed * Time.deltaTime;
-                }
-            }
+                    _owner.AnimatorController.Walk(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); // 블랜드 애니메이션 방향을 위해 따로 입력 받음
+                    Vector3 moveVector = direction * _owner.characterData.moveSpeed * Time.deltaTime;
 
-            if (moveVector != Vector3.zero)
-            {
-                _owner.AnimatorController.Walk(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); // 블랜드 애니메이션 방향을 위해 따로 입력 받음
-                _rigidbody.velocity = new Vector3(moveVector.x, _rigidbody.velocity.y, moveVector.z);
-            }
-            else
-            {
-                _owner.AnimatorController.Idle();
+                    // 이동 처리하기
+                    if (_agent)
+                    {
+                        // 네비게이션 메시를 이용하는 경우
+                        _agent.updateRotation = false;
+                        _agent.velocity = moveVector;
+                    }
+                    else
+                    {
+                        // 리지드 바디를 이용하는 경우
+                        _rigidbody.velocity = moveVector;
+                    }
+                }
+                else
+                {
+                    _owner.AnimatorController.Idle();
+                }
             }
         }
 

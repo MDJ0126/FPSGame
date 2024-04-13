@@ -50,10 +50,14 @@ namespace FPSGame.Character
 
         protected virtual void Awake()
 		{
-			this.AnimatorController = this.gameObject.AddComponent<AnimatorController>();
-            this.MoveController = this.gameObject.AddComponent<MoveController>();
-			this.WeaponHandler = this.gameObject.AddComponent<WeaponHandler>();
-			this.DetectTarget = DetectTarget.AddComponent(this);
+            if (this.AnimatorController == null)
+                this.AnimatorController = this.gameObject.AddComponent<AnimatorController>();
+            if (this.MoveController == null)
+                this.MoveController = this.gameObject.AddComponent<MoveController>();
+            if (this.WeaponHandler == null)
+                this.WeaponHandler = this.gameObject.AddComponent<WeaponHandler>();
+			if (this.DetectTarget == null)
+				this.DetectTarget = DetectTarget.AddComponent(this);
 
             this.Hp = characterData.maxHp;
         }

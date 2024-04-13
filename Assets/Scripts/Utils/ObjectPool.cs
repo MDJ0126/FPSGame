@@ -1,10 +1,10 @@
-using System;
+ï»¿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    // 30ÃÊ¸¶´Ù ¿À·¡ »ç¿ëÇÏÁö ¾ÊÀº ¿ÀºêÁ§Æ®¸¦ »èÁ¦ÇÑ´Ù.
+    // 30ì´ˆë§ˆë‹¤ ì˜¤ë˜ ì‚¬ìš©í•˜ì§€ ì•Šì€ ì˜¤ë¸Œì íŠ¸ë¥¼ ì‚­ì œí•œë‹¤.
     private const float REFRESH_TIME_PER_SECONDS = 30f;
 
     private class PoolItem
@@ -29,7 +29,7 @@ public class ObjectPool : MonoBehaviour
 
     private void Start()
     {
-        //original.SetActive(false);
+        original.SetActive(false);
 
         int tempCount = count;
         count = 0;
