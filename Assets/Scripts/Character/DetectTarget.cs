@@ -58,10 +58,22 @@ namespace FPSGame.Character
             }
         }
 
+        /// <summary>
+        /// 탐지한 캐릭터를 반환
+        /// </summary>
+        /// <returns></returns>
         public Character GetDectedCharacter()
         {
             if (_detectedCharacters.Count > 0)
-                return _detectedCharacters.Find(character => !character.IsDead);
+            {
+                // 살아있는 적 캐릭터를 반환
+                var enemy = _detectedCharacters.Find(character => !character.IsDead && _owner.TeamNember != character.TeamNember);
+                if (enemy) 
+                    return enemy;
+
+                // 예외
+                return _detectedCharacters[0];
+            }
             return null;
         }
     }

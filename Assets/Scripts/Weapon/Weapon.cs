@@ -1,15 +1,31 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 namespace FPSGame.Weapon
 {
     public abstract class Weapon : MonoBehaviour
     {
+        public delegate void OnFireEvent();
+        private event OnFireEvent _onFire = null;
+        public event OnFireEvent OnFire
+        {
+            add
+            {
+                _onFire -= value;
+                _onFire += value;
+            }
+            remove
+            {
+                _onFire -= value;
+            }
+        }
+
         public static string SHOT_HANDLER_NAME = "Shot";
         public static string LEFT_HANDLER_NAME = "LeftHandler";
         public static string RIGHT_HANDLER_NAME = "RightHandler";
 
         public virtual eWeaponType weaponType => eWeaponType.None;
+
         #region Inspector
 
         [Header("Transforms")]
@@ -24,7 +40,10 @@ namespace FPSGame.Weapon
 
         protected DateTime shotRecordTime;
 
-        public virtual void OnFire() { }
+        public virtual void Fire(FPSGame.Character.Character owner) 
+        {
+            _onFire?.Invoke();
+        }
 
 #if UNITY_EDITOR
         [ContextMenu("Auto Setting")]

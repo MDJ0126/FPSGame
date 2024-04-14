@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections;
 using UnityEngine;
 using Cinemachine;
@@ -20,14 +20,17 @@ public class GameCameraController : SingletonBehaviour<GameCameraController>
 
     #endregion
 
-	private float _prevCameraFOV = 0f;
+    private CinemachineBasicMultiChannelPerlin _cinemachineBasicMultiChannelPerlin = null;
+    private float _prevCameraFOV = 0f;
     private float _currentCameraFOV = 0f;
 	private Coroutine _zoomCoroutine = null;
 	private float _rotateY = 0f;
+    private Coroutine _shakeCoroutine = null;
 
     private void Awake()
     {
 		_prevCameraFOV = virtualCamera.m_Lens.FieldOfView;
+        _cinemachineBasicMultiChannelPerlin = virtualCamera.GetCinemachineComponent<CinemachineBasicMultiChannelPerlin>();
     }
 
     private void Update()
@@ -55,6 +58,39 @@ public class GameCameraController : SingletonBehaviour<GameCameraController>
         }
 
 		_rotateY = 0f;
+    }
+
+    /// <summary>
+    /// 카메라 쉐이크
+    /// </summary>
+    /// <param name="easeType">이징 타입</param>
+    /// <param name="duration">재생 시간</param>
+    public void Shake(eEaseType easeType, float gain, float duration = 0.5f, float delay = 0.0f)
+    {
+        if (_shakeCoroutine != null) StopCoroutine(_shakeCoroutine);
+        _shakeCoroutine = StartCoroutine(ShakeProcess(easeType, gain, duration, delay));
+    }
+
+    private IEnumerator ShakeProcess(eEaseType easeType, float gain, float duration = 0.5f, float delay = 0.0f)
+    {
+        if (delay != 0)
+        {
+            yield return new WaitForSeconds(delay);
+        }
+
+        float playTime = 0f;
+        while (playTime <= duration)
+        {
+            playTime += Time.deltaTime;
+            float t = playTime / duration;
+            var tweenFuntion = EasingFunction.GetEasingFunctionDerivative(easeType);
+            float value = tweenFuntion(0f, gain, t);
+            _cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = Mathf.Lerp(value, 0f, t);
+            _cinemachineBasicMultiChannelPerlin.m_FrequencyGain = Mathf.Lerp(value, 0f, t);
+            yield return null;
+        }
+        _cinemachineBasicMultiChannelPerlin.m_AmplitudeGain = 0f;
+        _cinemachineBasicMultiChannelPerlin.m_FrequencyGain = 0f;
     }
 
     public void UpdateRotationY(float y)

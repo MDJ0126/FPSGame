@@ -6,6 +6,7 @@
         {
             base.Awake();
             this.AI = this.gameObject.AddComponent<BotAI>();
+            SetTeam(GameConfig.MYTEAM_NUMBER);
         }
     }
 }

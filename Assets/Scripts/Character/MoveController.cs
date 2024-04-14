@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UIElements;
 
@@ -15,11 +16,25 @@ namespace FPSGame.Character
         private void Awake()
         {
             _owner = GetComponent<Character>();
+            _owner.OnChangeCharacterState += OnChangeCharacterState;
+
             _rigidbody = GetComponent<Rigidbody>();
+
             _agent = GetComponent<NavMeshAgent>();
             if (_agent)
             {
                 _agent.updateRotation = false;
+            }
+        }
+
+        private void OnChangeCharacterState(eCharacterState state)
+        {
+            if (state == eCharacterState.Dead)
+            {
+                if (_agent)
+                {
+                    _agent.enabled = false;
+                }
             }
         }
 
@@ -84,6 +99,7 @@ namespace FPSGame.Character
         /// <param name="character"></param>
         public void LootAt(Character character)
         {
+            if (_owner.IsDead) return;
             LootAt(character.MyTransform.position);
         }
 
@@ -93,6 +109,7 @@ namespace FPSGame.Character
         /// <param name="pos"></param>
         public void LootAt(Vector3 pos)
         {
+            if (_owner.IsDead) return;
             _owner.MyTransform.LookAt(new Vector3(pos.x, _owner.MyTransform.position.y, pos.z));
         }
 
@@ -102,6 +119,7 @@ namespace FPSGame.Character
         /// <param name="rotate"></param>
         public void UpdateRotation(Vector3 rotate)
         {
+            if (_owner.IsDead) return;
             Vector3 angle = _owner.MyTransform.eulerAngles;
             _owner.MyTransform.rotation = Quaternion.Euler(angle.x - rotate.y, angle.y + rotate.x, angle.z);
         }
@@ -112,9 +130,10 @@ namespace FPSGame.Character
         /// <param name="direction"></param>
         public void Move(Vector3 direction)
         {
+            if (_owner.IsDead) return;
             direction = Vector3.Normalize(direction);
             direction.y = 0;
-            if (_isGrounded)
+            //if (_isGrounded)
             {
                 // 애니메이션 작동
                 if (direction != Vector3.zero)
@@ -125,11 +144,13 @@ namespace FPSGame.Character
                     if (_agent)
                     {
                         // 네비게이션 메시를 이용하는 경우
+                        _agent.isStopped = false;
                         _agent.velocity = moveVector;
                     }
                     else
                     {
                         // 리지드 바디를 이용하는 경우
+                        moveVector.y = _rigidbody.velocity.y;
                         _rigidbody.velocity = moveVector;
                     }
                 }
@@ -142,8 +163,24 @@ namespace FPSGame.Character
         /// <param name="dest"></param>
         public bool MoveTo(Vector3 dest)
         {
-            if (_agent) return _agent.SetDestination(dest);
+            if (_owner.IsDead) return false;
+            if (_agent)
+            {
+                _agent.isStopped = false;
+                return _agent.SetDestination(dest);
+            }
             return false;
+        }
+
+        /// <summary>
+        /// 이동 정지
+        /// </summary>
+        public void StopMove()
+        {
+            if (_agent)
+            {
+                _agent.isStopped = true;
+            }
         }
 
         /// <summary>
@@ -151,6 +188,7 @@ namespace FPSGame.Character
         /// </summary>
         public void Jump()
         {
+            if (_owner.IsDead) return;
             if (_isGrounded)
             {
                 _rigidbody.velocity += Vector3.up * _owner.characterData.jumpWeight;

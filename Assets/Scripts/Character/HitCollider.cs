@@ -29,8 +29,14 @@ namespace FPSGame.Character
             _collider = GetComponent<Collider>();
         }
 
-        public void HitDamage(float damage)
+        /// <summary>
+        /// 데미지 처리
+        /// </summary>
+        /// <param name="attacker"></param>
+        /// <param name="damage"></param>
+        public void HitDamage(Character attacker, float damage)
         {
+            if (attacker.TeamNember == Owner.TeamNember) return;    // 같은 팀의 경우 데미지 처리하지 않는다.
             switch (parts)
             {
                 case eParts.Head:

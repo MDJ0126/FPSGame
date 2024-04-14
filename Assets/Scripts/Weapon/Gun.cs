@@ -13,9 +13,9 @@ namespace FPSGame.Weapon
 
         #endregion
 
-        public override void OnFire()
+        public override void Fire(FPSGame.Character.Character owner)
         {
-            base.OnFire();
+            base.Fire(owner);
             var now = DateTime.Now;
             if (shotRecordTime.AddSeconds(shotInterval) < now)
             {
@@ -23,7 +23,7 @@ namespace FPSGame.Weapon
                 var bullet = GameResourceManager.Instance.Get(eProjectileType.Bullet);
                 bullet.Run(shot.position, shot.forward, spreadRange, (hitCollider) =>
                 {
-                    hitCollider.HitDamage(damage);
+                    hitCollider.HitDamage(attacker: owner, damage);
                 });
             }
         }

@@ -8,12 +8,7 @@ namespace FPSGame.Character
         {
             base.Awake();
             this.AI = this.gameObject.AddComponent<ZombieAI>();
-        }
-
-        private void Update()
-        {
-            this.MoveController.LootAt(GamePlayManager.Instance.player);
-            this.MoveController.MoveTo(GamePlayManager.Instance.player.MyTransform.position);
+            SetTeam(GameConfig.ENEMYTEAM_NUMBER);
         }
     }
 }

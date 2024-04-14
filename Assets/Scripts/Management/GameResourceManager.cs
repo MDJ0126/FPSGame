@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using FPSGame.Projectile;
 using FPSGame.Character;
 
@@ -13,7 +13,7 @@ public class GameResourceManager : SingletonBehaviour<GameResourceManager>
 
     private void Awake()
     {
-        var bot = CreateBotCharacter(Vector3.zero, 180f, 2);
+        var bot = CreateBotCharacter(Vector3.zero, 180f);
         bot.gameObject.SetActive(true);
     }
 
@@ -33,10 +33,9 @@ public class GameResourceManager : SingletonBehaviour<GameResourceManager>
         return projectile;
     }
 
-    public BotCharacter CreateBotCharacter(Vector3 worldPos, float angle, byte teamNumber)
+    public BotCharacter CreateBotCharacter(Vector3 worldPos, float angle)
     {
         BotCharacter bot = characterPool.Get<BotCharacter>();
-        bot.SetTeam(teamNumber);
         bot.MyTransform.position = worldPos;
         bot.MyTransform.eulerAngles = Vector3.up * angle;
         return bot;

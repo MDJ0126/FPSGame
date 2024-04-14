@@ -1,3 +1,4 @@
+ï»¿using System;
 using UnityEngine;
 
 namespace FPSGame.Character
@@ -6,11 +7,13 @@ namespace FPSGame.Character
     public class WeaponHandler : MonoBehaviour
     {
         private Character _owner = null;
+        private bool _isPlayer = false;
         public FPSGame.Weapon.Weapon Weapon { get; private set; } = null;
 
         private void Start()
         {
             _owner = GetComponent<Character>();
+            _isPlayer = _owner as PlayerCharacter;
             Equip(GetComponentInChildren<FPSGame.Weapon.Weapon>(true));
         }
 
@@ -27,18 +30,37 @@ namespace FPSGame.Character
         }
 
         /// <summary>
-        /// ¹«±â ÀåÂø Ã³¸®
+        /// ë¬´ê¸° ìž¥ì°© ì²˜ë¦¬
         /// </summary>
         /// <param name="weapon"></param>
         private void Equip(FPSGame.Weapon.Weapon weapon)
         {
             if (weapon == null) return;
+            if (this.Weapon != null)
+            {
+                this.Weapon.OnFire -= OnFireCallback;
+            }
             this.Weapon = weapon;
+            this.Weapon.OnFire += OnFireCallback;
         }
 
+        /// <summary>
+        /// ê³µê²© ì‹¤í–‰ ì½œë°±
+        /// </summary>
+        private void OnFireCallback()
+        {
+            if (_isPlayer)
+            {
+                GameCameraController.Instance.Shake(eEaseType.EaseInBack, gain: 2f, duration: 0.1f);
+            }
+        }
+
+        /// <summary>
+        /// ê³µê²©
+        /// </summary>
         public void Fire()
         {
-            Weapon.OnFire();
+            Weapon?.Fire(_owner);
         }
     }
 }

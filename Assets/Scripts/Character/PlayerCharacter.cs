@@ -1,4 +1,4 @@
-namespace FPSGame.Character
+﻿namespace FPSGame.Character
 {
     public class PlayerCharacter : Character
     {
@@ -6,6 +6,7 @@ namespace FPSGame.Character
         {
             base.Awake();
             this.gameObject.AddComponent<PlayerInputController>();
+            SetTeam(GameConfig.MYTEAM_NUMBER);
         }
     }
 }

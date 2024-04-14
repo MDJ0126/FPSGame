@@ -4,11 +4,28 @@ using UnityEngine;
 namespace FPSGame.Character
 {
 	public abstract class Character : MonoBehaviour
-	{
-		public CharacterData characterData;
+    {
+        public static float CHARACTER_HEIGHT_CENTER = 1f;
+
+        public CharacterData characterData;
 		public Transform aim;
 
-		private Transform _myTransform = null;
+		public delegate void OnChangeCharacterStateEvent(eCharacterState state);
+		private event OnChangeCharacterStateEvent _onChangeCharacterState = null;
+		public event OnChangeCharacterStateEvent OnChangeCharacterState
+		{
+			add
+			{
+				_onChangeCharacterState -= value;
+				_onChangeCharacterState += value;
+			}
+			remove
+			{
+				_onChangeCharacterState -= value;
+			}
+		}
+
+        private Transform _myTransform = null;
 		public Transform MyTransform
 		{
 			get
@@ -47,6 +64,9 @@ namespace FPSGame.Character
 		/// </summary>
 		public bool IsDead => Hp <= 0f;
 
+		private float _aimHeight = 0f;
+		private float _aimDistance = 0f;
+
 
         protected virtual void Awake()
 		{
@@ -60,6 +80,9 @@ namespace FPSGame.Character
 				this.DetectTarget = DetectTarget.AddComponent(this);
 
             this.Hp = characterData.maxHp;
+
+			_aimHeight = aim.localPosition.y;
+            _aimDistance = aim.localPosition.z;
         }
 
 		public virtual void SetTeam(byte teamNember)
@@ -71,6 +94,19 @@ namespace FPSGame.Character
 		{
 			return this.TeamNember == teamNumber ? eTeam.MyTeam : eTeam.EnemyTeam;
         }
+
+		public void SetAim(Character target)
+		{
+			if (target != null)
+			{
+				Vector3 aimCenter = this.MyTransform.position;
+				aimCenter.y = _aimHeight;
+				Vector3 targetCenter = target.MyTransform.position;
+				targetCenter.y = CHARACTER_HEIGHT_CENTER;
+				Vector3 direction = targetCenter - aimCenter;
+                aim.position = aimCenter + direction * _aimDistance;
+            }
+		}
 
 		public void HitDamage(float damage)
 		{
@@ -86,7 +122,8 @@ namespace FPSGame.Character
 
         public void SetState(eCharacterState state, Action onFinished = null)
 		{
-			this.AnimatorController.SetState(state, onFinished);
+			_onChangeCharacterState?.Invoke(state);
+            this.AnimatorController.SetState(state, onFinished);
         }
 
         public void Dead()
