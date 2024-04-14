@@ -4,6 +4,9 @@ namespace FPSGame.Character
 {
     public class BotAI : AIComponent
     {
+        private const float TEAM_INTERVAL = 3f;
+        private const float SAFETY_INTERVAL = 4f;
+
         private void Update()
         {
             if (owner && !owner.IsDead)
@@ -12,20 +15,34 @@ namespace FPSGame.Character
                 if (target)
                 {
                     owner.MoveController.LootAt(target);
-                    if (target.TeamNember != owner.TeamNember)
+                    bool isEnemy = target.TeamNember != owner.TeamNember;
+                    if (isEnemy)
                     {
-                        owner.WeaponHandler.Fire();
+                        // 적을 향해 에임 세팅
                         owner.SetAim(target);
+
+                        // 발사
+                        owner.WeaponHandler.Fire();
+
+                        bool isMove = Vector3.Distance(target.MyTransform.position, owner.MyTransform.position) < SAFETY_INTERVAL;
+                        if (isMove)
+                        {
+                            // 뒷걸음 처리
+                            Vector3 direction = (target.MyTransform.position - owner.MyTransform.position).normalized;
+                            owner.MoveController.MoveTo(direction); 
+                        }
                     }
                     else
                     {
-                        bool isMove = Vector3.Distance(target.MyTransform.position, owner.MyTransform.position) > 2f;
+                        bool isMove = Vector3.Distance(target.MyTransform.position, owner.MyTransform.position) > TEAM_INTERVAL;
                         if (isMove)
                         {
+                            // 아군에게 이동
                             owner.MoveController.MoveTo(target.MyTransform.position);
                         }
                         else
                         {
+                            // 적당한 거리로 오면 정지
                             owner.MoveController.StopMove();
                         }
                     }
