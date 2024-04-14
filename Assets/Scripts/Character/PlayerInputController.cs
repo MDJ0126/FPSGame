@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 
 namespace FPSGame.Character
 {
@@ -26,6 +27,7 @@ namespace FPSGame.Character
             UpdateCursorLock();
             UpdateMouse();
             UpdateMovement();
+            UpdateSummon();
         }
 
         /// <summary>
@@ -42,6 +44,21 @@ namespace FPSGame.Character
                 _lockMode = CursorLockMode.Locked;
             }
             Cursor.lockState = _lockMode;
+        }
+
+        /// <summary>
+        /// 소환 체크
+        /// </summary>
+        private void UpdateSummon()
+        {
+            if (Input.GetKeyDown(KeyCode.F1))
+            {
+                Vector3 randomVector = Random.insideUnitSphere;
+                var pos = _owner.MyTransform.position + new Vector3(randomVector.x, 0f, randomVector.z);
+                var bot = GameResourceManager.Instance.CreateCharacter<BotCharacter>(eCharacterType.Human, pos);
+                bot.gameObject.SetActive(true);
+                bot.Initiailize();
+            }
         }
 
         /// <summary>

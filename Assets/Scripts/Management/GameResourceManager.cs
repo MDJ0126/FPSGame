@@ -7,15 +7,10 @@ public class GameResourceManager : SingletonBehaviour<GameResourceManager>
     #region Inspector
 
     public ObjectPool bulletPool;
-    public ObjectPool characterPool;
+    public ObjectPool humanPool;
+    public ObjectPool zombiePool;
 
     #endregion
-
-    private void Awake()
-    {
-        var bot = CreateBotCharacter(Vector3.zero, 180f);
-        bot.gameObject.SetActive(true);
-    }
 
     public Projectile Get(eProjectileType type)
     {
@@ -33,11 +28,20 @@ public class GameResourceManager : SingletonBehaviour<GameResourceManager>
         return projectile;
     }
 
-    public BotCharacter CreateBotCharacter(Vector3 worldPos, float angle)
+    public T CreateCharacter<T>(eCharacterType type, Vector3 worldPos, float angle = 0f) where T : Character
     {
-        BotCharacter bot = characterPool.Get<BotCharacter>();
-        bot.MyTransform.position = worldPos;
-        bot.MyTransform.eulerAngles = Vector3.up * angle;
-        return bot;
+        T character = null;
+        switch (type)
+        {
+            case eCharacterType.Human:
+                character = humanPool.Get<T>();
+                break;
+            case eCharacterType.Zombie:
+                character = zombiePool.Get<T>();
+                break;
+        }
+        character.MyTransform.position = worldPos;
+        character.MyTransform.eulerAngles = Vector3.up * angle;
+        return character;
     }
 }

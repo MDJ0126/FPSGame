@@ -51,6 +51,10 @@ namespace FPSGame.Character
 		/// 타겟 탐지
 		/// </summary>
 		public DetectTarget DetectTarget { get; private set; } = null;
+		/// <summary>
+		/// 콜라이더
+		/// </summary>
+        public CapsuleCollider Collider { get; private set; } = null;
         /// <summary>
         /// 팀 번호
         /// </summary>
@@ -63,9 +67,15 @@ namespace FPSGame.Character
 		/// 사망 여부
 		/// </summary>
 		public bool IsDead => Hp <= 0f;
+		/// <summary>
+		/// 에임 높이
+		/// </summary>
+		public float AimHeight { get; private set; } = 0f;
+		/// <summary>
+		/// 에임 범위
+		/// </summary>
+		public float AimDistance { get; private set; } = 0f;
 
-		private float _aimHeight = 0f;
-		private float _aimDistance = 0f;
 
 
         protected virtual void Awake()
@@ -78,14 +88,18 @@ namespace FPSGame.Character
                 this.WeaponHandler = this.gameObject.AddComponent<WeaponHandler>();
 			if (this.DetectTarget == null)
 				this.DetectTarget = DetectTarget.AddComponent(this);
-
-            this.Hp = characterData.maxHp;
-
-			_aimHeight = aim.localPosition.y;
-            _aimDistance = aim.localPosition.z;
+            Collider = this.gameObject.GetComponent<CapsuleCollider>();
+            AimHeight = aim.localPosition.y;
+            AimDistance = aim.localPosition.z;
         }
 
-		public virtual void SetTeam(byte teamNember)
+        public virtual void Initiailize()
+        {
+            Collider.enabled = true;
+            this.Hp = characterData.maxHp;
+        }
+
+        public virtual void SetTeam(byte teamNember)
 		{
 			this.TeamNember = teamNember;
         }
@@ -100,11 +114,11 @@ namespace FPSGame.Character
 			if (target != null)
 			{
 				Vector3 aimCenter = this.MyTransform.position;
-				aimCenter.y = _aimHeight;
+				aimCenter.y = AimHeight;
 				Vector3 targetCenter = target.MyTransform.position;
 				targetCenter.y = CHARACTER_HEIGHT_CENTER;
 				Vector3 direction = targetCenter - aimCenter;
-                aim.position = aimCenter + direction * _aimDistance;
+                aim.position = aimCenter + direction * AimDistance;
             }
 		}
 
@@ -128,6 +142,7 @@ namespace FPSGame.Character
 
         public void Dead()
         {
+			Collider.enabled = false;
             SetState(eCharacterState.Dead, () =>
             {
                 this.gameObject.SetActive(false);

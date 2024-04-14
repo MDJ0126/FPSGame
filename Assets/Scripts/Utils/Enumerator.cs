@@ -30,3 +30,10 @@ public enum eCharacterState
     None = 0,
     Dead,
 }
+
+public enum eCharacterType
+{
+    None = 0,
+    Human,
+    Zombie,
+}

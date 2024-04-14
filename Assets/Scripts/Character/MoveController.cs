@@ -1,7 +1,6 @@
-﻿using System;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 
 namespace FPSGame.Character
 {
@@ -12,19 +11,18 @@ namespace FPSGame.Character
         private Rigidbody _rigidbody = null;
         private NavMeshAgent _agent = null;
         private bool _isGrounded = false;
+        private Coroutine _lookAtCoroutine = null;
 
         private void Awake()
         {
             _owner = GetComponent<Character>();
             _owner.OnChangeCharacterState += OnChangeCharacterState;
-
             _rigidbody = GetComponent<Rigidbody>();
-
             _agent = GetComponent<NavMeshAgent>();
-            if (_agent)
-            {
-                _agent.updateRotation = false;
-            }
+            //if (_agent)
+            //{
+            //    _agent.updateRotation = false;
+            //}
         }
 
         private void OnChangeCharacterState(eCharacterState state)
@@ -33,7 +31,7 @@ namespace FPSGame.Character
             {
                 if (_agent)
                 {
-                    _agent.enabled = false;
+                    _agent.isStopped = true;
                 }
             }
         }
@@ -107,10 +105,33 @@ namespace FPSGame.Character
         /// 바라보기
         /// </summary>
         /// <param name="pos"></param>
-        public void LootAt(Vector3 pos)
+        public void LootAt(Vector3 pos, float duration = 0.5f)
         {
             if (_owner.IsDead) return;
-            _owner.MyTransform.LookAt(new Vector3(pos.x, _owner.MyTransform.position.y, pos.z));
+            if (_lookAtCoroutine != null)
+                StopCoroutine(_lookAtCoroutine);
+            _lookAtCoroutine = StartCoroutine(LookAt(pos, duration));
+            //_owner.MyTransform.LookAt(new Vector3(pos.x, _owner.MyTransform.position.y, pos.z));
+        }
+
+        public IEnumerator LookAt(Vector3 target, float duration)
+        {
+            if (_owner.IsDead) yield break;
+
+            Quaternion originalRotation = _owner.MyTransform.rotation;
+            Quaternion targetRotation = Quaternion.LookRotation(target - _owner.MyTransform.position);
+
+            float timeElapsed = 0f;
+
+            while (timeElapsed < duration)
+            {
+                timeElapsed += Time.deltaTime;
+                float t = Mathf.Clamp01(timeElapsed / duration);
+                _owner.MyTransform.rotation = Quaternion.Slerp(originalRotation, targetRotation, t);
+                yield return null;
+            }
+
+            _owner.MyTransform.LookAt(target);
         }
 
         /// <summary>
@@ -164,7 +185,7 @@ namespace FPSGame.Character
         public bool MoveTo(Vector3 dest)
         {
             if (_owner.IsDead) return false;
-            if (_agent)
+            if (_agent && !_agent.pathPending)
             {
                 _agent.isStopped = false;
                 return _agent.SetDestination(dest);

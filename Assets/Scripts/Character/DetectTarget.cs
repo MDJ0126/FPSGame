@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 
 namespace FPSGame.Character
 {
@@ -31,12 +31,25 @@ namespace FPSGame.Character
             _sphereCollider.radius = radius;
         }
 
+        private void Update()
+        {
+            for (int i = _detectedCharacters.Count - 1; i > 0 ; i--)
+            {
+                var character = _detectedCharacters[i];
+                if (character.Collider == null || character.Collider.enabled == false)
+                {
+                    _detectedCharacters.Remove(character);
+                }
+            }
+        }
+
         private void OnTriggerEnter(Collider other)
         {
             var character = other.gameObject.GetComponent<Character>();
             if (character)
             {
-                _detectedCharacters.Add(character);
+                if (!_detectedCharacters.Exists(c => c.Equals(character)))
+                    _detectedCharacters.Add(character);
             }
         }
 
@@ -66,13 +79,34 @@ namespace FPSGame.Character
         {
             if (_detectedCharacters.Count > 0)
             {
-                // 살아있는 적 캐릭터를 반환
-                var enemy = _detectedCharacters.Find(character => !character.IsDead && _owner.TeamNember != character.TeamNember);
-                if (enemy) 
-                    return enemy;
+                Character minmumTarget = _detectedCharacters[0];
+                float minDistance = float.MaxValue;
+                foreach (var target in _detectedCharacters)
+                {
+                    if (!minmumTarget.Equals(target) && !target.IsDead && _owner.TeamNember != target.TeamNember)
+                    {
+                        if (minmumTarget == null) minmumTarget = target;
+                        float distance = (_owner.MyTransform.position - target.MyTransform.position).sqrMagnitude;
+                        if (minDistance > distance)
+                        {
+                            Vector3 aimCenter = _owner.MyTransform.position;
+                            aimCenter.y = _owner.AimHeight;
+                            Vector3 targetCenter = target.MyTransform.position;
+                            targetCenter.y = Character.CHARACTER_HEIGHT_CENTER;
 
-                // 예외
-                return _detectedCharacters[0];
+                            Vector3 direction = (targetCenter - aimCenter).normalized;
+                            if (Physics.Raycast(aimCenter, direction, out var hit, _sphereCollider.radius))
+                            {
+                                if (hit.collider.gameObject.Equals(target.gameObject))
+                                {
+                                    minDistance = distance;
+                                    minmumTarget = target;
+                                }
+                            }
+                        }
+                    }
+                }
+                return minmumTarget;
             }
             return null;
         }

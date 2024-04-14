@@ -24,10 +24,11 @@ namespace FPSGame.Character
                         // 발사
                         owner.WeaponHandler.Fire();
 
-                        bool isMove = Vector3.Distance(target.MyTransform.position, owner.MyTransform.position) < SAFETY_INTERVAL;
+                        // 뒷걸음 처리
+                        //bool isMove = Vector3.Distance(target.MyTransform.position, owner.MyTransform.position) < SAFETY_INTERVAL;    // 일정 영역 안에 들어오면 뒷걸음 판단
+                        bool isMove = true; // 일단 무조건 움직이게 함 (테스트해보니 생각보다 움직임이 자연스러워져서)
                         if (isMove)
                         {
-                            // 뒷걸음 처리
                             Vector3 direction = (target.MyTransform.position - owner.MyTransform.position).normalized;
                             owner.MoveController.MoveTo(direction); 
                         }

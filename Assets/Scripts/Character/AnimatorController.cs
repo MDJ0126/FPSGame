@@ -19,12 +19,22 @@ namespace FPSGame.Character
         {
             _owner = GetComponent<Character>();
             _animator = GetComponentInChildren<Animator>(true);
+            FindHands();
+        }
+
+        private void OnEnable()
+        {
+            _states.Clear();
             var states = _animator.GetBehaviours<AnimatorStateMachineBehaviour>();
             foreach (var state in states)
             {
                 _states.Add(state.characterState, state);
             }
-            FindHands();
+        }
+
+        private void OnDisable()
+        {
+            _currentState = null;
         }
 
         public void Idle()
