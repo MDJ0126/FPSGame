@@ -93,11 +93,19 @@ public class GameCameraController : SingletonBehaviour<GameCameraController>
         _cinemachineBasicMultiChannelPerlin.m_FrequencyGain = 0f;
     }
 
+    /// <summary>
+    /// 카메라 Y축 회전
+    /// </summary>
+    /// <param name="y"></param>
     public void UpdateRotationY(float y)
     {
 		_rotateY = y;
     }
 
+    /// <summary>
+    /// 카메라 줌
+    /// </summary>
+    /// <param name="isZoomIn"></param>
     public void Zoom(bool isZoomIn)
 	{
 		if (_zoomCoroutine != null)
