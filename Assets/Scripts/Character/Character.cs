@@ -126,7 +126,7 @@ namespace FPSGame.Character
 		{
 			if (this.Hp > 0f)
 			{
-				this.Hp -= damage;
+                this.Hp -= damage;
 				if (this.Hp <= 0f)
 				{
 					Dead();
@@ -147,6 +147,11 @@ namespace FPSGame.Character
             {
                 this.gameObject.SetActive(false);
             });
+        }
+
+		public void Knockback(Vector3 source, float distance = 1.5f)
+		{
+			this.MoveController.KnockBack(source, distance);
         }
     }
 }

@@ -9,6 +9,7 @@ namespace FPSGame.Character
         private Character _owner = null;
         private bool _isPlayer = false;
         public FPSGame.Weapon.Weapon Weapon { get; private set; } = null;
+        public bool IsWaitHandAttack { get; private set; } = false;
 
         private void Start()
         {
@@ -36,31 +37,43 @@ namespace FPSGame.Character
         private void Equip(FPSGame.Weapon.Weapon weapon)
         {
             if (weapon == null) return;
-            if (this.Weapon != null)
-            {
-                this.Weapon.OnFire -= OnFireCallback;
-            }
             this.Weapon = weapon;
-            this.Weapon.OnFire += OnFireCallback;
-        }
-
-        /// <summary>
-        /// 공격 실행 콜백
-        /// </summary>
-        private void OnFireCallback()
-        {
-            if (_isPlayer)
-            {
-                GameCameraController.Instance.Shake(eEaseType.EaseInBack, gain: 2f, duration: 0.1f);
-            }
         }
 
         /// <summary>
         /// 공격
         /// </summary>
-        public void Fire()
+        public void Fire(Action onFire = null)
         {
-            Weapon?.Fire(_owner);
+            if (Weapon)
+            {
+                // 무기가 있는 경우
+                Weapon.Fire(_owner, () =>
+                {
+                    onFire?.Invoke();
+                    if (_isPlayer)
+                    {
+                        GameCameraController.Instance.Shake(eEaseType.EaseInBack, gain: 2f, duration: 0.1f);
+                    }
+                });
+            }
+            else
+            {
+                // 무기가 없는 경우 맨손 공격
+                if (!IsWaitHandAttack)
+                {
+                    IsWaitHandAttack = true;
+                    _owner.AnimatorController.Fire(
+                    onFire: () =>
+                    {
+                        onFire?.Invoke();
+                    },
+                    onFinished: () =>
+                    {
+                        IsWaitHandAttack = false;
+                    });
+                }
+            }
         }
     }
 }

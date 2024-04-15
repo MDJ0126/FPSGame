@@ -28,6 +28,10 @@ public enum eTeam
 public enum eCharacterState
 {
     None = 0,
+    Idle,
+    Fire1,
+    Fire2,
+    Fire3,
     Dead,
 }
 

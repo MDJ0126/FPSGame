@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: BaseCharacter
   m_EditorClassIdentifier: 
   id: 1
+  damage: 5
   maxHp: 100
   moveSpeed: 100
   jumpWeight: 5

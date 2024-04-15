@@ -26,6 +26,9 @@ public class SpawnManager : SingletonBehaviour<SpawnManager>
         bool isCreateComplete = true;
         while (true)
         {
+            // 좀비 생성하기
+            CreateZombie();
+
             if (isCreateComplete)
             {
                 // 정상적인 재생성 간격
@@ -36,9 +39,6 @@ public class SpawnManager : SingletonBehaviour<SpawnManager>
                 // 생성 실패하는 경우
                 yield return YieldInstructionCache.WaitForSeconds(1f);  // 혹시 모를 무한 반복 루프 및 과부하를 위해 1초만 대기한다.
             }
-
-            // 좀비 생성하기
-            CreateZombie();
         }
 
         void CreateZombie()

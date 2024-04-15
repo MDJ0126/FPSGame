@@ -6,19 +6,6 @@ namespace FPSGame.Weapon
     public abstract class Weapon : MonoBehaviour
     {
         public delegate void OnFireEvent();
-        private event OnFireEvent _onFire = null;
-        public event OnFireEvent OnFire
-        {
-            add
-            {
-                _onFire -= value;
-                _onFire += value;
-            }
-            remove
-            {
-                _onFire -= value;
-            }
-        }
 
         public static string SHOT_HANDLER_NAME = "Shot";
         public static string LEFT_HANDLER_NAME = "LeftHandler";
@@ -40,9 +27,9 @@ namespace FPSGame.Weapon
 
         protected DateTime shotRecordTime;
 
-        public virtual void Fire(FPSGame.Character.Character owner) 
+        public virtual void Fire(FPSGame.Character.Character owner, Action onFire = null) 
         {
-            _onFire?.Invoke();
+            onFire?.Invoke();
         }
 
 #if UNITY_EDITOR

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.Assertions.Must;
 
 namespace FPSGame.Character
 {
@@ -95,26 +96,26 @@ namespace FPSGame.Character
         /// 바라보기
         /// </summary>
         /// <param name="character"></param>
-        public void LootAt(Character character)
+        public void LookAt(Character character, float duration = 0.5f)
         {
             if (_owner.IsDead) return;
-            LootAt(character.MyTransform.position);
+            LookAt(character.MyTransform.position);
         }
 
         /// <summary>
         /// 바라보기
         /// </summary>
         /// <param name="pos"></param>
-        public void LootAt(Vector3 pos, float duration = 0.5f)
+        public void LookAt(Vector3 pos, float duration = 0.5f)
         {
             if (_owner.IsDead) return;
             if (_lookAtCoroutine != null)
                 StopCoroutine(_lookAtCoroutine);
-            _lookAtCoroutine = StartCoroutine(LookAt(pos, duration));
+            _lookAtCoroutine = StartCoroutine(LookAtLerpAnimation(pos, duration));
             //_owner.MyTransform.LookAt(new Vector3(pos.x, _owner.MyTransform.position.y, pos.z));
         }
 
-        public IEnumerator LookAt(Vector3 target, float duration)
+        private IEnumerator LookAtLerpAnimation(Vector3 target, float duration)
         {
             if (_owner.IsDead) yield break;
 
@@ -213,6 +214,22 @@ namespace FPSGame.Character
             if (_isGrounded)
             {
                 _rigidbody.velocity += Vector3.up * _owner.characterData.jumpWeight;
+            }
+        }
+
+        /// <summary>
+        /// 넉백
+        /// </summary>
+        public void KnockBack(Vector3 source, float distance)
+        {
+            Vector3 direction = (_owner.MyTransform.position - source).normalized;
+            if (_agent)
+            {
+                _agent.velocity += direction * distance;
+            }
+            else
+            {
+                _rigidbody.velocity += direction * distance;
             }
         }
     }

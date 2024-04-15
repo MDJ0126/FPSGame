@@ -7,6 +7,7 @@ public class GameResourceManager : SingletonBehaviour<GameResourceManager>
     #region Inspector
 
     public ObjectPool bulletPool;
+    public ObjectPool bloodPool;
     public ObjectPool humanPool;
     public ObjectPool zombiePool;
 
@@ -26,6 +27,11 @@ public class GameResourceManager : SingletonBehaviour<GameResourceManager>
                 break;
         }
         return projectile;
+    }
+
+    public EffectSystem GetBlood()
+    {
+        return bloodPool.Get<EffectSystem>();
     }
 
     public T CreateCharacter<T>(eCharacterType type, Vector3 worldPos, float angle = 0f) where T : Character

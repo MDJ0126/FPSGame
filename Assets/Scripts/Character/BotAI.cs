@@ -12,9 +12,15 @@ namespace FPSGame.Character
             if (owner && !owner.IsDead)
             {
                 var target = owner.DetectTarget.GetDectedCharacter();
+                if (target == null || target.TeamNember == owner.TeamNember)
+                {
+                    // 탐지한 적이 없으면 플레이어를 추적
+                    target = GamePlayManager.Instance.player;
+                }
+
                 if (target)
                 {
-                    owner.MoveController.LootAt(target);
+                    owner.MoveController.LookAt(target);
                     bool isEnemy = target.TeamNember != owner.TeamNember;
                     if (isEnemy)
                     {

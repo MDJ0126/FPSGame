@@ -6,6 +6,8 @@ namespace FPSGame.Projectile
 {
     public abstract class Projectile : MonoBehaviour
     {
+        public delegate void OnHitCollider(HitCollider hitCollider, Vector3 hitPoint);
+
         private Transform _myTransform = null;
         public Transform MyTransform
         {
@@ -20,9 +22,9 @@ namespace FPSGame.Projectile
         protected bool isPlay = false;
         protected Vector3 startPos = Vector3.zero;
         protected Vector3 direction = Vector3.zero;
-        protected Action<HitCollider> onFinished = null;
+        protected OnHitCollider onFinished = null;
 
-        public virtual void Run(Vector3 startPos, Vector3 direction, float spreadRange = 1f, Action<HitCollider> onFinished = null)
+        public virtual void Run(Vector3 startPos, Vector3 direction, float spreadRange = 1f, OnHitCollider onFinished = null)
         {
             // 랜덤 산탄 각도 적용
             Quaternion spreadRotation = Quaternion.Euler(UnityEngine.Random.Range(-spreadRange, spreadRange), UnityEngine.Random.Range(-spreadRange, spreadRange), 0f);
@@ -53,20 +55,20 @@ namespace FPSGame.Projectile
                     var hitCollider = other.GetComponent<HitCollider>();
                     if (hitCollider)
                     {
-                        Finish(hitCollider);
+                        Finish(hitCollider, this.MyTransform.position);
                     }
                 }
             }
         }
 
-        public void Finish(HitCollider hitCollider)
+        public void Finish(HitCollider hitCollider, Vector3 hitPoint = default)
         {
             isPlay = false;
             gameObject.SetActive(false);
             var temp = onFinished;
             onFinished = null;
             if (hitCollider != null)
-                temp?.Invoke(hitCollider);
+                temp?.Invoke(hitCollider, hitPoint);
         }
     }
 }
