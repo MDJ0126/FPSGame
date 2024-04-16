@@ -142,7 +142,7 @@ namespace FPSGame.Character
 
         public void Dead()
         {
-			Collider.enabled = false;
+			if (!(this is PlayerCharacter)) Collider.enabled = false;
             SetState(eCharacterState.Dead, () =>
             {
                 this.gameObject.SetActive(false);
