@@ -64,7 +64,7 @@ namespace FPSGame.Character
             for (int i = 0; i < childs.Length; i++)
             {
                 Transform child = childs[i];
-                if (child.name.Equals("LeftHand"))
+                if (child.name.Equals("Left Hand"))
                 {
                     LeftHand = child.GetComponent<TwoBoneIKConstraint>();
                 }

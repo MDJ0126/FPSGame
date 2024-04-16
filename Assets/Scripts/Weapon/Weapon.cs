@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using static UnityEngine.UI.GridLayoutGroup;
 
 namespace FPSGame.Weapon
 {
@@ -30,6 +31,11 @@ namespace FPSGame.Weapon
         public virtual void Fire(FPSGame.Character.Character owner, Action onFire = null) 
         {
             onFire?.Invoke();
+        }
+
+        private void Update()
+        {
+            Debug.DrawRay(shot.position, shot.forward * 10, Color.yellow);
         }
 
 #if UNITY_EDITOR

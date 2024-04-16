@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9035969885408083848}
   - component: {fileID: 6843751836938647575}
   m_Layer: 0
-  m_Name: BodyAim
+  m_Name: Body Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -483,7 +483,7 @@ GameObject:
   - component: {fileID: 6023502134776615576}
   - component: {fileID: 8761685066827422459}
   m_Layer: 0
-  m_Name: LeftHand
+  m_Name: Left Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -669,7 +669,7 @@ GameObject:
   - component: {fileID: 8607258740501111143}
   - component: {fileID: 3799023693047864323}
   m_Layer: 0
-  m_Name: WeaponAim
+  m_Name: Right Hand Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -755,7 +755,7 @@ GameObject:
   - component: {fileID: 6228307755540790466}
   - component: {fileID: 406485023475903295}
   m_Layer: 0
-  m_Name: HeadAim
+  m_Name: Head Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

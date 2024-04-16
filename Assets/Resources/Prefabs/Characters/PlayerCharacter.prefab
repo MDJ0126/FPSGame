@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 9035969885408083848}
   - component: {fileID: 6843751836938647575}
   m_Layer: 0
-  m_Name: BodyAim
+  m_Name: Body Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -167,6 +167,7 @@ Transform:
   - {fileID: 9035969885408083848}
   - {fileID: 6228307755540790466}
   - {fileID: 8607258740501111143}
+  - {fileID: 740272841122976387}
   - {fileID: 6023502134776615576}
   m_Father: {fileID: 6966036613556335949}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -460,7 +461,7 @@ GameObject:
   - component: {fileID: 6023502134776615576}
   - component: {fileID: 8761685066827422459}
   m_Layer: 0
-  m_Name: LeftHand
+  m_Name: Left Hand
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -507,6 +508,92 @@ MonoBehaviour:
     m_HintWeight: 1
     m_MaintainTargetPositionOffset: 0
     m_MaintainTargetRotationOffset: 0
+--- !u!1 &3955467209705426758
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 740272841122976387}
+  - component: {fileID: 564554278063719452}
+  m_Layer: 0
+  m_Name: Weapon Aim
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &740272841122976387
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3955467209705426758}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4047910370304656050}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &564554278063719452
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3955467209705426758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e3c430f382484144e925c097c2d33cfe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Weight: 1
+  m_Data:
+    m_ConstrainedObject: {fileID: 7118081174939245960}
+    m_SourceObjects:
+      m_Length: 1
+      m_Item0:
+        transform: {fileID: 147137546468238375}
+        weight: 1
+      m_Item1:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item2:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item3:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item4:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item5:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item6:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item7:
+        transform: {fileID: 0}
+        weight: 0
+    m_Offset: {x: 0, y: 0, z: 0}
+    m_MinLimit: -80
+    m_MaxLimit: 80
+    m_AimAxis: 4
+    m_UpAxis: 2
+    m_WorldUpType: 0
+    m_WorldUpObject: {fileID: 0}
+    m_WorldUpAxis: 2
+    m_MaintainOffset: 0
+    m_ConstrainedAxes:
+      x: 1
+      y: 1
+      z: 1
 --- !u!1 &4497124632943616828
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,7 +636,7 @@ GameObject:
   - component: {fileID: 8607258740501111143}
   - component: {fileID: 3799023693047864323}
   m_Layer: 0
-  m_Name: WeaponAim
+  m_Name: Right Hand Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -704,7 +791,7 @@ GameObject:
   - component: {fileID: 6228307755540790466}
   - component: {fileID: 406485023475903295}
   m_Layer: 0
-  m_Name: HeadAim
+  m_Name: Head Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -996,6 +1083,11 @@ PrefabInstance:
 --- !u!4 &2164550165019154128 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4296816758134717613, guid: 6b1e693ad6edd954e8f8290fa0837002, type: 3}
+  m_PrefabInstance: {fileID: 2714363235878464125}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7118081174939245960 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5144196983955421173, guid: 6b1e693ad6edd954e8f8290fa0837002, type: 3}
   m_PrefabInstance: {fileID: 2714363235878464125}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6970776388415266133

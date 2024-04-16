@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   id: 1
   damage: 5
-  maxHp: 300
+  maxHp: 50
   moveSpeed: 100
   jumpWeight: 5
