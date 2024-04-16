@@ -1,4 +1,12 @@
-﻿public enum eLayer : int
+﻿public enum eScene
+{
+    Empty = 0,
+    Splash,
+    Lobby,
+    GameRoom,
+}
+
+public enum eLayer : int
 {
     Default = 0,
     TransparentFX = 1,

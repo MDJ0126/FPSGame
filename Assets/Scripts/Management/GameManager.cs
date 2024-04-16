@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameManager : SingletonBehaviour<GameManager>
 {
@@ -9,8 +9,7 @@ public class GameManager : SingletonBehaviour<GameManager>
         {
             if (Application.isPlaying)
             {
-                GameObject go = new GameObject(nameof(GameManager));
-                go.AddComponent<GameManager>();
+                Instantiate(Resources.Load<GameObject>("Prefabs/GameManager"));
             }
         }
     }
