@@ -450,6 +450,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterData: {fileID: 11400000, guid: e377d6e21e185f34c9721eff792e1cae, type: 2}
   aim: {fileID: 147137546468238375}
+  weaponAim: {fileID: 564554278063719452}
 --- !u!1 &3610630268861522952
 GameObject:
   m_ObjectHideFlags: 0
@@ -554,7 +555,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Weight: 1
   m_Data:
-    m_ConstrainedObject: {fileID: 7118081174939245960}
+    m_ConstrainedObject: {fileID: 0}
     m_SourceObjects:
       m_Length: 1
       m_Item0:
@@ -1083,11 +1084,6 @@ PrefabInstance:
 --- !u!4 &2164550165019154128 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4296816758134717613, guid: 6b1e693ad6edd954e8f8290fa0837002, type: 3}
-  m_PrefabInstance: {fileID: 2714363235878464125}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &7118081174939245960 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5144196983955421173, guid: 6b1e693ad6edd954e8f8290fa0837002, type: 3}
   m_PrefabInstance: {fileID: 2714363235878464125}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6970776388415266133

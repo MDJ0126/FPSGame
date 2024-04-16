@@ -217,7 +217,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &459878766165440622
 Transform:
   m_ObjectHideFlags: 0
@@ -302,6 +302,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterData: {fileID: 11400000, guid: ef5e08b38363fe34eaa0f61ac5449f74, type: 2}
   aim: {fileID: 4447747838181579604}
+  weaponAim: {fileID: 0}
 --- !u!195 &5121545490415437676
 NavMeshAgent:
   m_ObjectHideFlags: 0

@@ -38,6 +38,8 @@ namespace FPSGame.Character
         {
             if (weapon == null) return;
             this.Weapon = weapon;
+            if (_owner.weaponAim)
+                _owner.weaponAim.data.constrainedObject = weapon.shot;
         }
 
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Animations.Rigging;
 
 namespace FPSGame.Character
 {
@@ -9,8 +10,9 @@ namespace FPSGame.Character
 
         public CharacterData characterData;
 		public Transform aim;
+		public MultiAimConstraint weaponAim;
 
-		public delegate void OnChangeCharacterStateEvent(eCharacterState state);
+        public delegate void OnChangeCharacterStateEvent(eCharacterState state);
 		private event OnChangeCharacterStateEvent _onChangeCharacterState = null;
 		public event OnChangeCharacterStateEvent OnChangeCharacterState
 		{
@@ -24,6 +26,21 @@ namespace FPSGame.Character
 				_onChangeCharacterState -= value;
 			}
 		}
+
+		public delegate void OnCharacterEvent(Character character);
+        private event OnCharacterEvent _onDead = null;
+        public event OnCharacterEvent OnDead
+        {
+            add
+            {
+                _onDead -= value;
+                _onDead += value;
+            }
+            remove
+            {
+                _onDead -= value;
+            }
+        }
 
         private Transform _myTransform = null;
 		public Transform MyTransform
@@ -142,11 +159,12 @@ namespace FPSGame.Character
 
         public void Dead()
         {
-			if (!(this is PlayerCharacter)) Collider.enabled = false;
+            if (!(this is PlayerCharacter)) Collider.enabled = false;
             SetState(eCharacterState.Dead, () =>
             {
                 this.gameObject.SetActive(false);
             });
+            _onDead?.Invoke(this);
         }
 
 		public void Knockback(Vector3 source, float distance = 1.5f)
