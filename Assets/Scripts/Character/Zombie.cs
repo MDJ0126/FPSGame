@@ -13,9 +13,12 @@
         {
             base.Dead(attacker);
 
-            int killScore = 100;
-            attacker.AddScore(killScore);
-            attacker.SendLog($"{attacker.PlayerInfo.Name}(이)가 좀비를 처치했습니다! (+{killScore})");
+            if (attacker)
+            {
+                int killScore = 100;
+                attacker.AddScore(killScore);
+                attacker.SendLog($"{attacker.PlayerInfo.Name}(이)가 좀비를 처치했습니다! (+{killScore})");
+            }
         }
 
         protected override void OnDeadState()
