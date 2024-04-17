@@ -4,7 +4,7 @@ namespace FPSGame.Character
 {
     public class HitCollider : MonoBehaviour
     {
-        private float CRITICAL_RATE = 1.5F;
+        private float CRITICAL_RATE = 3.5F;
 
         public enum eParts
         {

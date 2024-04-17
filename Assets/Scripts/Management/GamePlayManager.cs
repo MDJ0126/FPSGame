@@ -134,6 +134,28 @@ public class GamePlayManager : SingletonBehaviour<GamePlayManager>
         AddLog($"{character.PlayerInfo.Name}(이)가 참여했습니다.");
     }
 
+    /// <summary>
+    /// 살아있는 아무 캐릭터 가져오기
+    /// </summary>
+    /// <returns></returns>
+    public Character GetAilveCharacter()
+    {
+        Character ailveCharacter = null;
+        foreach (var character in _characterDic.Values)
+        {
+            if (!character.IsDead)
+            {
+                ailveCharacter = character;
+                break;
+            }
+        }
+        return ailveCharacter;
+    }
+
+    /// <summary>
+    /// 로그 남기기
+    /// </summary>
+    /// <param name="message"></param>
     private void OnSendLogFromCharacter(string message)
     {
         AddLog(message);

@@ -17,8 +17,8 @@ namespace FPSGame.Character
                     var target = owner.DetectTarget.GetDectedCharacter();
                     if (target == null || target.TeamNember == owner.TeamNember)
                     {
-                        // 탐지한 적이 없으면 플레이어를 추적
-                        target = GamePlayManager.Instance.myCharacter;
+                        // 탐지한 적이 없으면 살아있는 적 탐색
+                        target = GamePlayManager.Instance.GetAilveCharacter();
                     }
 
                     if (target)
@@ -44,7 +44,7 @@ namespace FPSGame.Character
                                     foreach (var hit in hitInfos)
                                     {
                                         HitCollider hitCollider = hit.collider.GetComponent<HitCollider>();
-                                        if (hitCollider)
+                                        if (hitCollider && owner)
                                         {
                                             hitCollider.HitDamage(owner, hit.point, owner.characterData.damage);
                                         }
