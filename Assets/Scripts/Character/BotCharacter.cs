@@ -33,5 +33,10 @@ namespace FPSGame.Character
             base.Dead(attacker);
             SendLog($"{PlayerInfo.Name}(이)가 사망했습니다.");
         }
+
+        protected override void OnDeadState()
+        {
+            base.OnDeadState();
+        }
     }
 }

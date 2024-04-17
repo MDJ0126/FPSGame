@@ -79,10 +79,12 @@ namespace FPSGame.Character
         {
             if (_detectedCharacters.Count > 0)
             {
+                // 가장 가까운 타겟 탐색
                 Character minmumTarget = _detectedCharacters[0];
                 float minDistance = float.MaxValue;
                 foreach (var target in _detectedCharacters)
                 {
+                    // 죽지 않은 적 탐색
                     if (!minmumTarget.Equals(target) && !target.IsDead && _owner.TeamNember != target.TeamNember)
                     {
                         if (minmumTarget == null) minmumTarget = target;

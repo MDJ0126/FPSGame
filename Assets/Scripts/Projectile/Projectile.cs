@@ -1,5 +1,4 @@
 ﻿using FPSGame.Character;
-using System;
 using UnityEngine;
 
 namespace FPSGame.Projectile
@@ -58,7 +57,7 @@ namespace FPSGame.Projectile
                     if (hitCollider && sender)
                     {
                         bool isEnemy = hitCollider.Owner.TeamNember != sender.TeamNember;
-                        if (isEnemy)
+                        if (isEnemy || sender is PlayerCharacter)
                         {
                             if (!hitCollider.Owner.IsDead)
                             {

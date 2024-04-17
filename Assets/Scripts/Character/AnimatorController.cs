@@ -16,17 +16,26 @@ namespace FPSGame.Character
         private Dictionary<eCharacterState, AnimatorStateMachineBehaviour> _states = new();
         private AnimatorStateMachineBehaviour _currentState = null;
         private List<eCharacterState> _fireList = new();
+        private Rig[] _rigs = null;
 
         private void Awake()
         {
             _owner = GetComponent<Character>();
             _animator = GetComponentInChildren<Animator>(true);
             _receiver = GetComponentInChildren<AnimatorReceiver>(true);
+            _rigs = GetComponentsInChildren<Rig>(true);
             FindHands();
         }
 
         private void OnEnable()
         {
+            if (_rigs != null)
+            {
+                foreach (var rig in _rigs)
+                {
+                    rig.weight = 1f;
+                }
+            }
             _animator.Rebind();
             _states.Clear();
             _fireList.Clear();
@@ -107,7 +116,16 @@ namespace FPSGame.Character
                     _animator.SetTrigger(AnimHash.Fire3);
                     break;
                 case eCharacterState.Dead:
-                    _animator.SetTrigger(AnimHash.Dead);
+                    {
+                        _animator.SetTrigger(AnimHash.Dead);
+                        if (_rigs != null)
+                        {
+                            foreach (var rig in _rigs)
+                            {
+                                rig.weight = 0f;
+                            }
+                        }
+                    }
                     break;
                 default:
                     break;

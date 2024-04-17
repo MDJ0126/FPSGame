@@ -234,9 +234,17 @@ namespace FPSGame.Character
             if (!(this is PlayerCharacter)) Collider.enabled = false;
             SetState(eCharacterState.Dead, () =>
             {
-                this.gameObject.SetActive(false);
+				OnDeadState();
             });
             _onDead?.Invoke(this);
+        }
+
+		/// <summary>
+		/// 사망 애니메이션이 끝나는 경우 호출
+		/// </summary>
+		protected virtual void OnDeadState()
+        {
+            //this.gameObject.SetActive(false);
         }
 
 		/// <summary>

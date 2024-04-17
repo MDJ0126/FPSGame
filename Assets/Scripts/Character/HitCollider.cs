@@ -36,11 +36,11 @@ namespace FPSGame.Character
         /// <param name="damage"></param>
         public int HitDamage(Character attacker, Vector3 hitPos, float damage)
         {
-            if (attacker.TeamNember == Owner.TeamNember)
-            {
-                // 같은 팀의 경우 데미지 처리하지 않는다. (플레이어 본인만)
-                if (!(attacker is PlayerCharacter)) return 0;
-            }
+            //if (attacker.TeamNember == Owner.TeamNember)
+            //{
+            //    // 같은 팀의 경우 데미지 처리하지 않는다. (플레이어 본인만)
+            //    if (!(attacker is PlayerCharacter)) return 0;
+            //}
             var effect = GameResourceManager.Instance.GetBlood();
             effect.transform.position = hitPos;
             effect.transform.LookAt(attacker.MyTransform.position);
