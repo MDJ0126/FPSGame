@@ -20,6 +20,11 @@ public class SceneController : SingletonBehaviour<SceneController>
 
     private IEnumerator LoadSceneAsyncReleaseMemory(eScene scene)
     {
+        // 페이드인
+        float duration = 0.5f;
+        FadeController.Instance.FadeIn(duration);
+        yield return YieldInstructionCache.WaitForSeconds(duration);
+
         // 빈 씬 로드로 이전 씬의 메모리를 완전 초기화
         //GC.Collect();
         //Resources.UnloadUnusedAssets();
@@ -27,6 +32,9 @@ public class SceneController : SingletonBehaviour<SceneController>
 
         // 새로운 씬 로드
         yield return LoadSceneProcess(scene);
+
+        // 페이드아웃
+        FadeController.Instance.FadeOut();
     }
 
     private IEnumerator LoadSceneProcess(eScene scene)

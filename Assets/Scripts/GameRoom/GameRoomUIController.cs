@@ -29,7 +29,10 @@ public class GameRoomUIController : MonoBehaviour
 
     private void OnDisable()
     {
-        GamePlayManager.Instance.player.OnDead -= OnDeadPlayer;
+        if (GamePlayManager.IsLive)
+        {
+            GamePlayManager.Instance.player.OnDead -= OnDeadPlayer;
+        }
     }
 
     private void OnDeadPlayer(Character character)
