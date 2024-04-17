@@ -34,29 +34,33 @@ namespace FPSGame.Character
         /// </summary>
         private void UpdateCursorLock()
         {
-            if (Input.GetKeyDown(KeyCode.Escape))
+            if (_owner.IsDead)
             {
                 _lockMode = CursorLockMode.None;
             }
             else
             {
-                _lockMode = CursorLockMode.Locked;
+                if (Input.GetKeyDown(KeyCode.Escape))
+                {
+                    _lockMode = CursorLockMode.None;
+                }
+                else
+                {
+                    _lockMode = CursorLockMode.Locked;
+                }
             }
             Cursor.lockState = _lockMode;
         }
 
         /// <summary>
-        /// 소환 체크
+        /// 봇 플레이어 생성
         /// </summary>
         private void UpdateSummon()
         {
+            if (_owner.IsDead) return;
             if (Input.GetKeyDown(KeyCode.F1))
             {
-                Vector3 randomVector = Random.insideUnitSphere;
-                var pos = _owner.MyTransform.position + new Vector3(randomVector.x, 0f, randomVector.z);
-                var bot = GameResourceManager.Instance.CreateCharacter<BotCharacter>(eCharacterType.Human, pos);
-                bot.gameObject.SetActive(true);
-                bot.Initiailize();
+                GamePlayManager.Instance.SummonBotPlayer(_owner.MyTransform.position);
             }
         }
 
@@ -65,6 +69,7 @@ namespace FPSGame.Character
         /// </summary>
         private void UpdateMouse()
         {
+            if (_owner.IsDead) return;
             float x = Input.GetAxis("Mouse X");
             float y = Input.GetAxis("Mouse Y");
 
@@ -96,6 +101,7 @@ namespace FPSGame.Character
         /// </summary>
         private void UpdateMovement()
         {
+            if (_owner.IsDead) return;
             // 이동
             float horizontal = Input.GetAxis("Horizontal");
             float vertical = Input.GetAxis("Vertical");

@@ -15,7 +15,7 @@ namespace FPSGame.Character
                 if (target == null || target.TeamNember == owner.TeamNember)
                 {
                     // 탐지한 적이 없으면 플레이어를 추적
-                    target = GamePlayManager.Instance.player;
+                    target = GamePlayManager.Instance.myCharacter;
                 }
 
                 if (target)

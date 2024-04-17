@@ -16,14 +16,15 @@ namespace FPSGame.Weapon
         public override void Fire(FPSGame.Character.Character owner, Action onFire)
         {
             base.Fire(owner, onFire);
-            var now = DateTime.Now;
+            var now = GameConfig.NowTime;
             if (shotRecordTime.AddSeconds(shotInterval) < now)
             {
                 shotRecordTime = now;
                 var bullet = GameResourceManager.Instance.Get(eProjectileType.Bullet);
-                bullet.Run(shot.position, shot.forward, spreadRange, (hitCollider, hitPoint) =>
+                bullet.Run(owner, shot.position, shot.forward, spreadRange, (hitCollider, hitPoint) =>
                 {
-                    hitCollider.HitDamage(owner, hitPoint, damage);
+                    var score = hitCollider.HitDamage(owner, hitPoint, damage);
+                    owner.AddScore(score);
                 });
             }
         }

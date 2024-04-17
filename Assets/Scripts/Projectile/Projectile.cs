@@ -20,17 +20,19 @@ namespace FPSGame.Projectile
         }
 
         protected bool isPlay = false;
+        protected FPSGame.Character.Character sender = null;
         protected Vector3 startPos = Vector3.zero;
         protected Vector3 direction = Vector3.zero;
         protected OnHitCollider onFinished = null;
 
-        public virtual void Run(Vector3 startPos, Vector3 direction, float spreadRange = 1f, OnHitCollider onFinished = null)
+        public virtual void Run(FPSGame.Character.Character sender, Vector3 startPos, Vector3 direction, float spreadRange = 1f, OnHitCollider onFinished = null)
         {
             // 랜덤 산탄 각도 적용
             Quaternion spreadRotation = Quaternion.Euler(UnityEngine.Random.Range(-spreadRange, spreadRange), UnityEngine.Random.Range(-spreadRange, spreadRange), 0f);
             direction = spreadRotation * direction;
 
             isPlay = true;
+            this.sender = sender;
             this.MyTransform.position = startPos;
             this.MyTransform.LookAt(startPos + direction);
             this.startPos = startPos;
@@ -53,9 +55,16 @@ namespace FPSGame.Projectile
                 if ((other.gameObject.layer & (int)eLayer.HitCollider) != 0)
                 {
                     var hitCollider = other.GetComponent<HitCollider>();
-                    if (hitCollider)
+                    if (hitCollider && sender)
                     {
-                        Finish(hitCollider, this.MyTransform.position);
+                        bool isEnemy = hitCollider.Owner.TeamNember != sender.TeamNember;
+                        if (isEnemy)
+                        {
+                            if (!hitCollider.Owner.IsDead)
+                            {
+                                Finish(hitCollider, this.MyTransform.position);
+                            }
+                        }
                     }
                 }
             }

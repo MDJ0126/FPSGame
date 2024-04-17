@@ -24,14 +24,14 @@ public class GameRoomUIController : MonoBehaviour
 
     private void OnEnable()
     {
-        GamePlayManager.Instance.player.OnDead += OnDeadPlayer;
+        GamePlayManager.Instance.myCharacter.OnDead += OnDeadPlayer;
     }
 
     private void OnDisable()
     {
         if (GamePlayManager.IsLive)
         {
-            GamePlayManager.Instance.player.OnDead -= OnDeadPlayer;
+            GamePlayManager.Instance.myCharacter.OnDead -= OnDeadPlayer;
         }
     }
 

@@ -17,7 +17,7 @@ public class SpawnManager : SingletonBehaviour<SpawnManager>
 
     private void Start()
     {
-        _target = GamePlayManager.Instance.player;
+        _target = GamePlayManager.Instance.myCharacter;
         _spawnCoroutine = StartCoroutine(SpawnProcess());
     }
 
@@ -54,7 +54,7 @@ public class SpawnManager : SingletonBehaviour<SpawnManager>
                 zombie.gameObject.SetActive(true);
                 zombie.Initiailize();
                 NavMeshPath path = new NavMeshPath();
-                zombie.Agent.CalculatePath(GamePlayManager.Instance.player.MyTransform.position, path);
+                zombie.Agent.CalculatePath(GamePlayManager.Instance.myCharacter.MyTransform.position, path);
                 if (path.status == NavMeshPathStatus.PathComplete)
                 {
                     isCreateComplete = true;

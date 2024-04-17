@@ -41,7 +41,38 @@ namespace FPSGame.Character
                 _onDead -= value;
             }
         }
+        private event OnCharacterEvent _onChangedHitPoint = null;
+        public event OnCharacterEvent OnChangedHitPoint
+        {
+            add
+            {
+                _onChangedHitPoint -= value;
+                _onChangedHitPoint += value;
+            }
+            remove
+            {
+                _onChangedHitPoint -= value;
+            }
+        }
+		public delegate void OnSendLogEvent(string message);
+		private event OnSendLogEvent _onSendLog = null;
+        public event OnSendLogEvent OnSendLog
+        {
+            add
+            {
+                _onSendLog -= value;
+                _onSendLog += value;
+            }
+            remove
+            {
+                _onSendLog -= value;
+            }
+        }
 
+        /// <summary>
+        /// 플레이어 정보
+        /// </summary>
+        public PlayerInfo PlayerInfo { get; private set; } = null;
         private Transform _myTransform = null;
 		public Transform MyTransform
 		{
@@ -93,8 +124,6 @@ namespace FPSGame.Character
 		/// </summary>
 		public float AimDistance { get; private set; } = 0f;
 
-
-
         protected virtual void Awake()
 		{
             if (this.AnimatorController == null)
@@ -110,22 +139,37 @@ namespace FPSGame.Character
             AimDistance = aim.localPosition.z;
         }
 
+		/// <summary>
+		/// 초기화
+		/// </summary>
         public virtual void Initiailize()
         {
-            Collider.enabled = true;
+            this.Collider.enabled = true;
             this.Hp = characterData.maxHp;
         }
 
+		/// <summary>
+		/// 플레이어 정보 세팅
+		/// </summary>
+		/// <param name="playerInfo"></param>
+		public void SetPlayerInfo(PlayerInfo playerInfo)
+		{
+			this.PlayerInfo = playerInfo;
+        }
+
+		/// <summary>
+		/// 팀 세팅
+		/// </summary>
+		/// <param name="teamNember"></param>
         public virtual void SetTeam(byte teamNember)
 		{
 			this.TeamNember = teamNember;
         }
 
-		public eTeam GetTeam(byte teamNumber)
-		{
-			return this.TeamNember == teamNumber ? eTeam.MyTeam : eTeam.EnemyTeam;
-        }
-
+		/// <summary>
+		/// 캐릭터 에임 위치 조정
+		/// </summary>
+		/// <param name="target"></param>
 		public void SetAim(Character target)
 		{
 			if (target != null)
@@ -139,25 +183,53 @@ namespace FPSGame.Character
             }
 		}
 
-		public void HitDamage(float damage)
+		/// <summary>
+		/// 점수 추가
+		/// </summary>
+		/// <param name="score"></param>
+		public void AddScore(int score)
+		{
+			if (this.IsDead) return;
+			this.PlayerInfo.AddScore(score);
+		}
+
+		/// <summary>
+		/// 데미지 피격
+		/// </summary>
+		/// <param name="damage"></param>
+		public void HitDamage(Character attacker, float damage)
 		{
 			if (this.Hp > 0f)
 			{
                 this.Hp -= damage;
-				if (this.Hp <= 0f)
-				{
-					Dead();
-				}
-			}
+                _onChangedHitPoint?.Invoke(this);
+                if (this.Hp <= 0f) Dead(attacker);
+            }
 		}
 
+		/// <summary>
+		/// 상태 전환
+		/// </summary>
+		/// <param name="state"></param>
+		/// <param name="onFinished"></param>
         public void SetState(eCharacterState state, Action onFinished = null)
 		{
 			_onChangeCharacterState?.Invoke(state);
             this.AnimatorController.SetState(state, onFinished);
         }
 
-        public void Dead()
+		/// <summary>
+		/// 로그 보내기 이벤트
+		/// </summary>
+		public void SendLog(string message)
+		{
+			_onSendLog?.Invoke(message);
+		}
+
+		/// <summary>
+		/// 사망
+		/// </summary>
+        public virtual void Dead(Character attacker)
         {
             if (!(this is PlayerCharacter)) Collider.enabled = false;
             SetState(eCharacterState.Dead, () =>
@@ -167,6 +239,11 @@ namespace FPSGame.Character
             _onDead?.Invoke(this);
         }
 
+		/// <summary>
+		/// 넉백
+		/// </summary>
+		/// <param name="source"></param>
+		/// <param name="distance"></param>
 		public void Knockback(Vector3 source, float distance = 1.5f)
 		{
 			this.MoveController.KnockBack(source, distance);
