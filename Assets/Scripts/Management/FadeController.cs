@@ -19,10 +19,10 @@ public class FadeController : SingletonBehaviour<FadeController>
 
     public CanvasGroup canvasGroup;
 
-	#endregion
+    #endregion
 
-	public bool IsFade { get; private set; } = false;
-	private float FillAmount => canvasGroup.alpha;
+    public bool IsFade { get; private set; } = false;
+    private float FillAmount => canvasGroup.alpha;
     private Coroutine _coroutine = null;
 
     private void Awake()
@@ -31,7 +31,7 @@ public class FadeController : SingletonBehaviour<FadeController>
         Initialize();
     }
 
-	private void Initialize()
+    private void Initialize()
     {
         this.IsFade = false;
         canvasGroup.alpha = 0f;
@@ -42,7 +42,7 @@ public class FadeController : SingletonBehaviour<FadeController>
     /// </summary>
     /// <param name="duration"></param>
     public void FadeIn(float duration = 0.5f)
-	{
+    {
         if (_coroutine != null)
             StopCoroutine(_coroutine);
         _coroutine = StartCoroutine(FadeProcess(true, duration));
@@ -60,10 +60,10 @@ public class FadeController : SingletonBehaviour<FadeController>
         _coroutine = StartCoroutine(FadeProcess(false, duration));
     }
 
-	private IEnumerator FadeProcess(bool isFade, float duration)
-	{
-		var easeFunction = EasingFunction.GetEasingFunction(eEaseType.Linear);
-		if (isFade)
+    private IEnumerator FadeProcess(bool isFade, float duration)
+    {
+        var easeFunction = EasingFunction.GetEasingFunction(eEaseType.Linear);
+        if (isFade)
         {
             float time = this.FillAmount;
             float start = 0f;
@@ -76,18 +76,18 @@ public class FadeController : SingletonBehaviour<FadeController>
             }
             this.canvasGroup.alpha = end;
         }
-		else
+        else
         {
             float time = 1f - this.FillAmount;
             float start = 1f;
-			float end = 0f;
+            float end = 0f;
             while (this.canvasGroup.alpha > end)
-			{
-				time += Time.deltaTime;
-				this.canvasGroup.alpha = easeFunction(start, end, time / duration);
-				yield return null;
-			}
-			this.canvasGroup.alpha = end;
+            {
+                time += Time.deltaTime;
+                this.canvasGroup.alpha = easeFunction(start, end, time / duration);
+                yield return null;
+            }
+            this.canvasGroup.alpha = end;
         }
     }
 }

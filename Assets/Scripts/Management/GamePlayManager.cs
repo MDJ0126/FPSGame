@@ -1,6 +1,6 @@
-﻿using FPSGame.Character;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using FPSGame.Character;
 using UnityEngine;
 
 public class GamePlayManager : SingletonBehaviour<GamePlayManager>

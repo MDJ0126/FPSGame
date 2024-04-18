@@ -1,5 +1,4 @@
-﻿using Unity.Burst.Intrinsics;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace FPSGame.Projectile
 {

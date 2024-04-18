@@ -3,31 +3,31 @@ using UnityEngine;
 
 public class LightController : SingletonBehaviour<LightController>
 {
-	#region Inspector
+    #region Inspector
 
-	public Light lightObject;
-	public Color onColor;
-	public Color offColor;
+    public Light lightObject;
+    public Color onColor;
+    public Color offColor;
 
-	#endregion
+    #endregion
 
-	private Coroutine _coroutine = null;
+    private Coroutine _coroutine = null;
 
     private void Start()
     {
-		StartCoroutine("TestCo");
+        StartCoroutine("TestCo");
     }
 
-	private IEnumerator TestCo()
-	{
-		bool isOn = true;
-		while (true)
-		{
-			if (isOn)
-			{
-				isOn = false;
+    private IEnumerator TestCo()
+    {
+        bool isOn = true;
+        while (true)
+        {
+            if (isOn)
+            {
+                isOn = false;
             }
-			else
+            else
             {
                 isOn = true;
             }
@@ -37,24 +37,24 @@ public class LightController : SingletonBehaviour<LightController>
     }
 
     public void SetLightState(bool isOn, float duration = 5f)
-	{
-		if (_coroutine != null)
-			StopCoroutine(_coroutine);
-		_coroutine = StartCoroutine(ChangeStateProcess(isOn, duration));
+    {
+        if (_coroutine != null)
+            StopCoroutine(_coroutine);
+        _coroutine = StartCoroutine(ChangeStateProcess(isOn, duration));
     }
-	
-	private IEnumerator	ChangeStateProcess(bool isOn, float duration)
-	{
-		float factor = 0f;
-		Color start, end;
+
+    private IEnumerator ChangeStateProcess(bool isOn, float duration)
+    {
+        float factor = 0f;
+        Color start, end;
         start = lightObject.color;
-		end = isOn ? onColor : offColor;
-		while (factor < 1f)
-		{
-			factor += Time.deltaTime / duration;
+        end = isOn ? onColor : offColor;
+        while (factor < 1f)
+        {
+            factor += Time.deltaTime / duration;
             lightObject.color = Color.Lerp(start, end, factor);
-			yield return null;
-		}
-		lightObject.color = end;
+            yield return null;
+        }
+        lightObject.color = end;
     }
 }

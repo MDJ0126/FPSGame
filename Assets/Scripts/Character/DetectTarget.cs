@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 
 namespace FPSGame.Character
 {
@@ -33,7 +32,7 @@ namespace FPSGame.Character
 
         private void Update()
         {
-            for (int i = _detectedCharacters.Count - 1; i > 0 ; i--)
+            for (int i = _detectedCharacters.Count - 1; i > 0; i--)
             {
                 var character = _detectedCharacters[i];
                 if (character.Collider == null || character.Collider.enabled == false)

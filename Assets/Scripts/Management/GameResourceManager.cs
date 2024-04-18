@@ -1,6 +1,6 @@
-﻿using UnityEngine;
+﻿using FPSGame.Character;
 using FPSGame.Projectile;
-using FPSGame.Character;
+using UnityEngine;
 
 public class GameResourceManager : SingletonBehaviour<GameResourceManager>
 {

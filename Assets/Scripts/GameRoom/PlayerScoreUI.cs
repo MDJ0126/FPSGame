@@ -1,18 +1,17 @@
-﻿using FPSGame.Character;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class PlayerScoreUI : MonoBehaviour
 {
-	private readonly string FORM = "Score: {0}";
+    private readonly string FORM = "Score: {0}";
 
-	#region Inspector
+    #region Inspector
 
-	public TextMeshProUGUI text;
+    public TextMeshProUGUI text;
 
-	#endregion
+    #endregion
 
-	private PlayerInfo _playerInfo = null;
+    private PlayerInfo _playerInfo = null;
 
     private void OnDestroy()
     {
@@ -27,9 +26,9 @@ public class PlayerScoreUI : MonoBehaviour
     /// </summary>
     /// <param name="target"></param>
     public void SetPlayer(PlayerInfo playerInfo)
-	{
-		if (_playerInfo != null)
-		{
+    {
+        if (_playerInfo != null)
+        {
             _playerInfo.OnChangedScore -= OnChangedScore;
         }
         _playerInfo = playerInfo;
@@ -39,15 +38,15 @@ public class PlayerScoreUI : MonoBehaviour
 
     private void OnChangedScore(PlayerInfo playerInfo)
     {
-		UpdateScore(playerInfo.Score);
+        UpdateScore(playerInfo.Score);
     }
 
-	/// <summary>
-	/// 점수 업데이트
-	/// </summary>
-	/// <param name="score"></param>
+    /// <summary>
+    /// 점수 업데이트
+    /// </summary>
+    /// <param name="score"></param>
     private void UpdateScore(long score)
-	{
-		text.text = string.Format(FORM, score.ToString("N0"));
+    {
+        text.text = string.Format(FORM, score.ToString("N0"));
     }
 }

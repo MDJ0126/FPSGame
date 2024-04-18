@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using static UnityEngine.UI.GridLayoutGroup;
 
 namespace FPSGame.Weapon
 {
@@ -28,7 +27,7 @@ namespace FPSGame.Weapon
 
         protected DateTime shotRecordTime;
 
-        public virtual void Fire(FPSGame.Character.Character owner, Action onFire = null) 
+        public virtual void Fire(FPSGame.Character.Character owner, Action onFire = null)
         {
             onFire?.Invoke();
         }

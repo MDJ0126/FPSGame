@@ -1,22 +1,21 @@
 ﻿using FPSGame.Character;
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class CharacterStateUI : MonoBehaviour
 {
-	#region Inspector
+    #region Inspector
 
-	public Image thumbnail;
+    public Image thumbnail;
     public GameObject dead;
-	public Image hpBarForeground;
-	public TextMeshProUGUI characterName;
+    public Image hpBarForeground;
+    public TextMeshProUGUI characterName;
     public TextMeshProUGUI scoreText;
 
-	#endregion
+    #endregion
 
-	public Character Character { get; private set; } = null;
+    public Character Character { get; private set; } = null;
 
     private void OnDestroy()
     {
@@ -42,7 +41,7 @@ public class CharacterStateUI : MonoBehaviour
     /// </summary>
     /// <param name="character"></param>
     public void SetCharacter(Character character)
-	{
+    {
         if (this.Character != null)
         {
             this.Character.OnChangedHitPoint -= OnChangedHitPoint;
@@ -60,8 +59,8 @@ public class CharacterStateUI : MonoBehaviour
         }
     }
 
-	private void SetThumbnail(Character character)
-	{
+    private void SetThumbnail(Character character)
+    {
         // todo..
     }
 

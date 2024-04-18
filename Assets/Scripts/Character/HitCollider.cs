@@ -14,7 +14,7 @@ namespace FPSGame.Character
         }
 
         #region Inspector
-        
+
         public eParts parts = eParts.None;
 
         #endregion

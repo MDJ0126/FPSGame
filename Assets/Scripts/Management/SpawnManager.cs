@@ -1,5 +1,5 @@
-﻿using FPSGame.Character;
-using System.Collections;
+﻿using System.Collections;
+using FPSGame.Character;
 using UnityEngine;
 using UnityEngine.AI;
 

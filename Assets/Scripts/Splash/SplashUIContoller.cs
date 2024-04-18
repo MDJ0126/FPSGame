@@ -3,9 +3,9 @@ using UnityEngine;
 
 public class SplashUIContoller : MonoBehaviour
 {
-	#region Inspector
+    #region Inspector
 
-	public CanvasGroup canvasGroup;
+    public CanvasGroup canvasGroup;
     public float animationDuration = 1f;
     public float exposureTime = 1f;
 

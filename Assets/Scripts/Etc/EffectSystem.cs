@@ -2,9 +2,9 @@
 
 public class EffectSystem : MonoBehaviour
 {
-	#region Inspector
+    #region Inspector
 
-	public float duration = 1f;
+    public float duration = 1f;
 
     #endregion
 

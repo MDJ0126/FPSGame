@@ -1,5 +1,4 @@
 ﻿using FPSGame.Character;
-using Unity.Burst.Intrinsics;
 using UnityEngine;
 
 public class GameRoomUIController : MonoBehaviour
@@ -7,7 +6,7 @@ public class GameRoomUIController : MonoBehaviour
     #region Inspector
 
     public GameObject aim;
-	public GameObject gameOver;
+    public GameObject gameOver;
 
     #endregion
 

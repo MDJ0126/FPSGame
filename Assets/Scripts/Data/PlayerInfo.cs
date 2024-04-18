@@ -7,12 +7,12 @@ public class PlayerInfo
     private event OnChangedData _onChangedScore = null;
     public event OnChangedData OnChangedScore
     {
-        add 
+        add
         {
             _onChangedScore -= value;
             _onChangedScore += value;
         }
-        remove 
+        remove
         {
             _onChangedScore -= value;
         }
