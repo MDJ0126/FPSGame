@@ -6,7 +6,7 @@ public class LobbyUIController : MonoBehaviour
     {
         bool isPress = false;
 
-#if UNITY_STANDALONE
+#if UNITY_EDITOR
         isPress = Input.GetMouseButtonDown(0);
 #else
         Touch touch = Input.GetTouch(0);

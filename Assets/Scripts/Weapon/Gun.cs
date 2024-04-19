@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FPSGame.Character;
+using System;
 using System.Collections;
 using UnityEngine;
 
@@ -23,6 +24,10 @@ namespace FPSGame.Weapon
             var now = GameConfig.NowTime;
             if (shotRecordTime.AddSeconds(shotInterval) < now)
             {
+                float volume = 0.3f;
+                if (!(owner is PlayerCharacter)) volume = 0.1f;
+                SoundManager.Instance.PlayEffectSound(this.transform.position, eSoundEffect.gun_fire, volume: volume);
+
                 StopCoroutine("FireEffect");
                 StartCoroutine("FireEffect");
                 shotRecordTime = now;

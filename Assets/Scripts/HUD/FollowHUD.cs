@@ -24,6 +24,8 @@ public abstract class FollowHUD : MonoBehaviour
     [HideInInspector] public Transform target;
     private Camera _targetCamera = null;
 
+    private float _height = 0f;
+
     public void SetTarget(Transform target)
     {
         if (target != null)
@@ -32,6 +34,11 @@ public abstract class FollowHUD : MonoBehaviour
             _targetCamera = Utils.GetMyCamera(target.gameObject);
             Update();
         }
+    }
+
+    public void SetHeight(float height)
+    {
+        _height = height;
     }
 
     private void OnDisable()
@@ -54,7 +61,7 @@ public abstract class FollowHUD : MonoBehaviour
         if (inArea)
         {
             // UI의 위치를 변경해준다.
-            this.MyTransform.position = targetPos;
+            this.MyTransform.position = new Vector3(targetPos.x, targetPos.y + _height, targetPos.z);
             baseGroup.SetActive(true);
         }
         else

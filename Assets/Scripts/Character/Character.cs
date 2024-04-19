@@ -15,7 +15,7 @@ namespace FPSGame.Character
         public MultiAimConstraint weaponAim;
 
         [Header("HUD")]
-        public Transform nameHUDPos;
+        public Transform hudPos;
 
         #endregion
 

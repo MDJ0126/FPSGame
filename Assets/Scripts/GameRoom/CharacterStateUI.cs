@@ -73,6 +73,7 @@ public class CharacterStateUI : MonoBehaviour
     {
         float value = currentHp / maxHp;
         hpBarForeground.fillAmount = value;
+        hpBarForeground.color = GameUtils.GetHpColor(value);
         dead.SetActive(value <= 0f);
     }
 

@@ -47,6 +47,8 @@ public class PlayerHpBar : MonoBehaviour
     /// <param name="maxHp"></param>
     private void UpdateHpBar(float currentHp, float maxHp)
     {
-        foreground.fillAmount = currentHp / maxHp;
+        float value = currentHp / maxHp;
+        foreground.fillAmount = value;
+        foreground.color = GameUtils.GetHpColor(value);
     }
 }

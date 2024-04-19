@@ -115,37 +115,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 2325275215954587174}
   updateType: 1
---- !u!1 &2130683744398111120
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6201588386035688662}
-  m_Layer: 0
-  m_Name: Name
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6201588386035688662
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2130683744398111120}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.9, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 5757572433946898268}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2643428419094146654
 GameObject:
   m_ObjectHideFlags: 0
@@ -229,7 +198,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!1 &4669672483599146711
+--- !u!1 &3623051374346430345
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -237,7 +206,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5757572433946898268}
+  - component: {fileID: 9142504952195881253}
   m_Layer: 0
   m_Name: HUD
   m_TagString: Untagged
@@ -245,20 +214,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5757572433946898268
+--- !u!4 &9142504952195881253
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4669672483599146711}
+  m_GameObject: {fileID: 3623051374346430345}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 6201588386035688662}
+  m_Children: []
   m_Father: {fileID: 459878766165440622}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4986068492821852235
@@ -299,7 +267,7 @@ Transform:
   - {fileID: 2325481693916360150}
   - {fileID: 4098612094779491566}
   - {fileID: 4447747838181579604}
-  - {fileID: 5757572433946898268}
+  - {fileID: 9142504952195881253}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &8392893027795982033
@@ -367,7 +335,7 @@ MonoBehaviour:
   characterData: {fileID: 11400000, guid: ef5e08b38363fe34eaa0f61ac5449f74, type: 2}
   aim: {fileID: 4447747838181579604}
   weaponAim: {fileID: 0}
-  nameHUDPos: {fileID: 6201588386035688662}
+  hudPos: {fileID: 9142504952195881253}
 --- !u!195 &5121545490415437676
 NavMeshAgent:
   m_ObjectHideFlags: 0
