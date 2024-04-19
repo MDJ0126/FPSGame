@@ -1,6 +1,7 @@
+# FPSGame
+
 ![스크린샷](https://github.com/MDJ0126/FPSGame/blob/main/playImage.gif?raw=true)
 
-# FPSGame
 1인 프로젝트입니다. FPS 장르의 게임입니다.
 
 일부 리소스를 제외하고는 모두 직접 작업하였습니다.
@@ -20,3 +21,6 @@
 
 ### 유니티 버전
 @ Unity 2021.3.19f1 (LTS)
+
+### 권장 해상도
+1920 * 1080 (Landscape)

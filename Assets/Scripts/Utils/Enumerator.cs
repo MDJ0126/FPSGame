@@ -1,9 +1,9 @@
 ﻿public enum eScene
 {
-    Empty = 0,
     Splash,
     Lobby,
     GameRoom,
+    Empty,
 }
 
 public enum eLayer : int
