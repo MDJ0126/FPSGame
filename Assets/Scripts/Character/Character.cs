@@ -238,6 +238,7 @@ namespace FPSGame.Character
         /// </summary>
         public virtual void Dead(Character attacker)
         {
+            if (IsDead) return;
             if (!(this is PlayerCharacter)) Collider.enabled = false;
             SetState(eCharacterState.Dead, () =>
             {
