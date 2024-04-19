@@ -8,9 +8,16 @@ namespace FPSGame.Character
     {
         public static float CHARACTER_HEIGHT_CENTER = 1f;
 
+        #region Inspector
+
         public CharacterData characterData;
         public Transform aim;
         public MultiAimConstraint weaponAim;
+
+        [Header("HUD")]
+        public Transform nameHUDPos;
+
+        #endregion
 
         public delegate void OnChangeCharacterStateEvent(eCharacterState state);
         private event OnChangeCharacterStateEvent _onChangeCharacterState = null;

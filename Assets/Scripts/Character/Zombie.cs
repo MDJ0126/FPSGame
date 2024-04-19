@@ -1,4 +1,6 @@
-﻿namespace FPSGame.Character
+﻿using UnityEngine;
+
+namespace FPSGame.Character
 {
     public class Zombie : AICharacter
     {

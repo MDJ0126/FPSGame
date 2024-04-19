@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FPSGame.Weapon;
+using System;
 using UnityEngine;
 
 namespace FPSGame.Character
@@ -38,8 +39,13 @@ namespace FPSGame.Character
         {
             if (weapon == null) return;
             this.Weapon = weapon;
-            if (_owner.weaponAim)
-                _owner.weaponAim.data.constrainedObject = weapon.shot;
+
+            Gun gun = weapon as Gun;
+            if (gun)
+            {
+                if (_owner.weaponAim)
+                    _owner.weaponAim.data.constrainedObject = gun.shot;
+            }
         }
 
         /// <summary>

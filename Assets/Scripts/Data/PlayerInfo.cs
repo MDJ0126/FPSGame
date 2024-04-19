@@ -21,15 +21,15 @@ public class PlayerInfo
     /// <summary>
     /// 고유 인덱스
     /// </summary>
-    public long Idx { get; private set; }
+    public long Idx { get; private set; } = 0;
     /// <summary>
     /// 이름
     /// </summary>
-    public string Name { get; private set; }
+    public string Name { get; private set; } = string.Empty;
     /// <summary>
     /// 점수
     /// </summary>
-    public long Score { get; private set; }
+    public long Score { get; private set; } = 0;
 
     public PlayerInfo()
     {

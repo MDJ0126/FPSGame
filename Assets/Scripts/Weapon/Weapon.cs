@@ -16,7 +16,6 @@ namespace FPSGame.Weapon
         #region Inspector
 
         [Header("Transforms")]
-        public Transform shot;
         public Transform leftHandler;
         public Transform rightHandler;
 
@@ -32,10 +31,17 @@ namespace FPSGame.Weapon
             onFire?.Invoke();
         }
 
-        private void Update()
+        private void Awake() 
         {
-            Debug.DrawRay(shot.position, shot.forward * 10, Color.yellow);
+            Initialize();
         }
+
+        protected virtual void Initialize()
+        {
+
+        }
+
+        protected virtual void Update() { }
 
 #if UNITY_EDITOR
         [ContextMenu("Auto Setting")]
@@ -45,11 +51,7 @@ namespace FPSGame.Weapon
             for (int i = 0; i < childs.Length; i++)
             {
                 Transform child = childs[i];
-                if (child.name.Equals(SHOT_HANDLER_NAME))
-                {
-                    shot = child;
-                }
-                else if (child.name.Equals(LEFT_HANDLER_NAME))
+                if (child.name.Equals(LEFT_HANDLER_NAME))
                 {
                     leftHandler = child;
                 }

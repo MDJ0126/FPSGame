@@ -14,6 +14,7 @@ public enum eLayer : int
     HitCollider = 3,
     Water = 3,
     UI = 4,
+    Map = 5,
 }
 
 public enum eWeaponType

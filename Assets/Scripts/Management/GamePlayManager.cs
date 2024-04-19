@@ -131,6 +131,11 @@ public class GamePlayManager : SingletonBehaviour<GamePlayManager>
             }
         }
 
+        // HUD 등록
+        if (!myCharacter.Equals(character))
+            GameHUDManager.Instance.SetFollowName(character);
+
+        // 참여 로그
         AddLog($"{character.PlayerInfo.Name}(이)가 참여했습니다.");
     }
 

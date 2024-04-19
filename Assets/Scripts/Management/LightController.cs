@@ -8,6 +8,7 @@ public class LightController : SingletonBehaviour<LightController>
     public Light lightObject;
     public Color onColor;
     public Color offColor;
+    public float loopTime = 10f;
 
     #endregion
 
@@ -15,10 +16,10 @@ public class LightController : SingletonBehaviour<LightController>
 
     private void Start()
     {
-        StartCoroutine("TestCo");
+        StartCoroutine("LoopCo");
     }
 
-    private IEnumerator TestCo()
+    private IEnumerator LoopCo()
     {
         bool isOn = true;
         while (true)
@@ -32,7 +33,7 @@ public class LightController : SingletonBehaviour<LightController>
                 isOn = true;
             }
             SetLightState(isOn);
-            yield return YieldInstructionCache.WaitForSeconds(5f);
+            yield return YieldInstructionCache.WaitForSeconds(loopTime);
         }
     }
 
