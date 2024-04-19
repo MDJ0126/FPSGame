@@ -49,11 +49,11 @@ namespace FPSGame.Character
             switch (parts)
             {
                 case eParts.Head:
-                    this.Owner.HitDamage(attacker, damage * CRITICAL_RATE);
+                    this.Owner.TakeDamage(attacker, damage * CRITICAL_RATE);
                     break;
                 case eParts.Body:
                     this.Owner.Knockback(attacker.MyTransform.position);
-                    this.Owner.HitDamage(attacker, damage);
+                    this.Owner.TakeDamage(attacker, damage);
                     break;
             }
             return GetScore(parts);

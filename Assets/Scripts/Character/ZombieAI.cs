@@ -46,7 +46,10 @@ namespace FPSGame.Character
                                         HitCollider hitCollider = hit.collider.GetComponent<HitCollider>();
                                         if (hitCollider && owner)
                                         {
-                                            hitCollider.HitDamage(owner, hit.point, owner.characterData.damage);
+                                            if (owner.characterData)
+                                            {
+                                                hitCollider.HitDamage(owner, hit.point, owner.characterData.damage);
+                                            }
                                         }
                                     }
                                 }

@@ -12,9 +12,9 @@ public enum eLayer : int
     TransparentFX = 1,
     IgnoreRaycast = 2,
     HitCollider = 3,
-    Water = 3,
-    UI = 4,
-    Map = 5,
+    Water = 4,
+    UI = 5,
+    Map = 6,
 }
 
 public enum eWeaponType

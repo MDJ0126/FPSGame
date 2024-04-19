@@ -204,7 +204,7 @@ namespace FPSGame.Character
         /// 데미지 피격
         /// </summary>
         /// <param name="damage"></param>
-        public void HitDamage(Character attacker, float damage)
+        public void TakeDamage(Character attacker, float damage)
         {
             if (this.Hp > 0f)
             {
@@ -238,7 +238,6 @@ namespace FPSGame.Character
         /// </summary>
         public virtual void Dead(Character attacker)
         {
-            if (IsDead) return;
             if (!(this is PlayerCharacter)) Collider.enabled = false;
             SetState(eCharacterState.Dead, () =>
             {
