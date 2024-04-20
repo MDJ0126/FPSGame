@@ -1,7 +1,6 @@
 ﻿using FPSGame.Character;
 using System.Collections.Generic;
 using UnityEngine;
-using static FPSGame.Projectile.Projectile;
 
 namespace FPSGame.Projectile
 {
@@ -29,8 +28,8 @@ namespace FPSGame.Projectile
 
         public virtual void Run(FPSGame.Character.Character sender, Vector3 startPos, Vector3 direction, float spreadRange = 1f, OnHitCollider onFinished = null)
         {
+            Clear();
             isPlay = true;
-            _hitList.Clear();
             this.sender = sender;
             this.MyTransform.position = startPos;
             this.MyTransform.LookAt(startPos + direction);
@@ -41,6 +40,11 @@ namespace FPSGame.Projectile
         }
 
         protected abstract void OnUpdate();
+
+        protected virtual void Clear()
+        {
+            _hitList.Clear();
+        }
 
         private void LateUpdate()
         {
@@ -75,7 +79,8 @@ namespace FPSGame.Projectile
                 if (hitCollider && !sender.Equals(hitCollider.Owner))
                 {
                     bool isEnemy = hitCollider.Owner.TeamNember != sender.TeamNember;
-                    if (isEnemy || sender is PlayerCharacter)
+                    bool isSenderPlayer = sender is PlayerCharacter;    // 플레이어면 아무나 타격 가능하도록
+                    if (isEnemy || isSenderPlayer)
                     {
                         if (!hitCollider.Owner.IsDead)
                         {

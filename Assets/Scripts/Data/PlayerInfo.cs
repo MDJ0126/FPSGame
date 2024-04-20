@@ -3,6 +3,8 @@
 /// </summary>
 public class PlayerInfo
 {
+    public static PlayerInfo DefaultInfo { get; set; } = new PlayerInfo("Nonamed");
+
     public delegate void OnChangedData(PlayerInfo playerInfo);
     private event OnChangedData _onChangedScore = null;
     public event OnChangedData OnChangedScore

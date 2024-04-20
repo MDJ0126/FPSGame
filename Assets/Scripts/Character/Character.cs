@@ -76,10 +76,20 @@ namespace FPSGame.Character
             }
         }
 
+        private PlayerInfo _playerInfo = null;
         /// <summary>
         /// 플레이어 정보
         /// </summary>
-        public PlayerInfo PlayerInfo { get; private set; } = null;
+        public PlayerInfo PlayerInfo
+        {
+            get
+            {
+                if (_playerInfo == null)
+                    return PlayerInfo.DefaultInfo;
+                return _playerInfo;
+            }
+        }
+
         private Transform _myTransform = null;
         public Transform MyTransform
         {
@@ -161,7 +171,7 @@ namespace FPSGame.Character
         /// <param name="playerInfo"></param>
         public void SetPlayerInfo(PlayerInfo playerInfo)
         {
-            this.PlayerInfo = playerInfo;
+            _playerInfo = playerInfo;
         }
 
         /// <summary>

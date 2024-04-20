@@ -13,7 +13,7 @@ namespace FPSGame.Weapon
 
         public Transform shot;
         public GameObject shotEffectLight;
-        public float spreadRange = 2f;
+        public float spreadRange = 0.25f;
         public float damage = 10f;
 
         #endregion
@@ -24,8 +24,8 @@ namespace FPSGame.Weapon
             var now = GameConfig.NowTime;
             if (shotRecordTime.AddSeconds(shotInterval) < now)
             {
-                float volume = 0.3f;
-                if (!(owner is PlayerCharacter)) volume = 0.1f;
+                float volume = 0.1f;
+                if (!(owner is PlayerCharacter)) volume = 0.05f;
                 SoundManager.Instance.PlayEffectSound(this.transform.position, eSoundEffect.gun_fire, volume: volume);
 
                 StopCoroutine("FireEffect");
@@ -53,7 +53,7 @@ namespace FPSGame.Weapon
             shotEffectLight.SetActive(false);
         }
 
-        protected virtual void Update()
+        protected override void Update()
         {
             base.Update();
             Debug.DrawRay(shot.position, shot.forward * 10, Color.yellow);

@@ -15,7 +15,5 @@ namespace FPSGame.Character
             base.Awake();
             this.Agent = GetComponent<NavMeshAgent>();
         }
-
-
     }
 }

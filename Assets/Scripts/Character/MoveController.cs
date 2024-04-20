@@ -38,6 +38,8 @@ namespace FPSGame.Character
 
         private void LateUpdate()
         {
+            if (_owner.IsDead) return;
+
             UpdateAinimation();
             UpdateNavMeshSpeed();
             UpdateGroundState();
@@ -69,7 +71,7 @@ namespace FPSGame.Character
             // 바닥에 닿아 있는지 여부 업데이트
             void UpdateGroundState()
             {
-                LayerMask ignoreLayer = 1 << (int)eLayer.IgnoreRaycast | 1 << (int)eLayer.Map;
+                LayerMask ignoreLayer = 1 << (int)eLayer.IgnoreRaycast;
                 if (Physics.Raycast(_owner.MyTransform.position + (Vector3.up * 0.2f), Vector3.down, out var hit, 0.4f, ~ignoreLayer))
                 {
                     _isGrounded = true;
