@@ -26,5 +26,5 @@
 1920 * 1080 (Landscape)
 
 ### APK 다운로드 링크
-![APK File](https://github.com/MDJ0126/FPSGame/blob/main/Build/FPSGame.apk?raw=true)
+[APK File](https://github.com/MDJ0126/FPSGame/blob/main/Build/FPSGame.apk?raw=true)
 PC 기준으로 만들어져서 조작감에 이슈가 있습니다.
