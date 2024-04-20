@@ -24,9 +24,9 @@ namespace FPSGame.Character
         {
             _owner.aim.position = _cameraController.aimRay.position;
             UpdateCursorLock();
-            UpdateMouse();
-            UpdateMovement();
-            UpdateSummon();
+            DetectMouse();
+            DetectMovement();
+            DetectKeyboard();
         }
 
         /// <summary>
@@ -53,21 +53,29 @@ namespace FPSGame.Character
         }
 
         /// <summary>
-        /// 봇 플레이어 생성
+        /// 키보드 입력 감지
         /// </summary>
-        private void UpdateSummon()
+        private void DetectKeyboard()
         {
             if (_owner.IsDead) return;
+
+            // 봇 플레이어 생성
             if (Input.GetKeyDown(KeyCode.F1))
             {
                 GamePlayManager.Instance.SummonBotPlayer(_owner.MyTransform.position);
+            }
+
+            // 종료
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
             }
         }
 
         /// <summary>
         /// 마우스 입력 업데이트
         /// </summary>
-        private void UpdateMouse()
+        private void DetectMouse()
         {
             if (_owner.IsDead) return;
             float x = Input.GetAxis("Mouse X");
@@ -99,7 +107,7 @@ namespace FPSGame.Character
         /// <summary>
         /// 이동 입력 업데이트
         /// </summary>
-        private void UpdateMovement()
+        private void DetectMovement()
         {
             if (_owner.IsDead) return;
             // 이동
