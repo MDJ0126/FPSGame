@@ -21,17 +21,17 @@
 
 ## 기타 정보
 
-- 제작 기간
+### 제작 기간
  - 2024년 4월 6일 ~ 4월 20일 (2주)
 
-- 권장 해상도
+### 권장 해상도
  - 1920 * 1080 (Landscape)
 
-- 사용 프로그램 버전
+### 사용 프로그램 버전
  - Unity 2021.3.19f1 (LTS)
  - Visual Studio 2022
 
 ### 게임 다운로드 링크
-[FPSGame.zip 다운로드](https://github.com/MDJ0126/FPSGame/blob/main/Build/FPSGame.zip?raw=true)
+- [FPSGame.zip 다운로드](https://github.com/MDJ0126/FPSGame/blob/main/Build/FPSGame.zip?raw=true)
 
 압축 해제 후, `FPSGame.exe`를 실행하여 플레이할 수 있습니다.
