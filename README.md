@@ -25,6 +25,7 @@
 ### 권장 해상도
 1920 * 1080 (Landscape)
 
-### APK 다운로드 링크
-[APK File](https://github.com/MDJ0126/FPSGame/blob/main/Build/FPSGame.apk?raw=true)
-PC 기준으로 만들어져서 조작감에 이슈가 있습니다.
+### PC 게임 다운로드 링크
+[Build file](https://github.com/MDJ0126/FPSGame/blob/main/Build/FPSGame.zip?raw=true)
+
+압축 해제 후, FPSGame.exe를 실행하여 플레이할 수 있습니다.
