@@ -50,4 +50,14 @@ public static class Utils
             return source.ToString();
         }
     }
+
+    /// <summary>
+    /// 확률
+    /// </summary>
+    /// <param name="percentage"></param>
+    /// <returns></returns>
+    public static bool IsRandom(float percentage)
+    {
+        return UnityEngine.Random.Range(0, 1f) <= percentage;
+    }
 }

@@ -50,3 +50,17 @@ public enum eCharacterType
     Human,
     Zombie,
 }
+
+public enum eParts
+{
+    None = 0,
+    Hat,
+    Hair,
+    Facemask,
+    FaceAcc,
+    Beard,
+    Scarf,
+    Bag,
+    Patch,
+    Pouch,
+}

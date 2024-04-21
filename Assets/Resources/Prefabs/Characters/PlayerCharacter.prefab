@@ -1171,6 +1171,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Character_BusinessMale_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1415556995387802, guid: 18ff8a7a7ca91ff4bab92d116fa797c8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1576183659081764, guid: 18ff8a7a7ca91ff4bab92d116fa797c8, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1247,6 +1251,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1415556995387802, guid: 18ff8a7a7ca91ff4bab92d116fa797c8, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7330466678507653025}
+    - targetCorrespondingSourceObject: {fileID: 1415556995387802, guid: 18ff8a7a7ca91ff4bab92d116fa797c8, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4669178618179497639}
   m_SourcePrefab: {fileID: 100100000, guid: 18ff8a7a7ca91ff4bab92d116fa797c8, type: 3}
 --- !u!4 &6965956966948845627 stripped
 Transform:
@@ -1587,3 +1594,24 @@ MonoBehaviour:
   - {fileID: 6967837597355546403}
   - {fileID: 6968125714731562383}
   - {fileID: 6968121199205329165}
+--- !u!114 &4669178618179497639
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6969367978373713103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a7e2e89ccc143a4fb311aa5ac1b9c00, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hat: {fileID: 6966111356283205309}
+  hair: {fileID: 6966111356283205309}
+  facemask: {fileID: 6966111356283205309}
+  faceAcc: {fileID: 6966111356283205309}
+  beard: {fileID: 6966111356283205309}
+  scarf: {fileID: 6966111356283205309}
+  bag: {fileID: 6966243353431783933}
+  patch: {fileID: 0}
+  pouch: {fileID: 0}
