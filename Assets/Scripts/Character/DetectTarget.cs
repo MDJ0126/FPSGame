@@ -70,24 +70,49 @@ namespace FPSGame.Character
             }
         }
 
+        private Character _currentTarget = null;
+
         /// <summary>
         /// 탐지한 캐릭터를 반환
         /// </summary>
         /// <returns></returns>
         public Character GetDectedCharacter()
         {
-            if (_detectedCharacters.Count > 0)
+            if (_detectedCharacters.Count == 0) return null;
+
+            if (_currentTarget != null)
+            {
+                // 현재 타겟이 범위 안에 있는지 판단
+                if (_currentTarget.TeamNember == _owner.TeamNember)
+                {
+                    _currentTarget = null;
+                }
+                else if (_currentTarget.IsDead)
+                {
+                    _currentTarget = null;
+                }
+                else
+                { 
+                    float distance = Vector3.Distance(_owner.MyTransform.position, _currentTarget.MyTransform.position);
+                    if (radius < distance)
+                    {
+                        _currentTarget = null;
+                    }
+                }
+            }
+
+            if (_currentTarget == null)
             {
                 // 가장 가까운 타겟 탐색
-                Character minmumTarget = _detectedCharacters[0];
+                Character minmumTarget = null;
                 float minDistance = float.MaxValue;
                 foreach (var target in _detectedCharacters)
                 {
+                    if (minmumTarget == null) minmumTarget = target;
                     // 죽지 않은 적 탐색
                     if (!minmumTarget.Equals(target) && !target.IsDead && _owner.TeamNember != target.TeamNember)
                     {
-                        if (minmumTarget == null) minmumTarget = target;
-                        float distance = (_owner.MyTransform.position - target.MyTransform.position).sqrMagnitude;
+                        float distance = Mathf.Abs((_owner.MyTransform.position - target.MyTransform.position).sqrMagnitude);
                         if (minDistance > distance)
                         {
                             Vector3 aimCenter = _owner.MyTransform.position;
@@ -96,7 +121,7 @@ namespace FPSGame.Character
                             targetCenter.y = Character.CHARACTER_HEIGHT_CENTER;
 
                             Vector3 direction = (targetCenter - aimCenter).normalized;
-                            if (Physics.Raycast(aimCenter, direction, out var hit, _sphereCollider.radius))
+                            if (Physics.Raycast(aimCenter, direction, out var hit, radius))
                             {
                                 if (hit.collider.gameObject.Equals(target.gameObject))
                                 {
@@ -107,9 +132,14 @@ namespace FPSGame.Character
                         }
                     }
                 }
-                return minmumTarget;
+
+                if (!minmumTarget.IsDead)
+                {
+                    _currentTarget = minmumTarget;
+                }
             }
-            return null;
+
+            return _currentTarget;
         }
     }
 }

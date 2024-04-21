@@ -47,14 +47,8 @@ namespace FPSGame.Character
                             // 발사
                             owner.WeaponHandler.Fire();
 
-                            // 뒷걸음 처리
-                            bool isMove = Vector3.Distance(target.MyTransform.position, owner.MyTransform.position) < ENEMY_BACK_MOVE_INTERVAL;    // 일정 영역 안에 들어오면 뒷걸음 판단
-                            //bool isMove = true; // 일단 무조건 빽무빙하려는 경우
-                            if (isMove)
-                            {
-                                Vector3 direction = (target.MyTransform.position - owner.MyTransform.position).normalized;
-                                owner.MoveController.MoveTo(direction);
-                            }
+                            // 적을 추격
+                            owner.MoveController.MoveTo(target.MyTransform.position);
                         }
                         else
                         {
