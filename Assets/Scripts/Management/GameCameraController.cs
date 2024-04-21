@@ -115,11 +115,11 @@ public class GameCameraController : SingletonBehaviour<GameCameraController>
 
     private IEnumerator ZoomAnimation(bool isZoomIn)
     {
-        const float ZOOM_SPEED = 0.1f;
+        const float ZOOM_SPEED = 0.2f;
         float time = ((_prevCameraFOV - _currentCameraFOV) / zoomFOV) * ZOOM_SPEED;
         while (time < ZOOM_SPEED)
         {
-            time += Time.deltaTime;
+            time += Time.deltaTime * (1 / ZOOM_SPEED);
             if (isZoomIn)
             {
                 _currentCameraFOV = Mathf.Lerp(virtualCamera.m_Lens.FieldOfView, zoomFOV, time);

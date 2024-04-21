@@ -146,11 +146,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   leftHandler: {fileID: 7543171182968076330}
   rightHandler: {fileID: 4806754633852203659}
-  shotInterval: 0.15
+  shotInterval: 0.1
   shot: {fileID: 5144196983955421173}
   shotEffectLight: {fileID: 5079866892704725955}
   spreadRange: 0.5
-  damage: 20
+  damage: 10
 --- !u!1 &5079866892704725955
 GameObject:
   m_ObjectHideFlags: 0
