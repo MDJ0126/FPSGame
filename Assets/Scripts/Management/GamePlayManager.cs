@@ -72,6 +72,7 @@ public class GamePlayManager : SingletonBehaviour<GamePlayManager>
 
         // 내 캐릭터 세팅
         PlayerInfo myPlayerInfo = new PlayerInfo("Player");
+        myCharacter.Initiailize();
         myCharacter.SetPlayerInfo(myPlayerInfo);
         AddCharacter(myCharacter);
 

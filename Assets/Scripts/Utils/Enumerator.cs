@@ -1,9 +1,16 @@
 ﻿public enum eScene
 {
-    Splash,
+    Splash = 0,
     Lobby,
     GameRoom,
     Empty,
+}
+
+public enum eGender
+{
+    None = 0,
+    Male,
+    Female,
 }
 
 public enum eLayer : int

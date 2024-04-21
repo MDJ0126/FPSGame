@@ -14,6 +14,12 @@ namespace FPSGame.Character
         public Transform aim;
         public MultiAimConstraint weaponAim;
 
+        [Header("Model")]
+        public GameObject[] maleModels;
+        public GameObject[] femaleModels;
+        public GameObject[] armorMaleModels;
+        public GameObject[] armorFemaleModels;
+
         [Header("HUD")]
         public Transform hudPos;
 
@@ -157,6 +163,42 @@ namespace FPSGame.Character
         public virtual void Initiailize()
         {
             this.Hp = characterData.maxHp;
+            SelectRandomCharacterModel();
+            EquipRandomArmorModel();
+        }
+
+        /// <summary>
+        /// 랜덤 캐릭터 모델 세팅
+        /// </summary>
+        public void SelectRandomCharacterModel()
+        {
+            if (maleModels != null && femaleModels != null)
+            {
+                GameObject[] characterModels = this.PlayerInfo.Gender == eGender.Male ? maleModels : femaleModels;
+                int randomIndex = UnityEngine.Random.Range(0, characterModels.Length);
+                for (int i = 0; i < characterModels.Length; i++)
+                {
+                    GameObject model = characterModels[i];
+                    model.SetActive(i != randomIndex);
+                }
+            }
+        }
+
+        /// <summary>
+        /// 랜덤 방어구 장착
+        /// </summary>
+        public void EquipRandomArmorModel()
+        {
+            if (armorMaleModels != null && armorFemaleModels != null)
+            {
+                GameObject[] armorModels = this.PlayerInfo.Gender == eGender.Male ? armorMaleModels : armorFemaleModels;
+                int randomIndex = UnityEngine.Random.Range(0, armorModels.Length);
+                for (int i = 0; i < armorModels.Length; i++)
+                {
+                    GameObject model = armorModels[i];
+                    model.SetActive(i != randomIndex);
+                }
+            }
         }
 
         /// <summary>

@@ -29,6 +29,10 @@ public class PlayerInfo
     /// </summary>
     public string Name { get; private set; } = string.Empty;
     /// <summary>
+    /// 성별
+    /// </summary>
+    public eGender Gender { get; private set; } = eGender.Male;
+    /// <summary>
     /// 점수
     /// </summary>
     public long Score { get; private set; } = 0;
@@ -37,6 +41,7 @@ public class PlayerInfo
     {
         this.Idx = PlayerInfoUtils.CreateIDX();
         this.Name = PlayerInfoUtils.GetRandomName();
+        this.Gender = PlayerInfoUtils.GetRandomGender();
         this.Score = 0;
     }
 
@@ -44,6 +49,7 @@ public class PlayerInfo
     {
         this.Idx = PlayerInfoUtils.CreateIDX();
         this.Name = name;
+        this.Gender = PlayerInfoUtils.GetRandomGender();
         this.Score = 0;
     }
 
@@ -89,7 +95,16 @@ public class PlayerInfo
         {
             int index = UnityEngine.Random.Range(0, _names.Length);
             return _names[index];
-
+        }
+        
+        /// <summary>
+        /// 랜덤 성별 가져오기
+        /// </summary>
+        /// <returns></returns>
+        public static eGender GetRandomGender()
+        {
+            int index = UnityEngine.Random.Range((int)eGender.Male, (int)eGender.Female + 1);
+            return (eGender)index;
         }
     }
 }
