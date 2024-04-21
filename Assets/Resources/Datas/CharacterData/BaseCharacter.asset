@@ -15,5 +15,5 @@ MonoBehaviour:
   id: 1
   damage: 5
   maxHp: 100
-  moveSpeed: 100
+  moveSpeed: 150
   jumpWeight: 5

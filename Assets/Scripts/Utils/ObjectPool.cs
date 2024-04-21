@@ -27,15 +27,38 @@ public class ObjectPool : MonoBehaviour
 
     private DateTime _lastRefreshedTime = DateTime.Now;
 
+    private string _originalName = string.Empty;
+
+    private bool _isInit = false;
+
+    private void SetName(string ObjectName)
+    {
+        _originalName = ObjectName;
+    }
+
     private void Start()
     {
         //original.SetActive(false);
+        Initialize();
+    }
 
-        int tempCount = count;
-        count = 0;
-        for (int i = 0; i < tempCount; i++)
+    private void Update()
+    {
+        UpdateName();
+    }
+
+    private void Initialize()
+    {
+        if (!_isInit)
         {
-            Create();
+            _isInit = true;
+            SetName(this.gameObject.name);
+            int tempCount = count;
+            count = 0;
+            for (int i = 0; i < tempCount; i++)
+            {
+                Create();
+            }
         }
     }
 
@@ -49,11 +72,13 @@ public class ObjectPool : MonoBehaviour
         PoolItem item = new PoolItem { gameObject = go };
         _pool.Add(item);
         count++;
+        UpdateName();
         return item;
     }
 
     public GameObject Get()
     {
+        if (!_isInit) Initialize();
         var item = _pool.Find(poolItem => !poolItem.gameObject.activeSelf);
         if (item == null) item = Create();
         item.lastActiveTime = DateTime.Now;
@@ -63,6 +88,7 @@ public class ObjectPool : MonoBehaviour
 
     public T Get<T>() where T : Component
     {
+        if (!_isInit) Initialize();
         var item = _pool.Find(poolItem => !poolItem.gameObject.activeSelf);
         if (item == null) item = Create();
         item.lastActiveTime = DateTime.Now;
@@ -87,5 +113,13 @@ public class ObjectPool : MonoBehaviour
                 }
             }
         }
+        UpdateName();
+    }
+
+    private void UpdateName()
+    {
+#if UNITY_EDITOR
+        this.gameObject.name = $"{_originalName} ({_pool.FindAll(o => o.gameObject.activeSelf).Count}/{count})";
+#endif
     }
 }

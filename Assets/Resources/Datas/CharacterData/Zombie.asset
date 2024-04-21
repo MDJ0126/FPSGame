@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Zombie
   m_EditorClassIdentifier: 
   id: 1
-  damage: 20
+  damage: 15
   maxHp: 50
-  moveSpeed: 100
+  moveSpeed: 80
   jumpWeight: 5

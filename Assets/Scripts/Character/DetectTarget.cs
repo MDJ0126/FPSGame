@@ -30,17 +30,17 @@ namespace FPSGame.Character
             _sphereCollider.radius = radius;
         }
 
-        private void Update()
-        {
-            for (int i = _detectedCharacters.Count - 1; i > 0; i--)
-            {
-                var character = _detectedCharacters[i];
-                if (character.Collider == null || character.Collider.enabled == false)
-                {
-                    _detectedCharacters.Remove(character);
-                }
-            }
-        }
+        //private void Update()
+        //{
+        //    for (int i = _detectedCharacters.Count - 1; i > 0; i--)
+        //    {
+        //        var character = _detectedCharacters[i];
+        //        if (character == null || character.IsDead || character.gameObject.activeInHierarchy == false)
+        //        {
+        //            _detectedCharacters.Remove(character);
+        //        }
+        //    }
+        //}
 
         private void OnTriggerEnter(Collider other)
         {

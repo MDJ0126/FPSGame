@@ -117,10 +117,6 @@ namespace FPSGame.Character
         /// </summary>
         public DetectTarget DetectTarget { get; private set; } = null;
         /// <summary>
-        /// 콜라이더
-        /// </summary>
-        public CapsuleCollider Collider { get; private set; } = null;
-        /// <summary>
         /// 팀 번호
         /// </summary>
         public byte TeamNember { get; protected set; } = 0;
@@ -151,7 +147,6 @@ namespace FPSGame.Character
                 this.WeaponHandler = this.gameObject.AddComponent<WeaponHandler>();
             if (this.DetectTarget == null)
                 this.DetectTarget = DetectTarget.AddComponent(this);
-            Collider = this.gameObject.GetComponent<CapsuleCollider>();
             AimHeight = aim.localPosition.y;
             AimDistance = aim.localPosition.z;
         }
@@ -161,7 +156,6 @@ namespace FPSGame.Character
         /// </summary>
         public virtual void Initiailize()
         {
-            this.Collider.enabled = true;
             this.Hp = characterData.maxHp;
         }
 
@@ -248,7 +242,6 @@ namespace FPSGame.Character
         /// </summary>
         public virtual void Dead(Character attacker)
         {
-            if (!(this is PlayerCharacter)) Collider.enabled = false;
             SetState(eCharacterState.Dead, () =>
             {
                 OnDeadState();

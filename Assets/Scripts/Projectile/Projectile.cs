@@ -65,7 +65,11 @@ namespace FPSGame.Projectile
             {
                 if ((collider.gameObject.layer & (int)eLayer.HitCollider) != 0)
                 {
-                    return true;
+                    var hitCollider = collider.GetComponent<HitCollider>();
+                    if (hitCollider && !hitCollider.Owner.IsDead)
+                    {
+                        return true;
+                    }
                 }
             }
             return false;

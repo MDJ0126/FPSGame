@@ -60,7 +60,16 @@ namespace FPSGame.Character
 
                 if (isMoving)
                 {
-                    _owner.AnimatorController.Walk(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical")); // 블랜드 애니메이션 방향을 위해 따로 입력 받음
+                    Vector3 direction;
+                    if (_owner is PlayerCharacter)
+                    {
+                        direction = new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+                    }
+                    else
+                    {
+                        direction = _owner.MyTransform.forward;
+                    }
+                    _owner.AnimatorController.Walk(direction.x, direction.z); // 블랜드 애니메이션 방향을 위해 따로 입력 받음
                 }
                 else
                 {
