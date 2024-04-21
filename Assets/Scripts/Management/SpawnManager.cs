@@ -9,6 +9,7 @@ public class SpawnManager : SingletonBehaviour<SpawnManager>
 
     public float createDistance = 15f;
     public float createInterval = 3f;
+    public int maxCount = 50;
 
     #endregion
 
@@ -26,6 +27,9 @@ public class SpawnManager : SingletonBehaviour<SpawnManager>
         bool isCreateComplete = true;
         while (true)
         {
+            // 최대 생성인지 확인
+            yield return new WaitUntil(() => GameResourceManager.Instance.zombiePool.ActiveCount < maxCount);
+
             // 좀비 생성하기
             CreateZombie();
 

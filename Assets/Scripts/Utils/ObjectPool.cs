@@ -31,6 +31,8 @@ public class ObjectPool : MonoBehaviour
 
     private bool _isInit = false;
 
+    public int ActiveCount => _pool.FindAll(o => o.gameObject.activeSelf)?.Count ?? 0;
+
     private void SetName(string ObjectName)
     {
         _originalName = ObjectName;
@@ -119,7 +121,7 @@ public class ObjectPool : MonoBehaviour
     private void UpdateName()
     {
 #if UNITY_EDITOR
-        this.gameObject.name = $"{_originalName} ({_pool.FindAll(o => o.gameObject.activeSelf).Count}/{count})";
+        this.gameObject.name = $"{_originalName} ({this.ActiveCount}/{count})";
 #endif
     }
 }

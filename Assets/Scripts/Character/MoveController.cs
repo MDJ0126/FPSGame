@@ -12,6 +12,7 @@ namespace FPSGame.Character
         private NavMeshAgent _agent = null;
         private bool _isGrounded = false;
         private Coroutine _lookAtCoroutine = null;
+        private float _speedRate = 1f;
 
         private void Awake()
         {
@@ -97,7 +98,7 @@ namespace FPSGame.Character
                 // .velocity로 움직임과 똑같은 처리를 하려면 이동 속도를 실시간 반영해주어야한다.
                 if (_agent)
                 {
-                    _agent.speed = _owner.characterData.moveSpeed * Time.deltaTime;
+                    _agent.speed = _owner.characterData.moveSpeed * _speedRate * Time.deltaTime;
                 }
             }
         }
@@ -160,9 +161,10 @@ namespace FPSGame.Character
         /// 이동
         /// </summary>
         /// <param name="direction"></param>
-        public void Move(Vector3 direction)
+        public void Move(Vector3 direction, float speedRate = 1f)
         {
             if (_owner.IsDead) return;
+            _speedRate = speedRate;
             direction = Vector3.Normalize(direction);
             direction.y = 0;
             //if (_isGrounded)
@@ -170,7 +172,7 @@ namespace FPSGame.Character
                 // 애니메이션 작동
                 if (direction != Vector3.zero)
                 {
-                    Vector3 moveVector = direction * _owner.characterData.moveSpeed * Time.deltaTime;
+                    Vector3 moveVector = direction * _owner.characterData.moveSpeed * _speedRate * Time.deltaTime;
 
                     // 이동 처리하기
                     if (_agent)
@@ -193,11 +195,12 @@ namespace FPSGame.Character
         /// 네비매시를 통해 목적지 이동
         /// </summary>
         /// <param name="dest"></param>
-        public bool MoveTo(Vector3 dest)
+        public bool MoveTo(Vector3 dest, float speedRate = 1f)
         {
             if (_owner.IsDead) return false;
             if (_agent && !_agent.pathPending)
             {
+                _speedRate = speedRate;
                 _agent.isStopped = false;
                 return _agent.SetDestination(dest);
             }

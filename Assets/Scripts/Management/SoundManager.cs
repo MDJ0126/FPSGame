@@ -7,6 +7,10 @@ public enum eSoundEffect
 {
     [Description("Sounds/gun_fire")]
     gun_fire,
+    [Description("Sounds/m4a1_fire")]
+    m4a1_fire,
+    [Description("Sounds/ak47_fire")]
+    ak47_fire,
 }
 
 public class SoundManager : SingletonBehaviour<SoundManager>

@@ -19,28 +19,17 @@ namespace FPSGame.Character
             return detectTarget;
         }
 
+        public float DetectDistance { get; private set; } = 15f;
         private Character _owner = null;
         private SphereCollider _sphereCollider = null;
-        private float radius = 10f;
         private List<Character> _detectedCharacters = new List<Character>();
+        private Character _currentTarget = null;
 
         private void Start()
         {
             _sphereCollider = GetComponent<SphereCollider>();
-            _sphereCollider.radius = radius;
+            _sphereCollider.radius = DetectDistance;
         }
-
-        //private void Update()
-        //{
-        //    for (int i = _detectedCharacters.Count - 1; i > 0; i--)
-        //    {
-        //        var character = _detectedCharacters[i];
-        //        if (character == null || character.IsDead || character.gameObject.activeInHierarchy == false)
-        //        {
-        //            _detectedCharacters.Remove(character);
-        //        }
-        //    }
-        //}
 
         private void OnTriggerEnter(Collider other)
         {
@@ -70,8 +59,6 @@ namespace FPSGame.Character
             }
         }
 
-        private Character _currentTarget = null;
-
         /// <summary>
         /// 탐지한 캐릭터를 반환
         /// </summary>
@@ -80,9 +67,9 @@ namespace FPSGame.Character
         {
             if (_detectedCharacters.Count == 0) return null;
 
+            // 현재 타겟이 범위 안에 있는지 판단
             if (_currentTarget != null)
             {
-                // 현재 타겟이 범위 안에 있는지 판단
                 if (_currentTarget.TeamNember == _owner.TeamNember)
                 {
                     _currentTarget = null;
@@ -94,13 +81,14 @@ namespace FPSGame.Character
                 else
                 { 
                     float distance = Vector3.Distance(_owner.MyTransform.position, _currentTarget.MyTransform.position);
-                    if (radius < distance)
+                    if (DetectDistance < distance)
                     {
                         _currentTarget = null;
                     }
                 }
             }
 
+            // 타겟 검색
             if (_currentTarget == null)
             {
                 // 가장 가까운 타겟 탐색
@@ -121,7 +109,7 @@ namespace FPSGame.Character
                             targetCenter.y = Character.CHARACTER_HEIGHT_CENTER;
 
                             Vector3 direction = (targetCenter - aimCenter).normalized;
-                            if (Physics.Raycast(aimCenter, direction, out var hit, radius))
+                            if (Physics.Raycast(aimCenter, direction, out var hit, DetectDistance))
                             {
                                 if (hit.collider.gameObject.Equals(target.gameObject))
                                 {
