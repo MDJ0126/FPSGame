@@ -2,11 +2,16 @@
 
 ![스크린샷](https://github.com/MDJ0126/FPSGame/blob/main/playImage.gif?raw=true)
 
-1인 프로젝트입니다. FPS 장르의 게임입니다.
+### FPSGame
+
+1인 프로젝트입니다. 슈팅 액션·FPS 장르의 게임입니다.
 
 로우 폴리곤 캐릭터 모델링을 이용하여 애니메이션부터 봇 캐릭터 AI 개발까지 모두 직접 작업하였습니다.
 
 오픈 소스 프로젝트이며, 작업 방식 및 코드 스타일 참고에 도움되길 바랍니다.
+
+### 제작 기간
+2024년 4월 6일 ~ 4월 20일 (2주)
 
 ## 주요 작업 내용
 - 캐릭터들의 에임이 향하는 방향으로 애니메이션을 하기 위해 IK(애니메이션 리깅)을 사용하면서 더욱더 자연스러운 움직임을 고려하였습니다.
@@ -17,37 +22,32 @@
 - 추후 최적화에 대해서 고생하지 않기 위해서 초반 작업부터 기초적인 최적화들은 최대한 고려하면서 작업을 했습니다. (코루틴 최적화, 오브젝트 풀링)
 - UI/UX 간단히 구성하여, 캐릭터 상태에 따라 반영되도록 처리했습니다. (점수, 체력, 로그 등)
 
-## 주의
+### 주의
 - '라이센스'에 따라, 수정 및 배포가 가능하지만 책임은 본인에게 있으며, 원작자 표기를 하셔야합니다.
 - 사용된 에셋 중에는 유료 에셋 또한 포함되어있으니, 사전 구매하여 사용하시길 바랍니다.
 
-## 사용된 에셋 및 패키지
-- Addressable
+### 사용된 에셋 및 패키지
 - Cinemachine
 - uGUI
 - PolygonBattleRoyale(유료 에셋) : 모델링
 - MIXAMO 애니메이션 사용
 
-## 기타 정보
-
 ### 해상도
-- 1920 * 1080 (Landscape)
-
-### 제작 기간
-- 2024년 4월 6일 ~ 4월 20일 (2주)
+1920 * 1080 (Landscape)
 
 ### 네이밍 컨벤션
 프로젝트에서 스크립트 작성할 때는 아래와 같이 네이밍 컨벤션을 준수하고 있습니다.
-- [NamingConvention](https://github.com/MDJ0126/FPSGame/blob/a840517297ba6203d43d606a572a6677c581d35c/NamingConvention.md)
+
+[NamingConvention](https://github.com/MDJ0126/FPSGame/blob/a840517297ba6203d43d606a572a6677c581d35c/NamingConvention.md)
 
 ### 사용 프로그램 버전
 - Unity 2021.3.19f1 (LTS)
 - Visual Studio 2022
 
 ### 게임 다운로드 링크
-- [FPSGame.zip 다운로드](https://github.com/MDJ0126/FPSGame/blob/main/Build/FPSGame.zip?raw=true)
+[FPSGame.zip 다운로드](https://github.com/MDJ0126/FPSGame/blob/main/Build/FPSGame.zip?raw=true)
 
 압축 해제 후, `FPSGame.exe`를 실행하여 플레이할 수 있습니다.
 
 ### 제작자 블로그
-- [Client.DJ](https://moondongjun.tistory.com)
+[Client.DJ](https://moondongjun.tistory.com)
