@@ -16,6 +16,12 @@
 
 </div>
 
+## 게임 다운로드
+
+[FPSGame.zip 다운로드](https://github.com/MDJ0126/FPSGame/blob/main/Build/FPSGame.zip?raw=true)
+
+압축 해제 후, `FPSGame.exe`를 실행하여 플레이할 수 있습니다.
+
 ## 프로젝트 개요
 
 | 항목 | 내용 |
