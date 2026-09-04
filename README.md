@@ -1,52 +1,79 @@
-# FPSGame
+<div align="center">
 
-![스크린샷](https://github.com/MDJ0126/FPSGame/blob/main/playImage.gif?raw=true)
+# Right 4 Dead
 
-### FPSGame
+### Unity Zombie First-Person Shooter
 
-1인 프로젝트입니다. 슈팅 액션·FPS 장르의 게임입니다.
+이동, 조준, 사격부터 좀비 AI와 전투 UI까지 구현한 1인 개발 FPS 프로젝트입니다.
 
-로우 폴리곤 캐릭터 모델링을 이용하여 애니메이션부터 봇 캐릭터 AI 개발까지 모두 직접 작업하였습니다.
+![Unity 2022.3](https://img.shields.io/badge/Unity-2022.3.16f1-000000?style=for-the-badge&logo=unity&logoColor=white)
+![C Sharp](https://img.shields.io/badge/C%23-Game%20Logic-512BD4?style=for-the-badge&logo=csharp&logoColor=white)
+![Status](https://img.shields.io/badge/Status-Completed-34A853?style=for-the-badge)
 
-오픈 소스 프로젝트이며, 작업 방식 및 코드 스타일 참고에 도움되길 바랍니다.
+<br>
 
-### 제작 기간
-2024년 4월 6일 ~ 4월 20일 (2주)
+![Right 4 Dead 플레이 영상](docs/images/right4dead-gameplay.gif)
 
-## 주요 작업 내용
-- 캐릭터들의 에임이 향하는 방향으로 애니메이션을 하기 위해 IK(애니메이션 리깅)을 사용하면서 더욱더 자연스러운 움직임을 고려
-- 총알 속도가 너무 빨라, 이전 프레임과 현재 프레임 사이 순간 이동했을 경우에 대비하여 보간 처리
-- 기존 캐릭터 스크립트를 상속 받아 좀비, 플레이어 캐릭터, 봇 캐릭터 등 나눠서 처리를 하였고, 추가적인 움직임, 무기핸들러, 적 캐릭터 감지, AI 컴포넌트 등 필요한 부분만 적용되도록 고려하며 AddComponent되도록 작업
-- 자연스러운 씬 전환을 위한 페이드인/아웃을 이용하였고, 그 사이 씬이 전환되는 구간에 빈 씬(Empty scene)을 호출하여 씬과 씬 사이 메모리가 정리되도록 처리 (유니티 엔진 씬 전환 이슈 고려)
-- UI/UX 간단히 구성하여, 캐릭터 상태에 따라 반영되도록 처리 (점수, 체력, 로그 등)
-- 일부 유틸리티 스크립트들은 기존 운영 중인 개인 개발 블로그에서 가져와서 사용하였습니다. (어디서든 사용하기 편하도록 만들어진 스크립트들)
+</div>
 
-### 주의
-- '라이센스'에 따라, 수정 및 배포가 가능하지만 책임은 본인에게 있으며, 원작자 표기를 하셔야합니다.
-- 사용된 에셋 중에는 유료 에셋 또한 포함되어있으니, 사전 구매하여 사용하시길 바랍니다.
+## 프로젝트 개요
 
-### 사용된 에셋 및 패키지
+| 항목 | 내용 |
+| --- | --- |
+| 개발 기간 | 2024.04.06 ~ 2024.04.20 · 2주 |
+| 개발 형태 | 기획 및 클라이언트 1인 개발 |
+| 장르 | 좀비 FPS |
+| 엔진 | Unity 2022.3.16f1 |
+| 기술 | C#, Animation Rigging, Cinemachine, uGUI |
+| 형상 관리 | Git, GitHub |
+
+로우 폴리곤 캐릭터를 활용해 FPS 시점의 이동, 조준, 사격과 좀비 전투를 구현했습니다. 공통 캐릭터 코드를 상속해 플레이어, 봇과 좀비를 구성하고, 각 캐릭터에 필요한 입력·무기·감지·AI 컴포넌트를 조합했습니다.
+
+## 주요 구현
+
+### 전투 및 캐릭터
+
+- FPS 시점의 이동, 조준, 사격과 재장전 시스템
+- Animation Rigging의 IK를 이용한 조준 방향 애니메이션
+- 이전 프레임과 현재 프레임 사이를 보간하는 고속 투사체 충돌 판정
+- 플레이어 공격, 좀비 피격과 캐릭터 상태 처리
+
+### AI
+
+- Behavior Tree 방식을 모방한 봇·좀비 AI 구조
+- 타깃 감지, 이동과 공격 행동
+- 공통 캐릭터를 상속한 플레이어, 봇과 좀비 클래스
+
+### 화면 및 시스템
+
+- 점수, 체력, 전투 로그와 캐릭터 상태 UI
+- Fade In/Out과 빈 씬을 이용한 씬 전환
+- 투사체와 반복 오브젝트를 관리하는 Object Pool
+- Cinemachine 기반 게임 카메라
+
+## 구조
+
+```text
+Character                           # 캐릭터 공통 상태와 피격 처리
+├─ PlayerCharacter                 # 플레이어 입력과 전투
+└─ AICharacter                     # AI 캐릭터 공통 기능
+   ├─ BotCharacter                 # 무장 봇
+   └─ Zombie                       # 좀비
+
+Weapon
+└─ Gun
+   └─ Assault                      # 연사 무기
+
+Projectile
+└─ DirectionalProjectile           # 이동 구간을 보간하는 투사체
+```
+
+플레이어 입력은 이동과 조준을 제어하고, 무기 코드는 사격과 재장전을 처리합니다. 봇과 좀비는 공통 AI 캐릭터 기능을 상속하며, 타깃 감지와 행동 처리는 개별 컴포넌트로 구성했습니다.
+
+## 사용 에셋 및 패키지
+
 - Cinemachine
+- Unity Animation Rigging
 - uGUI
-- PolygonBattleRoyale(유료 에셋) : 모델링
-- MIXAMO 애니메이션 사용
-
-### 해상도
-1920 * 1080 (Landscape)
-
-### 네이밍 컨벤션
-프로젝트에서 스크립트 작성할 때는 아래와 같이 네이밍 컨벤션을 준수하고 있습니다.
-
-[NamingConvention](https://github.com/MDJ0126/FPSGame/blob/a840517297ba6203d43d606a572a6677c581d35c/NamingConvention.md)
-
-### 사용 프로그램 버전
-- Unity 2021.3.19f1 (LTS)
-- Visual Studio 2022
-
-### 게임 다운로드 링크
-[FPSGame.zip 다운로드](https://github.com/MDJ0126/FPSGame/blob/main/Build/FPSGame.zip?raw=true)
-
-압축 해제 후, `FPSGame.exe`를 실행하여 플레이할 수 있습니다.
-
-### 제작자 블로그
-[Client.DJ](https://moondongjun.tistory.com)
+- Polygon Battle Royale
+- Mixamo Animation
