@@ -6,8 +6,6 @@
 .gitattributes -filter
 .gitignore -filter
 .gitchunk/** -filter -text -diff -merge
-.gitchunk/rules.txt -filter text eol=lf diff
-.gitchunk/presets/** -filter text eol=lf diff
 .resourcesplitter/** -filter -text -diff -merge
 GitChunk.* -filter
 ResourceSplitter.* -filter
@@ -400,3 +398,5 @@ Tools/ResourceSplitter/** -filter
 "/Assets/PolygonBattleRoyale/Models/SM_Wep_SubMGun_01.fbx" filter=gitchunk -text -diff -merge
 "/Assets/PolygonBattleRoyale/Models/SM_Wep_SubMGun_Lite_01.fbx" filter=gitchunk -text -diff -merge
 "/Assets/PolygonBattleRoyale/Prefabs/Characters/Characters.fbx" filter=gitchunk -text -diff -merge
+.gitchunk/chunks.txt -filter text eol=lf diff
+.chunkignore -filter text eol=lf diff
