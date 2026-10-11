@@ -1,0 +1,14 @@
+/.vs
+/Library
+/Logs
+/obj
+/Temp
+/UserSettings
+/.vsconfig
+/Assembly-CSharp.csproj
+/Assembly-CSharp-Editor.csproj
+/README.md
+/*.sln
+
+# GitChunk chunk cache (required chunks are staged by the hook)
+/.gitchunk/objects/
