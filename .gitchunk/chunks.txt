@@ -1,2 +1,0 @@
-# Generated from the Git index. Do not edit.
-# Chunk order for each original file; restoration uses its pointer.
